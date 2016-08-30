@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no" />
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+		<meta charset="UTF-8">
+		<title>CSS Animation</title>
+	</head>
+  <style>
+    .ogit{
+      position: absolute;
+      display: inline-block;
+      width: 10px;
+      top: 30px;
+      left: 30px;
+			animation-delay: 3s;
+      animation-name: ogit; /* keyframes 이름 */
+      animation-duration: 2s; /* 2초동안 */
+      animation-fill-mode: forwards;
+      /*
+      forwards; (마지막 키프레임에 지정된 값을 유지)
+      backwards; (첫 번째 키프레임에 지정한 값으로 돌아감)
+      */
+      animation-timing-function: ease;
+      /*
+      ease; 시작과 종료를 부드럽게
+      linear; 일정
+      ease-in; 서서히 시작
+      ease-out; 서서히 종료
+      ease-in-out; 서서히 시작하여 서서히 종료
+      */
+    }
+    .facebook {
+      width: 80px;
+      margin-left: 10px;
+      margin-top: 100px;
+      animation-duration: 3s;
+      animation-name: facebook;
+      animation-iteration-count: infinite; /* 계속 반복 */
+      animation-direction: alternate;
+      /*
+      nomal;(기본값, 애니메이션이 시작될 때마다 처음으로 설정됨)
+      reverse;(반대로 진행)
+      alternate;(순방향으로 진행한 후 역방향으로 진행)
+      alternate-reverse;(역방향으로 진행한 후 순방향으로 진행)
+      */
+    }
+		.facebook:HOVER{
+			animation-play-state: paused;
+		}
+    .kakaotalk{
+      width: 80px;
+      margin-left: 400px;
+      top: 0px;
+      animation-duration: 5s;
+      animation-name: kakaotalk;
+      animation-timing-function: cubic-bezier(1,.23,0,1.56); /* 배지어곡선 */
+      animation-iteration-count: infinite;
+    }
+
+
+    @keyframes ogit {
+      0% {
+        transform: rotate(0deg);
+      }
+      33% {
+        transform:rotate(180deg);
+        top:40px;
+        left: 150px;
+        width: 30px;
+      }
+      66% {
+        transform:rotate(90deg);
+        top: 80px;
+        left: 30px;
+        width: 50px;
+      }
+      100% {
+        transform:rotate(360deg);
+        top: 180px;
+        left: 350px;
+        width: 70px;
+      }
+    }
+    @keyframes facebook {
+      0% {
+        transform: translate(600px, 0);
+        width: 200px;
+        opacity: 0;
+      }
+      80% {
+        opacity: 1;
+      }
+      100% {
+        transform: translate(0px, 0);
+        width: 80px;
+      }
+    }
+    @keyframes kakaotalk {
+      0% {
+        transform: translate(100px, 300px);
+        width: 0px;
+      }
+      100% {
+        transform: translate(-300px, 0px);
+        width: 80px;
+      }
+    }
+  </style>
+	<body>
+    <img class="ogit" src="https://octodex.github.com/images/octobiwan.jpg">
+    <img class="facebook" src="https://lh3.googleusercontent.com/ZZPdzvlpK9r_Df9C3M7j1rNRi7hhHRvPhlklJ3lfi5jk86Jd1s0Y5wcQ1QgbVaAP5Q=w170">
+    <img class="kakaotalk" src="https://lh5.ggpht.com/yVfPv-yLjIuBjpKj41NLkLXmuVv8XzH0m2hf-_sz9lQDv9WB9SX0McB8Jn4bQe4w5Q=w300">
+  </body>
+</html>

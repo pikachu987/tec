@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no" />
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+		<meta charset="UTF-8">
+		<title>CSS Animation</title>
+	</head>
+  <style>
+	.ogit{
+			position: absolute;
+			display: inline-block;
+			animation-name: ogit;
+			animation-duration: 10s;
+		}
+    @keyframes ogit {
+      0% {
+        transform: scale(0, 0);
+      }
+      100% {
+        transform: scale(50, 40);
+      }
+    }
+  </style>
+	<body>
+    <img class="ogit" src="https://octodex.github.com/images/octobiwan.jpg">
+  </body>
+</html>
