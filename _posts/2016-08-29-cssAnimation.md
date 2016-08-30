@@ -9,7 +9,7 @@ categories: css
 일단 애니메이션 예제들을 살펴보자.<br>
 <a href="https://web-animations.github.io/web-animations-demos/" target="_blank">https://web-animations.github.io/web-animations-demos/</a>
 
-<a href="/testFile/1/test.html" target="_blank">test1</a>
+<a href="/tec/testFile/1/test.html" target="_blank">test1</a>
 
 ~~~~
 animation-delay: 애니메이션이 언제 시작할지 ex)2s(2초후 시작)
@@ -70,11 +70,11 @@ animation-play-state: 애니메이션을 멈추가나 다시 시작
 ~~~~
 
 
-<a href="/testFile/1/t_translate.html" target="_blank">translate</a><br>
-<a href="/testFile/1/t_scale.html" target="_blank">scale</a><br>
-<a href="/testFile/1/t_rotate.html" target="_blank">rotate</a><br>
-<a href="/testFile/1/t_skew.html" target="_blank">skew</a><br>
-<a href="/testFile/1/t_matrix.html" target="_blank">matrix</a>
+<a href="/tec/testFile/1/t_translate.html" target="_blank">translate</a><br>
+<a href="/tec/testFile/1/t_scale.html" target="_blank">scale</a><br>
+<a href="/tec/testFile/1/t_rotate.html" target="_blank">rotate</a><br>
+<a href="/tec/testFile/1/t_skew.html" target="_blank">skew</a><br>
+<a href="/tec/testFile/1/t_matrix.html" target="_blank">matrix</a>
 
 
 ~~~~
