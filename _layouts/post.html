@@ -1,0 +1,76 @@
+---
+layout: default
+---
+
+{% assign minutes = content | strip_html | number_of_words | divided_by: 180 %}
+{% if minutes == 0 %}
+{% assign minutes = 1 %}
+{% endif %}
+
+<div class="post-header mb2">
+  <h1>{{ page.title }}</h1>
+  <span class="post-meta">{{ page.date | date: site.date_format }}</span><br>
+  {% if page.update_date %}
+    <span class="post-meta">{{ site.text.post.updated }}: {{ page.update_date | date: site.date_format }}</span><br>
+  {% endif %}
+  <span class="post-meta small">
+  {% if page.minutes %}
+    {{ page.minutes }} {{ site.text.post.minute_read }}
+  {% else %}
+    {{ minutes }} {{ site.text.post.minute_read }}
+  {% endif %}
+  </span>
+</div>
+
+<article class="post-content">
+  {{ content }}
+</article>
+
+{% if site.show_sharing_icons %}
+  {% include share_buttons.html %}
+{% endif %}
+
+{% if site.show_post_footers %}
+  {% include post_footer.html %}
+{% endif %}
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//pikachu987blog.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pikachu987blog.disqus.com/count.js" async></script>
+
+{% if site.facebook_comments %}
+  <div class="fb-comments" data-href="{{ site.url }}{{ page.url }}" data-width="100%" data-numposts="{{ site.facebook_comments_number }}"></div>
+{% endif %}
+
+{% if site.show_related_posts %}
+  <h3 class="related-post-title">{{ site.text.post.related_posts }}</h3>
+  {% for post in site.related_posts %}
+    <div class="post ml2">
+      <a href="{{ post.url | prepend: site.baseurl }}" class="post-link">
+        <h4 class="post-title">{{ post.title }}</h4>
+        <p class="post-summary">{{ post.summary }}</p>
+      </a>
+    </div>
+  {% endfor %}
+{% endif %}

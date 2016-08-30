@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Technology</title>
+    <description>pikachu987 Technology</description>
+    <link>//</link>
+    <atom:link href="//feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>css animation</title>
+        <description>&lt;p&gt;ㅋㅋㅋ&lt;/p&gt;
+</description>
+        <pubDate>Tue, 30 Aug 2016 05:30:00 +0900</pubDate>
+        <link>//css/2016/08/30/cssAnimation/</link>
+        <guid isPermaLink="true">//css/2016/08/30/cssAnimation/</guid>
+      </item>
+    
+  </channel>
+</rss>
