@@ -3,7 +3,7 @@ title:       Technology
 email:       pikachu987@naver.com
 author:      guanho kim
 description: "pikachu987 Technology"
-baseurl:     ""
+baseurl:     "https://pikachu987.github.io/tec/"
 url:         "/"
 date_format: "%b %-d, %Y"
 
