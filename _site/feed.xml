@@ -7,11 +7,241 @@
     <atom:link href="//feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Swift Firebase Facebook Login</title>
+        <description>&lt;p&gt;해당 소스는 깃허브페이지
+&lt;a href=&quot;https://github.com/pikachu987/TIL/tree/master/swift%202.2/LoginF&quot;&gt;github&lt;/a&gt;
+에 올려져 있다.&lt;/p&gt;
+
+&lt;p&gt;여기서는 Swift2로 Facebook 로그인 하는 과정과 예제를 살펴보겠다.&lt;/p&gt;
+
+&lt;p&gt;가장 먼저 앱을 만들어 보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/01.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/02.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+그리고 &lt;a href=&quot;http://developer.facebook.com&quot;&gt;developer.facebook&lt;/a&gt;에 들어가서 새 앱을 만든다.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/03.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+IOS를 클릭!! 한다.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/04.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+Facebook 앱 네임을 넣는데 FB나 Facebook 관련 글자는 써지지가 않는다.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/05.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+연락처이메일과 카테고리를 선택후 앱 ID를 만든다.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/06.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/07.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/08.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+이 값들은 Swift앱 내의 info.plist파일 안에 넣어야 하는내용이므로 어딘가에 복사해두기로 한다.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/09.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+하단으로 내려가면 Swift APP Bundle적는 부분이 있다. 자신이 만든 앱 Bundle와 맞춰서 적으면 된다.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/10.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;a href=&quot;https://console.firebase.google.com/&quot;&gt;console.firebase&lt;/a&gt;에 들어가서 새 프로젝트를 만든다.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/11.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/12.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+번들을 적는다.
+&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/14.png&quot; alt=&quot;Alt text&quot; /&gt;
+다시 페이스북으로 간 다음 대시보드에서 앱 ID와 앱 시크릿코드를 확인한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/13.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;파이어베이스 Auth에 들어가서 로그인 방법을 클릭한다. 그러면 페이스북이 두둥! 있을것이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/15.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;페이스북을 사용설정한 뒤 페이스북에서 확인한 앱ID와 앱 시크릿코드를 확인한 다음 OAuth 리디렉션 URI를 복사한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/16.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이제 마지막부분이다! 페이스북으로 가서 +제품추가를 클릭한 뒤&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/17.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Facebook 로그인 시작하기 버튼을 누른다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/18.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;그리고 복사해두었던 리디렉션 URI를 붙이고 하단에 버튼을 누른다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/19.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;파이어베이스에 들어가서 GoogleService-info.plist파일을다운 받고 해당 파일을 앱 폴더안 info.plist옆에 넣는다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/21.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;그리고 앱 Podfile에&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;use_frameworks!
+pod &#39;Firebase&#39;
+pod &#39;Firebase/Core&#39;
+pod &#39;Firebase/Auth&#39;
+pod &#39;FBSDKCoreKit&#39;
+pod &#39;FBSDKShareKit&#39;
+pod &#39;FBSDKLoginKit&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;을 넣고 pod install 을 한다.&lt;/p&gt;
+
+&lt;p&gt;해당 부분은 &lt;a href=&quot;https://cocoapods.org/&quot;&gt;cocoapods&lt;/a&gt; 참조&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/20.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;그리고 앱을 실행 후 Info.plist파일 - 소스보기를 누른다. 아까 페이스북에서 봤던 코드 붙여넣기!!!&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;key&amp;gt;CFBundleURLTypes&amp;lt;/key&amp;gt;
+    &amp;lt;array&amp;gt;
+        &amp;lt;dict&amp;gt;
+            &amp;lt;key&amp;gt;CFBundleURLSchemes&amp;lt;/key&amp;gt;
+            &amp;lt;array&amp;gt;
+                &amp;lt;string&amp;gt;fb{ID}&amp;lt;/string&amp;gt;
+            &amp;lt;/array&amp;gt;
+        &amp;lt;/dict&amp;gt;
+    &amp;lt;/array&amp;gt;
+    &amp;lt;key&amp;gt;FacebookAppID&amp;lt;/key&amp;gt;
+    &amp;lt;string&amp;gt;{ID}&amp;lt;/string&amp;gt;
+    &amp;lt;key&amp;gt;FacebookDisplayName&amp;lt;/key&amp;gt;
+    &amp;lt;string&amp;gt;LoginF&amp;lt;/string&amp;gt;
+    &amp;lt;key&amp;gt;LSApplicationQueriesSchemes&amp;lt;/key&amp;gt;
+    &amp;lt;array&amp;gt;
+        &amp;lt;string&amp;gt;fbapi&amp;lt;/string&amp;gt;
+        &amp;lt;string&amp;gt;fb-messenger-api&amp;lt;/string&amp;gt;
+        &amp;lt;string&amp;gt;fbauth2&amp;lt;/string&amp;gt;
+        &amp;lt;string&amp;gt;fbshareextension&amp;lt;/string&amp;gt;
+    &amp;lt;/array&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/22.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;앱 딜리게이트로 가서 간단하게&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import UIKit
+import Firebase
+import FirebaseAuth
+import FBSDKCoreKit
+import FBSDKLoginKit
+import FBSDKShareKit
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&amp;gt; Bool {
+        // Override point for customization after application launch.
+
+        //firebase
+        FIRApp.configure()
+
+        //facebook
+        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions:launchOptions)
+    }
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -&amp;gt; Bool {
+        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;이렇게 코드를 넣어주자!!!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/23.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;그리고 스토리보드에서 UIButton을 하나 만들고 페이스북과 비슷한 background를 넣고 png이미지 파일을 구해서 넣어주자(디자인은 상관없슴! 사실 아무 버튼만 넣으면 상관 x)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/24.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;UIViewController에서 button에 action을 받자. 그리고 코드를 넣어준다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let login = FBSDKLoginManager()
+        login.logInWithReadPermissions([&quot;public_profile&quot;], fromViewController: self, handler: { (result, error) in
+            if error != nil{
+                print(&quot;Facebook login failed. Error \(error)&quot;)
+            } else if result.isCancelled {
+                print(&quot;Facebook login isCancelled. result \(result.token)&quot;)
+            } else {
+                let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
+                FIRAuth.auth()?.signInWithCredential(credential) { (user, error) in
+                    if error != nil {
+                        print(&quot;Login failed. \(error)&quot;)
+                    } else {
+                        if let value = user?.email{
+                            //
+                        }
+                        if let value = user?.displayName{
+                            //
+                        }
+                        if let value = user?.uid{
+                            //
+                        }
+                        if let value = user?.photoURL{
+                            //self.imageView.image = UIImage(data: NSData(contentsOfURL: value)!)
+                        }
+                    }
+                }
+            }
+        })
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;엄청 간단하다…&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/../images/swift_fbLogin/25.jpeg&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;실행을 시키면 잘 나오는것을 확인 할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;처음에 이걸 왜 이리 힘들었는지….&lt;/p&gt;
+
+&lt;p&gt;나는 구글로그인, 카톡로그인을 구현한 다음 페북로그인을 계속 넣으려고 했지만 실패….&lt;/p&gt;
+
+&lt;p&gt;구글 로그인을 빼니까 카톡, 페북로그인이 다 잘됨(아직 왜인지 모른다…)&lt;/p&gt;
+</description>
+        <pubDate>Thu, 08 Sep 2016 05:30:00 +0900</pubDate>
+        <link>//swift/2016/09/08/swiftFBLogin/</link>
+        <guid isPermaLink="true">//swift/2016/09/08/swiftFBLogin/</guid>
+      </item>
+    
+      <item>
         <title>css animation</title>
         <description>&lt;p&gt;일단 애니메이션 예제들을 살펴보자.&lt;br /&gt;
 &lt;a href=&quot;https://web-animations.github.io/web-animations-demos/&quot; target=&quot;_blank&quot;&gt;https://web-animations.github.io/web-animations-demos/&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;/testFile/1/test.html&quot; target=&quot;_blank&quot;&gt;test1&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/tec/testFile/1/test.html&quot; target=&quot;_blank&quot;&gt;test1&lt;/a&gt;&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;animation-delay: 애니메이션이 언제 시작할지 ex)2s(2초후 시작)
 
@@ -71,11 +301,11 @@ animation-play-state: 애니메이션을 멈추가나 다시 시작
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;&lt;a href=&quot;/testFile/1/t_translate.html&quot; target=&quot;_blank&quot;&gt;translate&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;/testFile/1/t_scale.html&quot; target=&quot;_blank&quot;&gt;scale&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;/testFile/1/t_rotate.html&quot; target=&quot;_blank&quot;&gt;rotate&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;/testFile/1/t_skew.html&quot; target=&quot;_blank&quot;&gt;skew&lt;/a&gt;&lt;br /&gt;
-&lt;a href=&quot;/testFile/1/t_matrix.html&quot; target=&quot;_blank&quot;&gt;matrix&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/tec/testFile/1/t_translate.html&quot; target=&quot;_blank&quot;&gt;translate&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;/tec/testFile/1/t_scale.html&quot; target=&quot;_blank&quot;&gt;scale&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;/tec/testFile/1/t_rotate.html&quot; target=&quot;_blank&quot;&gt;rotate&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;/tec/testFile/1/t_skew.html&quot; target=&quot;_blank&quot;&gt;skew&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;/tec/testFile/1/t_matrix.html&quot; target=&quot;_blank&quot;&gt;matrix&lt;/a&gt;&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;2D transform 메소드
 
