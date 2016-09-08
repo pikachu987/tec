@@ -17,94 +17,94 @@ categories: swift
 
 가장 먼저 앱을 만들어 보자.
 
-![Alt text](/../images/swift_fbLogin/01.png)
+![Alt text](/tec/imagesswift_fbLogin/01.png)
 
-![Alt text](/../images/swift_fbLogin/02.png)
+![Alt text](/tec/imagesswift_fbLogin/02.png)
 
 <br>
 그리고 [developer.facebook](http://developer.facebook.com)에 들어가서 새 앱을 만든다.
 <br><br>
 
-![Alt text](/../images/swift_fbLogin/03.png)
+![Alt text](/tec/imagesswift_fbLogin/03.png)
 
 <br>
 IOS를 클릭!! 한다.
 <br><br>
 
-![Alt text](/../images/swift_fbLogin/04.png)
+![Alt text](/tec/imagesswift_fbLogin/04.png)
 
 <br>
 Facebook 앱 네임을 넣는데 FB나 Facebook 관련 글자는 써지지가 않는다.
 <br><br>
 
-![Alt text](/../images/swift_fbLogin/05.png)
+![Alt text](/tec/imagesswift_fbLogin/05.png)
 
 <br>
 연락처이메일과 카테고리를 선택후 앱 ID를 만든다.
 <br><br>
 
-![Alt text](/../images/swift_fbLogin/06.png)
+![Alt text](/tec/imagesswift_fbLogin/06.png)
 
 <br><br>
 
-![Alt text](/../images/swift_fbLogin/07.png)
+![Alt text](/tec/imagesswift_fbLogin/07.png)
 
-![Alt text](/../images/swift_fbLogin/08.png)
+![Alt text](/tec/imagesswift_fbLogin/08.png)
 
 <br>
 이 값들은 Swift앱 내의 info.plist파일 안에 넣어야 하는내용이므로 어딘가에 복사해두기로 한다.
 <br><br>
 
-![Alt text](/../images/swift_fbLogin/09.png)
+![Alt text](/tec/imagesswift_fbLogin/09.png)
 
 <br>
 하단으로 내려가면 Swift APP Bundle적는 부분이 있다. 자신이 만든 앱 Bundle와 맞춰서 적으면 된다.
 <br><br>
 
-![Alt text](/../images/swift_fbLogin/10.png)
+![Alt text](/tec/imagesswift_fbLogin/10.png)
 
 <br>
 [console.firebase](https://console.firebase.google.com/)에 들어가서 새 프로젝트를 만든다.
 <br><br>
 
-![Alt text](/../images/swift_fbLogin/11.png)
+![Alt text](/tec/imagesswift_fbLogin/11.png)
 
-![Alt text](/../images/swift_fbLogin/12.png)
+![Alt text](/tec/imagesswift_fbLogin/12.png)
 
 <br>
 번들을 적는다.
 <br><br>
 
-![Alt text](/../images/swift_fbLogin/14.png)
+![Alt text](/tec/imagesswift_fbLogin/14.png)
 다시 페이스북으로 간 다음 대시보드에서 앱 ID와 앱 시크릿코드를 확인한다.
 
 <br />
 
-![Alt text](/../images/swift_fbLogin/13.png)
+![Alt text](/tec/imagesswift_fbLogin/13.png)
 
 파이어베이스 Auth에 들어가서 로그인 방법을 클릭한다. 그러면 페이스북이 두둥! 있을것이다.
 
-![Alt text](/../images/swift_fbLogin/15.png)
+![Alt text](/tec/imagesswift_fbLogin/15.png)
 
 페이스북을 사용설정한 뒤 페이스북에서 확인한 앱ID와 앱 시크릿코드를 확인한 다음 OAuth 리디렉션 URI를 복사한다.
 
-![Alt text](/../images/swift_fbLogin/16.png)
+![Alt text](/tec/imagesswift_fbLogin/16.png)
 
 이제 마지막부분이다! 페이스북으로 가서 +제품추가를 클릭한 뒤
 
-![Alt text](/../images/swift_fbLogin/17.png)
+![Alt text](/tec/imagesswift_fbLogin/17.png)
 
 Facebook 로그인 시작하기 버튼을 누른다.
 
-![Alt text](/../images/swift_fbLogin/18.png)
+![Alt text](/tec/imagesswift_fbLogin/18.png)
 
 그리고 복사해두었던 리디렉션 URI를 붙이고 하단에 버튼을 누른다.
 
-![Alt text](/../images/swift_fbLogin/19.png)
+![Alt text](/tec/imagesswift_fbLogin/19.png)
 
 파이어베이스에 들어가서 GoogleService-info.plist파일을다운 받고 해당 파일을 앱 폴더안 info.plist옆에 넣는다.
 
-![Alt text](/../images/swift_fbLogin/21.png)
+![Alt text](/tec/imagesswift_fbLogin/21.png)
 
 그리고 앱 Podfile에
 
@@ -122,7 +122,7 @@ pod 'FBSDKLoginKit'
 
 해당 부분은 [cocoapods](https://cocoapods.org/) 참조
 
-![Alt text](/../images/swift_fbLogin/20.png)
+![Alt text](/tec/imagesswift_fbLogin/20.png)
 
 그리고 앱을 실행 후 Info.plist파일 - 소스보기를 누른다. 아까 페이스북에서 봤던 코드 붙여넣기!!!
 
@@ -150,7 +150,7 @@ pod 'FBSDKLoginKit'
 ~~~~
 
 
-![Alt text](/../images/swift_fbLogin/22.png)
+![Alt text](/tec/imagesswift_fbLogin/22.png)
 
 앱 딜리게이트로 가서 간단하게
 
@@ -182,11 +182,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 이렇게 코드를 넣어주자!!!
 
-![Alt text](/../images/swift_fbLogin/23.png)
+![Alt text](/tec/images/swift_fbLogin/23.png)
 
 그리고 스토리보드에서 UIButton을 하나 만들고 페이스북과 비슷한 background를 넣고 png이미지 파일을 구해서 넣어주자(디자인은 상관없슴! 사실 아무 버튼만 넣으면 상관 x)
 
-![Alt text](/../images/swift_fbLogin/24.png)
+![Alt text](/tec/imagesswift_fbLogin/24.png)
 
 UIViewController에서 button에 action을 받자. 그리고 코드를 넣어준다.
 
@@ -223,7 +223,7 @@ let login = FBSDKLoginManager()
 
 엄청 간단하다...
 
-![Alt text](/../images/swift_fbLogin/25.jpeg)
+![Alt text](/tec/imagesswift_fbLogin/25.jpeg)
 
 실행을 시키면 잘 나오는것을 확인 할 수 있다.
 
