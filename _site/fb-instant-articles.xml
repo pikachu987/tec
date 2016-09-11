@@ -9,6 +9,256 @@
     
         
             <item>
+                <title>Swift Kakao Login</title>
+                <link>//swift/2016/09/11/swiftKakaoLogin/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <p>해당 소스는 깃허브페이지
+<a href="https://github.com/pikachu987/TIL/tree/master/swift%202.2/LoginFK">github</a>
+에 올려져 있다.</p>
+
+<p>여기서는 앞서했던 Swift2로 Facebook 로그인 하는 예제에서 카카오 로그인을 추가하는 예제를 살펴보겠다.</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/01.png" alt="Alt text" /></p>
+
+<p>카카오톡 로그인버튼을 한개 만들어주자.</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/02.png" alt="Alt text" /></p>
+
+<p>해당 버튼에 이벤트를 추가</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/03.png" alt="Alt text" /></p>
+
+<p><a href="https://developer.kakao.com/">developer.kakao</a> 에 들어가서 새로운 앱을 만들자</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/04.png" alt="Alt text" /></p>
+
+<p>아주아주 간단하개 만들어졌다. 여기서 플랫폼 추가를 누르자.</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/05.png" alt="Alt text" /></p>
+
+<p>번들을 넣고,</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/06.png" alt="Alt text" /></p>
+
+<p>사용자관리에 들어가서 사용 ON을 누른 다음 하단의 텍스트등등을 기록한다. 그리고 저장을 누르자.</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/07.png" alt="Alt text" /></p>
+
+<p>카카오 SDK를 다운받으면 이런 구조로 되어 있다</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/08.png" alt="Alt text" /></p>
+
+<p>framework를 자신의 앱폴더로 이동한 다음 끌어서 앱에 추가한다.</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/19.png" alt="Alt text" /></p>
+
+<p>info.plist 를 마우스 우 클릭해서 Open As &gt; Source Code를 누른다.
+그리고 기존 페이스북설정에 카카오톡 설정을 추가한다.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+&lt;key&gt;CFBundleURLTypes&lt;/key&gt;
+    &lt;array&gt;
+        &lt;dict&gt;
+            &lt;key&gt;CFBundleURLSchemes&lt;/key&gt;
+            &lt;array&gt;
+                &lt;string&gt;fb1607177109583285&lt;/string&gt;
+            &lt;/array&gt;
+        &lt;/dict&gt;
+        &lt;dict&gt;
+            &lt;key&gt;CFBundleTypeRole&lt;/key&gt;
+            &lt;string&gt;Editor&lt;/string&gt;
+            &lt;key&gt;CFBundleURLSchemes&lt;/key&gt;
+            &lt;array&gt;
+                &lt;string&gt;kakao8e8ab69c7b01eaeebce7d7bc0afc2896&lt;/string&gt;
+            &lt;/array&gt;
+        &lt;/dict&gt;
+    &lt;/array&gt;
+    &lt;key&gt;FacebookAppID&lt;/key&gt;
+    &lt;string&gt;1607177109583285&lt;/string&gt;
+    &lt;key&gt;FacebookDisplayName&lt;/key&gt;
+    &lt;string&gt;LoginF&lt;/string&gt;
+    &lt;key&gt;KAKAO_APP_KEY&lt;/key&gt;
+    &lt;string&gt;8e8ab69c7b01eaeebce7d7bc0afc2896&lt;/string&gt;
+    &lt;key&gt;LSApplicationQueriesSchemes&lt;/key&gt;
+    &lt;array&gt;
+        &lt;string&gt;fbapi&lt;/string&gt;
+        &lt;string&gt;fb-messenger-api&lt;/string&gt;
+        &lt;string&gt;fbauth2&lt;/string&gt;
+        &lt;string&gt;fbshareextension&lt;/string&gt;
+        &lt;string&gt;kakao8e8ab69c7b01eaeebce7d7bc0afc2896&lt;/string&gt;
+        &lt;string&gt;kakaokompassauth&lt;/string&gt;
+        &lt;string&gt;storykompassauth&lt;/string&gt;
+        &lt;string&gt;kakaolink&lt;/string&gt;
+        &lt;string&gt;kakaotalk-4.5.0&lt;/string&gt;
+        &lt;string&gt;kakaostory-2.9.0&lt;/string&gt;
+    &lt;/array&gt;
+
+</code></pre>
+</div>
+
+<p><img src="/tec/images/swift_kakaoLogin/09.png" alt="Alt text" /></p>
+
+<p>여기서는 브릿지 헤더(bridging header)를 만들어야 한다. 만드는 방법은 마우스 우클릭해서 New File를 누른다.</p>
+
+<blockquote>
+  <p>브릿지 헤더란?
+Objective-C 코드를 Swift에서 import만 하면 쓸 수 있게 만들어주는 역활을 한다.</p>
+</blockquote>
+
+<p><img src="/tec/images/swift_kakaoLogin/10.png" alt="Alt text" /></p>
+
+<p>그리고 C++ File을 누르고</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/11.png" alt="Alt text" /></p>
+
+<p>아무렇게나 이름을 쓴다.</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/12.png" alt="Alt text" /></p>
+
+<h4 id="create-briding-header---">이때 제일 중요한게 꼭 Create Briding Header를 눌러야 브릿지헤더가 생성이된다!!!!</h4>
+
+<p><img src="/tec/images/swift_kakaoLogin/13.png" alt="Alt text" /></p>
+
+<p>생성이 된 모습이다. 나머지 aaa. 으로 시작되는 2개 파일은 삭제해준다.</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/14.png" alt="Alt text" /></p>
+
+<p>생성된 브릿지 헤더에 kakao SDK를 import 해준다.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+#import &lt;KakaoOpenSDK/KakaoOpenSDK.h&gt;
+
+</code></pre>
+</div>
+
+<p><img src="/tec/images/swift_kakaoLogin/15.png" alt="Alt text" /></p>
+
+<p>AppDelegate.swift 파일에 들어가서 Kakao관련 내용을 추가한다.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&gt; Bool {
+        // Override point for customization after application launch.
+
+        //firebase
+        FIRApp.configure()
+
+
+        //facebook
+        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions:launchOptions)
+    }
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -&gt; Bool {
+        //kakao
+        if KOSession.isKakaoAccountLoginCallback(url) {
+            return KOSession.handleOpenURL(url)
+        }
+        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+    }
+
+    func application(application: UIApplication, handleOpenURL url: NSURL) -&gt; Bool {
+        //kakao
+        if KOSession.isKakaoAccountLoginCallback(url) {
+            return KOSession.handleOpenURL(url)
+        }
+        return false
+    }
+
+</code></pre>
+</div>
+
+<p><img src="/tec/images/swift_kakaoLogin/16.png" alt="Alt text" /></p>
+
+<p>이제 아까 만들었던 카카오 버튼 이벤트에 내용을 추가하는 것이다.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+let session: KOSession = KOSession.sharedSession();
+        if session.isOpen() {
+            session.close()
+        }
+        session.presentingViewController = self
+        session.openWithCompletionHandler({ (error) -&gt; Void in
+            if error != nil{
+                print(error.localizedDescription)
+            }else if session.isOpen() == true{
+                KOSessionTask.meTaskWithCompletionHandler({ (profile , error) -&gt; Void in
+                    if profile != nil{
+                        dispatch_async(dispatch_get_main_queue(), { () -&gt; Void in
+                            let kakao : KOUser = profile as! KOUser
+                            //String(kakao.ID)
+                            if let value = kakao.properties["nickname"] as? String{
+                                self.textView.text = "nickname : \(value)\r\n"
+                            }
+                            if let value = kakao.properties["profile_image"] as? String{
+                                self.imageView.image = UIImage(data: NSData(contentsOfURL: NSURL(string: value)!)!)
+                            }
+                            if let value = kakao.properties["thumbnail_image"] as? String{
+                                self.image2View.image = UIImage(data: NSData(contentsOfURL: NSURL(string: value)!)!)
+                            }
+                        })
+                    }
+                })
+            }else{
+                print("isNotOpen")
+            }
+        })
+
+</code></pre>
+</div>
+
+<p>물론 더 많은 것을 쓸 수 있겠지만 그것들은 자기가 연구해보길…. 카카오 개발자센터에서 쉽게 확인 할 수 있다.</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/17.png" alt="Alt text" /></p>
+
+<p>이미지등등을 외부에서 가져오려면 info.plist파일에 Security라는걸 추가해줘야 한다.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+&lt;key&gt;NSAppTransportSecurity&lt;/key&gt;
+    &lt;dict&gt;
+        &lt;key&gt;NSAllowsArbitraryLoads&lt;/key&gt;
+        &lt;true/&gt;
+    &lt;/dict&gt;
+
+</code></pre>
+</div>
+
+<p><img src="/tec/images/swift_kakaoLogin/18.png" alt="Alt text" /></p>
+
+<p>짜잔!!!!! 완성</p>
+
+<p><br /><br /></p>
+
+<p>나는 info.plist에서 페이스북 한개는 잘되고 카카오톡 한개는 잘됬는데 둘이 연동하는법 때문에 좀 많이 어려웠었다.
+그래서 카카오톡 추가하기 예제만 하려고 했지만 둘이 연동해서 같이 하는게 더 좋을거라는 생각 때문에 이전에 만들었었던
+예제에서 부터 시작을 했다.</p>
+
+<p>아!!!</p>
+
+<p>그리고 페북, 카톡 로그인하기 할 때 아이디값(회원의 고유값) 은</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+페이스북 = user?.uid
+카카오톡 = String(kakao.ID)
+
+</code></pre>
+</div>
+
+<p>을 쓰면 된다.</p>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/swift/2016/09/11/swiftKakaoLogin/</guid>
+                <description>
+                    
+                    앞에서 했던 FacebookLogin에서 Kakao Login 카카오톡 로그인 추가하기
+                    
+                </description>
+                <pubDate>Sun, 11 Sep 2016 17:30:00 +0900</pubDate>
+                <author>guanho kim</author>
+            </item>
+        
+    
+        
+            <item>
                 <title>Swift Firebase Facebook Login</title>
                 <link>//swift/2016/09/08/swiftFBLogin/</link>
                 <content:encoded>
@@ -21,94 +271,94 @@
 
 <p>가장 먼저 앱을 만들어 보자.</p>
 
-<p><img src="/../images/swift_fbLogin/01.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/01.png" alt="Alt text" /></p>
 
-<p><img src="/../images/swift_fbLogin/02.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/02.png" alt="Alt text" /></p>
 
 <p><br />
 그리고 <a href="http://developer.facebook.com">developer.facebook</a>에 들어가서 새 앱을 만든다.
 <br /><br /></p>
 
-<p><img src="/../images/swift_fbLogin/03.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/03.png" alt="Alt text" /></p>
 
 <p><br />
 IOS를 클릭!! 한다.
 <br /><br /></p>
 
-<p><img src="/../images/swift_fbLogin/04.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/04.png" alt="Alt text" /></p>
 
 <p><br />
 Facebook 앱 네임을 넣는데 FB나 Facebook 관련 글자는 써지지가 않는다.
 <br /><br /></p>
 
-<p><img src="/../images/swift_fbLogin/05.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/05.png" alt="Alt text" /></p>
 
 <p><br />
 연락처이메일과 카테고리를 선택후 앱 ID를 만든다.
 <br /><br /></p>
 
-<p><img src="/../images/swift_fbLogin/06.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/06.png" alt="Alt text" /></p>
 
 <p><br /><br /></p>
 
-<p><img src="/../images/swift_fbLogin/07.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/07.png" alt="Alt text" /></p>
 
-<p><img src="/../images/swift_fbLogin/08.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/08.png" alt="Alt text" /></p>
 
 <p><br />
 이 값들은 Swift앱 내의 info.plist파일 안에 넣어야 하는내용이므로 어딘가에 복사해두기로 한다.
 <br /><br /></p>
 
-<p><img src="/../images/swift_fbLogin/09.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/09.png" alt="Alt text" /></p>
 
 <p><br />
 하단으로 내려가면 Swift APP Bundle적는 부분이 있다. 자신이 만든 앱 Bundle와 맞춰서 적으면 된다.
 <br /><br /></p>
 
-<p><img src="/../images/swift_fbLogin/10.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/10.png" alt="Alt text" /></p>
 
 <p><br />
 <a href="https://console.firebase.google.com/">console.firebase</a>에 들어가서 새 프로젝트를 만든다.
 <br /><br /></p>
 
-<p><img src="/../images/swift_fbLogin/11.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/11.png" alt="Alt text" /></p>
 
-<p><img src="/../images/swift_fbLogin/12.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/12.png" alt="Alt text" /></p>
 
 <p><br />
 번들을 적는다.
 <br /><br /></p>
 
-<p><img src="/../images/swift_fbLogin/14.png" alt="Alt text" />
+<p><img src="/tec/images/swift_fbLogin/14.png" alt="Alt text" />
 다시 페이스북으로 간 다음 대시보드에서 앱 ID와 앱 시크릿코드를 확인한다.</p>
 
 <p><br /></p>
 
-<p><img src="/../images/swift_fbLogin/13.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/13.png" alt="Alt text" /></p>
 
 <p>파이어베이스 Auth에 들어가서 로그인 방법을 클릭한다. 그러면 페이스북이 두둥! 있을것이다.</p>
 
-<p><img src="/../images/swift_fbLogin/15.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/15.png" alt="Alt text" /></p>
 
 <p>페이스북을 사용설정한 뒤 페이스북에서 확인한 앱ID와 앱 시크릿코드를 확인한 다음 OAuth 리디렉션 URI를 복사한다.</p>
 
-<p><img src="/../images/swift_fbLogin/16.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/16.png" alt="Alt text" /></p>
 
 <p>이제 마지막부분이다! 페이스북으로 가서 +제품추가를 클릭한 뒤</p>
 
-<p><img src="/../images/swift_fbLogin/17.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/17.png" alt="Alt text" /></p>
 
 <p>Facebook 로그인 시작하기 버튼을 누른다.</p>
 
-<p><img src="/../images/swift_fbLogin/18.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/18.png" alt="Alt text" /></p>
 
 <p>그리고 복사해두었던 리디렉션 URI를 붙이고 하단에 버튼을 누른다.</p>
 
-<p><img src="/../images/swift_fbLogin/19.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/19.png" alt="Alt text" /></p>
 
 <p>파이어베이스에 들어가서 GoogleService-info.plist파일을다운 받고 해당 파일을 앱 폴더안 info.plist옆에 넣는다.</p>
 
-<p><img src="/../images/swift_fbLogin/21.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/21.png" alt="Alt text" /></p>
 
 <p>그리고 앱 Podfile에</p>
 
@@ -126,7 +376,7 @@ pod 'FBSDKLoginKit'
 
 <p>해당 부분은 <a href="https://cocoapods.org/">cocoapods</a> 참조</p>
 
-<p><img src="/../images/swift_fbLogin/20.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/20.png" alt="Alt text" /></p>
 
 <p>그리고 앱을 실행 후 Info.plist파일 - 소스보기를 누른다. 아까 페이스북에서 봤던 코드 붙여넣기!!!</p>
 
@@ -153,7 +403,7 @@ pod 'FBSDKLoginKit'
 </code></pre>
 </div>
 
-<p><img src="/../images/swift_fbLogin/22.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/22.png" alt="Alt text" /></p>
 
 <p>앱 딜리게이트로 가서 간단하게</p>
 
@@ -185,11 +435,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 <p>이렇게 코드를 넣어주자!!!</p>
 
-<p><img src="/../images/swift_fbLogin/23.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/23.png" alt="Alt text" /></p>
 
 <p>그리고 스토리보드에서 UIButton을 하나 만들고 페이스북과 비슷한 background를 넣고 png이미지 파일을 구해서 넣어주자(디자인은 상관없슴! 사실 아무 버튼만 넣으면 상관 x)</p>
 
-<p><img src="/../images/swift_fbLogin/24.png" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/24.png" alt="Alt text" /></p>
 
 <p>UIViewController에서 button에 action을 받자. 그리고 코드를 넣어준다.</p>
 
@@ -226,7 +476,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 <p>엄청 간단하다…</p>
 
-<p><img src="/../images/swift_fbLogin/25.jpeg" alt="Alt text" /></p>
+<p><img src="/tec/images/swift_fbLogin/25.jpeg" alt="Alt text" /></p>
 
 <p>실행을 시키면 잘 나오는것을 확인 할 수 있다.</p>
 

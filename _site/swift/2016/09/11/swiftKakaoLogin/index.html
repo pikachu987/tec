@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Swift Kakao Login &#8211; Technology</title>
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdn.mathjax.org">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="앞에서 했던 FacebookLogin에서 Kakao Login 카카오톡 로그인 추가하기">
+    <meta name="robots" content="all">
+    <meta name="author" content="guanho kim">
+    
+    <meta name="keywords" content="swift">
+    <link rel="canonical" href="//swift/2016/09/11/swiftKakaoLogin/">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Technology" href="/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css?201609112352" type="text/css">
+
+    <!-- Fonts -->
+    
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+    
+
+    <!-- MathJax -->
+    
+
+    <!-- Verifications -->
+    
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Swift Kakao Login">
+    <meta property="og:description" content="pikachu987 Technology">
+    <meta property="og:url" content="//swift/2016/09/11/swiftKakaoLogin/">
+    <meta property="og:site_name" content="Technology">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+    <meta name="twitter:title" content="Swift Kakao Login" />
+    <meta name="twitter:description" content="앞에서 했던 FacebookLogin에서 Kakao Login 카카오톡 로그인 추가하기" />
+    <meta name="twitter:url" content="//swift/2016/09/11/swiftKakaoLogin/" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+
+    
+    <script type="text/javascript">
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+       ga('create', 'UA-80258859-1', 'auto');
+       ga('send', 'pageview');
+    </script>
+    
+</head>
+
+<body class="site">
+  
+	
+
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="/" class="site-title">Technology</a>
+      <nav class="site-nav">
+        
+    
+
+    
+        <a href="https://pikachu987.github.io/">Blog</a>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+      </nav>
+      <div class="clearfix"></div>
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1>Swift Kakao Login</h1>
+  <span class="post-meta">Sep 11, 2016</span><br>
+  
+  <span class="post-meta small">
+  
+    2 minute read
+  
+  </span>
+</div>
+
+<article class="post-content">
+  <p>해당 소스는 깃허브페이지
+<a href="https://github.com/pikachu987/TIL/tree/master/swift%202.2/LoginFK">github</a>
+에 올려져 있다.</p>
+
+<p>여기서는 앞서했던 Swift2로 Facebook 로그인 하는 예제에서 카카오 로그인을 추가하는 예제를 살펴보겠다.</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/01.png" alt="Alt text" /></p>
+
+<p>카카오톡 로그인버튼을 한개 만들어주자.</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/02.png" alt="Alt text" /></p>
+
+<p>해당 버튼에 이벤트를 추가</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/03.png" alt="Alt text" /></p>
+
+<p><a href="https://developer.kakao.com/">developer.kakao</a> 에 들어가서 새로운 앱을 만들자</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/04.png" alt="Alt text" /></p>
+
+<p>아주아주 간단하개 만들어졌다. 여기서 플랫폼 추가를 누르자.</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/05.png" alt="Alt text" /></p>
+
+<p>번들을 넣고,</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/06.png" alt="Alt text" /></p>
+
+<p>사용자관리에 들어가서 사용 ON을 누른 다음 하단의 텍스트등등을 기록한다. 그리고 저장을 누르자.</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/07.png" alt="Alt text" /></p>
+
+<p>카카오 SDK를 다운받으면 이런 구조로 되어 있다</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/08.png" alt="Alt text" /></p>
+
+<p>framework를 자신의 앱폴더로 이동한 다음 끌어서 앱에 추가한다.</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/19.png" alt="Alt text" /></p>
+
+<p>info.plist 를 마우스 우 클릭해서 Open As &gt; Source Code를 누른다.
+그리고 기존 페이스북설정에 카카오톡 설정을 추가한다.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+&lt;key&gt;CFBundleURLTypes&lt;/key&gt;
+    &lt;array&gt;
+        &lt;dict&gt;
+            &lt;key&gt;CFBundleURLSchemes&lt;/key&gt;
+            &lt;array&gt;
+                &lt;string&gt;fb1607177109583285&lt;/string&gt;
+            &lt;/array&gt;
+        &lt;/dict&gt;
+        &lt;dict&gt;
+            &lt;key&gt;CFBundleTypeRole&lt;/key&gt;
+            &lt;string&gt;Editor&lt;/string&gt;
+            &lt;key&gt;CFBundleURLSchemes&lt;/key&gt;
+            &lt;array&gt;
+                &lt;string&gt;kakao8e8ab69c7b01eaeebce7d7bc0afc2896&lt;/string&gt;
+            &lt;/array&gt;
+        &lt;/dict&gt;
+    &lt;/array&gt;
+    &lt;key&gt;FacebookAppID&lt;/key&gt;
+    &lt;string&gt;1607177109583285&lt;/string&gt;
+    &lt;key&gt;FacebookDisplayName&lt;/key&gt;
+    &lt;string&gt;LoginF&lt;/string&gt;
+    &lt;key&gt;KAKAO_APP_KEY&lt;/key&gt;
+    &lt;string&gt;8e8ab69c7b01eaeebce7d7bc0afc2896&lt;/string&gt;
+    &lt;key&gt;LSApplicationQueriesSchemes&lt;/key&gt;
+    &lt;array&gt;
+        &lt;string&gt;fbapi&lt;/string&gt;
+        &lt;string&gt;fb-messenger-api&lt;/string&gt;
+        &lt;string&gt;fbauth2&lt;/string&gt;
+        &lt;string&gt;fbshareextension&lt;/string&gt;
+        &lt;string&gt;kakao8e8ab69c7b01eaeebce7d7bc0afc2896&lt;/string&gt;
+        &lt;string&gt;kakaokompassauth&lt;/string&gt;
+        &lt;string&gt;storykompassauth&lt;/string&gt;
+        &lt;string&gt;kakaolink&lt;/string&gt;
+        &lt;string&gt;kakaotalk-4.5.0&lt;/string&gt;
+        &lt;string&gt;kakaostory-2.9.0&lt;/string&gt;
+    &lt;/array&gt;
+
+</code></pre>
+</div>
+
+<p><img src="/tec/images/swift_kakaoLogin/09.png" alt="Alt text" /></p>
+
+<p>여기서는 브릿지 헤더(bridging header)를 만들어야 한다. 만드는 방법은 마우스 우클릭해서 New File를 누른다.</p>
+
+<blockquote>
+  <p>브릿지 헤더란?
+Objective-C 코드를 Swift에서 import만 하면 쓸 수 있게 만들어주는 역활을 한다.</p>
+</blockquote>
+
+<p><img src="/tec/images/swift_kakaoLogin/10.png" alt="Alt text" /></p>
+
+<p>그리고 C++ File을 누르고</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/11.png" alt="Alt text" /></p>
+
+<p>아무렇게나 이름을 쓴다.</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/12.png" alt="Alt text" /></p>
+
+<h4 id="create-briding-header---">이때 제일 중요한게 꼭 Create Briding Header를 눌러야 브릿지헤더가 생성이된다!!!!</h4>
+
+<p><img src="/tec/images/swift_kakaoLogin/13.png" alt="Alt text" /></p>
+
+<p>생성이 된 모습이다. 나머지 aaa. 으로 시작되는 2개 파일은 삭제해준다.</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/14.png" alt="Alt text" /></p>
+
+<p>생성된 브릿지 헤더에 kakao SDK를 import 해준다.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+#import &lt;KakaoOpenSDK/KakaoOpenSDK.h&gt;
+
+</code></pre>
+</div>
+
+<p><img src="/tec/images/swift_kakaoLogin/15.png" alt="Alt text" /></p>
+
+<p>AppDelegate.swift 파일에 들어가서 Kakao관련 내용을 추가한다.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&gt; Bool {
+        // Override point for customization after application launch.
+
+        //firebase
+        FIRApp.configure()
+
+
+        //facebook
+        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions:launchOptions)
+    }
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -&gt; Bool {
+        //kakao
+        if KOSession.isKakaoAccountLoginCallback(url) {
+            return KOSession.handleOpenURL(url)
+        }
+        return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+    }
+
+    func application(application: UIApplication, handleOpenURL url: NSURL) -&gt; Bool {
+        //kakao
+        if KOSession.isKakaoAccountLoginCallback(url) {
+            return KOSession.handleOpenURL(url)
+        }
+        return false
+    }
+
+</code></pre>
+</div>
+
+<p><img src="/tec/images/swift_kakaoLogin/16.png" alt="Alt text" /></p>
+
+<p>이제 아까 만들었던 카카오 버튼 이벤트에 내용을 추가하는 것이다.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+let session: KOSession = KOSession.sharedSession();
+        if session.isOpen() {
+            session.close()
+        }
+        session.presentingViewController = self
+        session.openWithCompletionHandler({ (error) -&gt; Void in
+            if error != nil{
+                print(error.localizedDescription)
+            }else if session.isOpen() == true{
+                KOSessionTask.meTaskWithCompletionHandler({ (profile , error) -&gt; Void in
+                    if profile != nil{
+                        dispatch_async(dispatch_get_main_queue(), { () -&gt; Void in
+                            let kakao : KOUser = profile as! KOUser
+                            //String(kakao.ID)
+                            if let value = kakao.properties["nickname"] as? String{
+                                self.textView.text = "nickname : \(value)\r\n"
+                            }
+                            if let value = kakao.properties["profile_image"] as? String{
+                                self.imageView.image = UIImage(data: NSData(contentsOfURL: NSURL(string: value)!)!)
+                            }
+                            if let value = kakao.properties["thumbnail_image"] as? String{
+                                self.image2View.image = UIImage(data: NSData(contentsOfURL: NSURL(string: value)!)!)
+                            }
+                        })
+                    }
+                })
+            }else{
+                print("isNotOpen")
+            }
+        })
+
+</code></pre>
+</div>
+
+<p>물론 더 많은 것을 쓸 수 있겠지만 그것들은 자기가 연구해보길…. 카카오 개발자센터에서 쉽게 확인 할 수 있다.</p>
+
+<p><img src="/tec/images/swift_kakaoLogin/17.png" alt="Alt text" /></p>
+
+<p>이미지등등을 외부에서 가져오려면 info.plist파일에 Security라는걸 추가해줘야 한다.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+&lt;key&gt;NSAppTransportSecurity&lt;/key&gt;
+    &lt;dict&gt;
+        &lt;key&gt;NSAllowsArbitraryLoads&lt;/key&gt;
+        &lt;true/&gt;
+    &lt;/dict&gt;
+
+</code></pre>
+</div>
+
+<p><img src="/tec/images/swift_kakaoLogin/18.png" alt="Alt text" /></p>
+
+<p>짜잔!!!!! 완성</p>
+
+<p><br /><br /></p>
+
+<p>나는 info.plist에서 페이스북 한개는 잘되고 카카오톡 한개는 잘됬는데 둘이 연동하는법 때문에 좀 많이 어려웠었다.
+그래서 카카오톡 추가하기 예제만 하려고 했지만 둘이 연동해서 같이 하는게 더 좋을거라는 생각 때문에 이전에 만들었었던
+예제에서 부터 시작을 했다.</p>
+
+<p>아!!!</p>
+
+<p>그리고 페북, 카톡 로그인하기 할 때 아이디값(회원의 고유값) 은</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+페이스북 = user?.uid
+카카오톡 = String(kakao.ID)
+
+</code></pre>
+</div>
+
+<p>을 쓰면 된다.</p>
+
+</article>
+
+
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//pikachu987blog.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pikachu987blog.disqus.com/count.js" async></script>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    
+  </div>
+</footer>
+
+
+</body>
+</html>

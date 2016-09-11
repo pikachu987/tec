@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>//swift/2016/09/11/swiftKakaoLogin/</loc>
+<lastmod>2016-09-11T17:30:00+09:00</lastmod>
+</url>
+<url>
 <loc>//swift/2016/09/08/swiftFBLogin/</loc>
 <lastmod>2016-09-08T05:30:00+09:00</lastmod>
 </url>
