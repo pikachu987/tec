@@ -7,9 +7,342 @@
     <atom:link href="//feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Swift Adobe Image Editor</title>
+        <description>&lt;p&gt;해당 소스는 깃허브페이지
+&lt;a href=&quot;https://github.com/pikachu987/TIL/tree/master/swift2/AdobeImageEditor&quot;&gt;github&lt;/a&gt;
+에 올려져 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/embed/8VzEs-gEeEQ&quot;&gt;동영상보기&lt;/a&gt;
+&lt;a href=&quot;https://www.youtube.com/embed/8VzEs-gEeEQ&quot; title=&quot;editor&quot;&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/30.png&quot; alt=&quot;동영상 클릭&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/1.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;우리가 일단 Adobe 이미지 에디터를 사용려면 당연히 Adobe 개발자 사이트 &lt;a href=&quot;https://creativesdk.adobe.com/downloads.html&quot;&gt;adobe&lt;/a&gt; 에 회원가입을 해야 한다.
+상단에 보면 Downloads와 My Apps에만 들어갈 것이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/2.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;일단 &lt;a href=&quot;https://creativesdk.adobe.com/downloads.html&quot;&gt;Downloads&lt;/a&gt; 에 들어가서 STATIC FRAMEWORKS(DEPRECATED)를 클릭해서 다운받자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/3.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;다운받으면 framework가 엄청 많다…&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/4.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;우리한테 필요한 것은 이 4개이다. 그런데 .bundle는 어디 있을까?
+정답은 .framework를 들어가면 .bundle이 있을것이다. 복붙해서 이렇게 4개를 만들자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/5.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;해당 IOS앱 폴더에 해당 4개를 넣자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/6.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;그리고 4개를 드래그해서 xCode상에 넣자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/7.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;TARGETS에서 General에서 Linked Frameworks and Libraies 에 보면 이런식으로 4개가 생겼을 것이다.
+여기서 +를 눌러서 추가한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/8.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이런식으로 하나씩하나씩 추가를 해서&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/9.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이렇게 나오도록 추가를 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/10.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이제 Bulid Settings에 들어가서 Linking를 찾는다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/11.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Other Linker Flags에 이런식으로 적어준다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/12.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;브릿지헤더에서 이런식으로 적어준다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+//
+//  Use this file to import your target&#39;s public headers that you would like to expose to Swift.
+//
+
+#ifndef AdobeCreative_Bridging_Header_h
+#define AdobeCreative_Bridging_Header_h
+
+#import &amp;lt;AdobeCreativeSDKCore/AdobeCreativeSDKCore.h&amp;gt;
+#import &amp;lt;AdobeCreativeSDKImage/AdobeCreativeSDKImage.h&amp;gt;
+
+#endif /* AdobeCreative_Bridging_Header_h */
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/13.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://creativesdk.adobe.com/myapps.html&quot;&gt;MyApps&lt;/a&gt; 에 들어가서 새로운 앱을 만든다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/14.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;여기서 중요한건 SECRET를 꼭 복사해놓자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/15.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;AppDelegate.swift에 이런식으로 ID와 SECRET를 한줄 추가한다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+//adobe
+        AdobeUXAuthManager.sharedManager().setAuthenticationParametersWithClientID(&quot;ea2bb582861f48d8970f0155a54fee22&quot;, withClientSecret: &quot;0ce233b2-3f4a-4851-8307-934930cbcc1e&quot;)
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/16.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;(하단부분에 총 소스를 올려두겠다.)&lt;/p&gt;
+
+&lt;p&gt;UIViewController에&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+UIImagePickerControllerDelegate, UINavigationControllerDelegate, AdobeUXImageEditorViewControllerDelegate
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;를 추가하자.&lt;/p&gt;
+
+&lt;p&gt;UIImagePickerControllerDelegate와 UINavigationControllerDelegate는 카메라, 사진 선택하는데 필요한 딜리게이트이고
+AdobeUXImageEditorViewControllerDelegate는 AdobeImageEditor하는데 필요한 딜리게이트이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/17.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;카메라, 사진에 필요한 Picker를 변수로 지정.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/18.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;picker설정을 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/19.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;버튼이벤트를 준다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/20.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;picker 딜리게이트 관련 메소드이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/21.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;여기는 adobe 관련 설정을 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/22.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;adobe에서 완성된 이미지를 받아온다.&lt;/p&gt;
+
+&lt;p&gt;UIViewController 소스이다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+//
+//  ViewController.swift
+//  AdobeImageEditor
+//
+//  Created by guanho on 2016. 9. 7..
+//  Copyright © 2016년 guanho. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AdobeUXImageEditorViewControllerDelegate {
+
+
+
+    //이미지 피커
+    let picker = UIImagePickerController()
+
+    @IBOutlet var mainView: UIView!
+    @IBOutlet var imageView: UIImageView!
+    let eatImage = UIImage(named: &quot;eat.jpg&quot;)
+
+
+
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        picker.allowsEditing = true
+        picker.delegate = self
+    }
+
+
+
+    @IBAction func btnAction(sender: AnyObject) {
+        let alert = UIAlertController(title:&quot;&quot;,message:&quot;이미지 선택&quot;, preferredStyle: .ActionSheet)
+        alert.addAction(UIAlertAction(title:&quot;카메라&quot;,style: .Default,handler:{(alert) in
+            self.imageCallback(UIImagePickerControllerSourceType.Camera)
+        }))
+        alert.addAction(UIAlertAction(title:&quot;사진첩&quot;,style: .Default,handler:{(alert) in
+            self.imageCallback(UIImagePickerControllerSourceType.PhotoLibrary)
+        }))
+        alert.addAction(UIAlertAction(title:&quot;치킨이미지&quot;,style: .Default,handler:{(alert) in
+            self.photoEditorStart(self.eatImage)
+        }))
+        self.presentViewController(alert, animated: false, completion: {(_) in })
+    }
+
+
+
+    //이미지 콜백
+    func imageCallback(sourceType : UIImagePickerControllerSourceType){
+        picker.sourceType = sourceType
+        presentViewController(picker, animated: false, completion: nil)
+    }
+    //이미지 끝
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    //이미지 받아오기
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        var newImage: UIImage
+        if let possibleImage = info[&quot;UIImagePickerControllerEditedImage&quot;] as? UIImage {
+            newImage = possibleImage
+        } else if let possibleImage = info[&quot;UIImagePickerControllerOriginalImage&quot;] as? UIImage {
+            newImage = possibleImage
+        } else {
+            return
+        }
+        dismissViewControllerAnimated(true, completion: {(_) in
+            self.photoEditorStart(newImage)
+        })
+    }
+
+
+
+    //이미지 에디터 시작
+    func photoEditorStart(image: UIImage!){
+        dispatch_async(dispatch_get_main_queue()) {
+            //AdobeImageEditor 설정
+            AdobeImageEditorCustomization.setToolOrder([
+                kAdobeImageEditorEnhance,        /* Enhance */
+                kAdobeImageEditorEffects,        /* Effects */
+                kAdobeImageEditorStickers,       /* Stickers */
+                kAdobeImageEditorOrientation,    /* Orientation */
+                kAdobeImageEditorCrop,           /* Crop */
+                kAdobeImageEditorColorAdjust,    /* Color */
+                kAdobeImageEditorLightingAdjust, /* Lighting */
+                kAdobeImageEditorSharpness,      /* Sharpness */
+                kAdobeImageEditorDraw,           /* Draw */
+                kAdobeImageEditorText,           /* Text */
+                kAdobeImageEditorRedeye,         /* Redeye */
+                kAdobeImageEditorWhiten,         /* Whiten */
+                kAdobeImageEditorBlemish,        /* Blemish */
+                kAdobeImageEditorBlur,           /* Blur */
+                kAdobeImageEditorMeme,           /* Meme */
+                kAdobeImageEditorFrames,         /* Frames */
+                kAdobeImageEditorFocus,          /* TiltShift */
+                kAdobeImageEditorSplash,         /* ColorSplash */
+                kAdobeImageEditorOverlay,        /* Overlay */
+                kAdobeImageEditorVignette        /* Vignette */
+                ])
+
+            let adobeViewCtr = AdobeUXImageEditorViewController(image: image)
+            adobeViewCtr.delegate = self
+            self.presentViewController(adobeViewCtr, animated: true) { () -&amp;gt; Void in
+
+            }
+        }
+    }
+
+
+
+    //AdobeCreativeSDK 이미지 받아옴
+    func photoEditor(editor: AdobeUXImageEditorViewController, finishedWithImage image: UIImage?) {
+        editor.dismissViewControllerAnimated(true, completion: {(_) in
+            let imageWidth = self.mainView.frame.width
+            let imageHeight = self.mainView.frame.height
+
+            let rateWidth = (image?.size.width)!/imageWidth
+            let rateHeight = (image?.size.height)!/imageHeight
+
+            var widthValue : CGFloat! = imageWidth
+            var heightValue : CGFloat! = imageHeight
+
+            if rateWidth &amp;gt; rateHeight{
+                heightValue = widthValue * (image?.size.height)! / (image?.size.width)!
+            }else{
+                widthValue = heightValue * (image?.size.width)! / (image?.size.height)!
+            }
+            self.imageView.frame = CGRect(x: (imageWidth-widthValue)/2, y: (imageHeight-heightValue)/2, width: widthValue, height: heightValue)
+            self.imageView.image = image
+        })
+    }
+
+
+    //AdobeCreativeSDK 캔슬
+    func photoEditorCanceled(editor: AdobeUXImageEditorViewController) {
+        editor.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+
+
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+}
+
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;미리보기 이미지!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/23.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;첫 화면이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/24.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;클릭을 하면 선택을 할수있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/25.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이미지 에디터 화면이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/26.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;크롭화면이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/27.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;방향전환 화면이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/28.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;그리기 화면이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/29.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;완료후 받아온 이미지이다.&lt;/p&gt;
+
+&lt;p&gt;엄청 쉽게 고급기능을 쓸 수 있게 해주는 Adobe이다. 너무 좋은듯하다.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 12 Sep 2016 17:30:00 +0900</pubDate>
+        <link>//swift/2016/09/12/swiftAdobeImageEditro/</link>
+        <guid isPermaLink="true">//swift/2016/09/12/swiftAdobeImageEditro/</guid>
+      </item>
+    
+      <item>
         <title>Swift Kakao Login</title>
         <description>&lt;p&gt;해당 소스는 깃허브페이지
-&lt;a href=&quot;https://github.com/pikachu987/TIL/tree/master/swift%202.2/LoginFK&quot;&gt;github&lt;/a&gt;
+&lt;a href=&quot;https://github.com/pikachu987/TIL/tree/master/swift2/LoginFK&quot;&gt;github&lt;/a&gt;
 에 올려져 있다.&lt;/p&gt;
 
 &lt;p&gt;여기서는 앞서했던 Swift2로 Facebook 로그인 하는 예제에서 카카오 로그인을 추가하는 예제를 살펴보겠다.&lt;/p&gt;
@@ -247,7 +580,7 @@ let session: KOSession = KOSession.sharedSession();
       <item>
         <title>Swift Firebase Facebook Login</title>
         <description>&lt;p&gt;해당 소스는 깃허브페이지
-&lt;a href=&quot;https://github.com/pikachu987/TIL/tree/master/swift%202.2/LoginF&quot;&gt;github&lt;/a&gt;
+&lt;a href=&quot;https://github.com/pikachu987/TIL/tree/master/swift2/LoginF&quot;&gt;github&lt;/a&gt;
 에 올려져 있다.&lt;/p&gt;
 
 &lt;p&gt;여기서는 Swift2로 Facebook 로그인 하는 과정과 예제를 살펴보겠다.&lt;/p&gt;
