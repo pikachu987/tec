@@ -9,7 +9,7 @@ categories: swift
 
 
 해당 소스는 깃허브페이지
-[github](https://github.com/pikachu987/TIL/tree/master/swift%202.2/LoginF)
+[github](https://github.com/pikachu987/TIL/tree/master/swift2/LoginF)
 에 올려져 있다.
 
 
