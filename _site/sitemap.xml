@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>//javascript/2016/09/23/javascript_prototype/</loc>
+<lastmod>2016-09-23T21:10:00+09:00</lastmod>
+</url>
+<url>
 <loc>//swift/2016/09/12/swiftAdobeImageEditro/</loc>
 <lastmod>2016-09-12T17:30:00+09:00</lastmod>
 </url>
@@ -29,6 +33,9 @@
 <loc>//thanks/</loc>
 </url>
 <url>
+<loc>//page2/</loc>
+</url>
+<url>
 <loc>//testfile/1/crazy.html</loc>
 <lastmod>2016-09-08T18:57:33+09:00</lastmod>
 </url>
@@ -55,5 +62,9 @@
 <url>
 <loc>//testfile/1/test.html</loc>
 <lastmod>2016-08-30T23:49:39+09:00</lastmod>
+</url>
+<url>
+<loc>//testfile/temp/1.html</loc>
+<lastmod>2016-09-23T23:58:47+09:00</lastmod>
 </url>
 </urlset>

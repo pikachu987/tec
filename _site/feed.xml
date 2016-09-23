@@ -7,6 +7,199 @@
     <atom:link href="//feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>javaScript prototype</title>
+        <description>&lt;p&gt;prototype란?&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;프로토타입(prototype)은 원래의 형태 또는 전형적인 예, 기초 또는 표준이다. 시제품이 나오기 전의 제품의 원형으로 개발검증과 양산 검증을 거쳐야 시제품이 될 수 있다. 프로토타입은 ‘정보시스템의 미완성 버전 또는 중요한 기능들이 포함되어 있는 시스템의 초기모델’이다. 이 프로토타입은 사용자의 모든 요구사항이 정확하게 반영할 때까지 계속해서 개선/보완 된다. 실제로 많은 애플리케이션들이 지속적인 프로토타입의 확장과 보강을 통해 최종 설계가 승인된다.
+프로토타입이라는 낱말은 원초적 형태라는 뜻의 그리스어 낱말 πρωτότυπον (프로토타이폰)에서 왔다. 이는 원초적이라는 뜻의 πρωτότυπος (프로토타이포스)의 중간음에서 온 것으로, 더 들어가서 “최초의”라는 뜻의 πρῶτος(프로토스)와 “인상”이라는 뜻의 τύπος(타이포스)에서 비롯된 것이다.[1]
+&lt;a href=&quot;https://ko.wikipedia.org/wiki/프로토타입&quot;&gt;https://ko.wikipedia.org/wiki/프로토타입&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;라고 설명되어 있는데 간단히 설명하자면 객체의 모태가되는 형태(Arrays, String, Number …)를 프로토타입이라고 한다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;script&amp;gt;
+  var text = new String();
+  console.log(text);
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;간단하게 이러한 코드를 작성하고 크롬 console로 열어보면&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/script_prototype/1.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;여기서 &lt;code class=&quot;highlighter-rouge&quot;&gt;__proto__&lt;/code&gt; 가 해당 객체를 만들어내기 위해 사용된 객체 원형에 대해 숨겨진 연결이라고 한다.&lt;/p&gt;
+
+&lt;p&gt;스크립트의 객체는 생성과 동시에 Prototype Object라는 새로운 객체를 clone하여 만든다.
+프로토타입이 객체를 만들어내기 위한 원형이면 Prototype Object 는 자신을 원형으로 만들어질 다른 객체가 참조할 프로토타입이 된다.
+위에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;__proto__&lt;/code&gt; 라는 prototype 에 대한 link는 상위에서 물려받은 객체의 프로토타입에 대한 정보이다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&amp;lt;script&amp;gt;
+var A = function () { };
+A.prototype.x = function () {
+    console.log(&#39;prototype&#39;);
+};
+
+A.x();
+//Uncaught TypeError: A.x is not a function
+
+var B = new A();
+B.x();
+//prototype
+&amp;lt;/script&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;A는 아직 객체로 만들어지지 않은 원형인 상태이고 B는 A를 물려받은 객체이다. 그래서 저런 결과가 나오게 된다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+B.prototype.y = function(){
+  console.log(&#39;prototype2&#39;);
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;만약 위의 코드에 이코드를 추가하면 어떻게 될까?
+정답은 Uncaught TypeError: Cannot set property ‘y’ of undefined 이런 에러가 나게 된다.
+아까 말했듯이 객체 원형에 대해 숨겨진 연결이라고 했는데 이미 B는 객체 원형이 아니라 prototype를 쓸 수 없게 된다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;console.log(B);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;B를 console.log로 찍어 보면&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/script_prototype/2.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;__proto__&lt;/code&gt; 안에 x라는 function이 있다. 그래서 B에서는 x라는 프로토타입을 쓸 수 있게 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;화살표를 계속 누르지 말자… 스크립트란놈은 양파같은 놈이라서 까도까도 계속 나온다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;그렇다면 이걸 어떻게 활용을 할까???&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;String.prototype.width = function(font) {
+	var f = font || &#39;10px arial&#39;, o = $(&#39;&amp;lt;div&amp;gt;&#39;+this+&#39;&amp;lt;/div&amp;gt;&#39;).css({&#39;position&#39;: &#39;absolute&#39;, &#39;float&#39;: &#39;left&#39;, &#39;white-space&#39;: &#39;nowrap&#39;, &#39;visibility&#39;: &#39;hidden&#39;, &#39;font&#39;: f}).appendTo($(&#39;body&#39;)),w = o.width();
+	o.remove();
+	return w;
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;해당 String에 대해 font를 적용한 실제 길이를 리턴하게 된다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&amp;lt;div&amp;gt;Hello&amp;lt;/div&amp;gt;
+$(&#39;#&#39;)
+var str = &#39;Hello&#39;;
+console.log(str.width());
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;이 width를 활용하는 간단한 예제를 보겠다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/script_prototype/3.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&amp;lt;style&amp;gt;
+  .widthTest&amp;gt;div{
+    display: inline-block; float: left; width: 240px; background-color: #efefef;
+    border-radius: 10px; padding-left: 5px; padding-right: 5px;
+    height: 100px; line-height: 100px; vertical-align: middle;
+  }
+  .widthTest&amp;gt;div:last-child{margin-left: 20px;}
+&amp;lt;/style&amp;gt;
+&amp;lt;div class=&quot;widthTest&quot;&amp;gt;
+  &amp;lt;div&amp;gt;동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세&amp;lt;/div&amp;gt;
+  &amp;lt;div&amp;gt;가나다라마바사&amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;script&amp;gt;
+String.prototype.width = function(font) {
+  var f = font || &#39;10px arial&#39;, o = $(&#39;&amp;lt;div&amp;gt;&#39;+this+&#39;&amp;lt;/div&amp;gt;&#39;).css({&#39;position&#39;: &#39;absolute&#39;, &#39;float&#39;: &#39;left&#39;, &#39;white-space&#39;: &#39;nowrap&#39;, &#39;visibility&#39;: &#39;hidden&#39;, &#39;font&#39;: f}).appendTo($(&#39;body&#39;)),w = o.width();
+  o.remove();
+  return w;
+};
+
+
+
+$(&#39;.widthTest&amp;gt;div&#39;).each(function(){
+
+
+  var $this = $(this);
+  if($this.width() &amp;lt; $this.text().width($this.css(&#39;font&#39;))){
+    $this.css(&#39;line-height&#39;, Number($this.css(&#39;line-height&#39;).replace(&#39;px&#39;,&#39;&#39;))/2+&#39;px&#39;);
+
+
+
+
+
+
+
+
+
+
+
+
+    // var lineHeight = $this.css(&#39;line-height&#39;);
+    // var lineHeightReplace = lineHeight.replace(&#39;px&#39;,&#39;&#39;);
+    // $this.css(&#39;line-height&#39;, Number(lineHeightReplace/2)+&#39;px&#39;);
+  }
+
+
+
+});
+
+
+
+
+&amp;lt;/script&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/script_prototype/4.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이것 말고도&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Array.prototype.remove = function(idx){
+	var temp = [];
+	var i = this.length;
+	while(i &amp;gt; idx){
+		var kk = this.pop();
+		temp.push(kk);
+		i--;
+	}
+	for(var j=temp.length - 2; j&amp;gt;=0; j--){
+		this.push(temp[j]);
+	}
+};
+String.prototype.replaceAll = function(find,replace){
+	if(this === null || this === &#39;&#39;) return &#39;&#39;;
+	return this.replace( new RegExp( find, &#39;g&#39; ), replace );
+};
+String.prototype.setPriceComma = function() {
+	var n = this;
+	n += &#39;&#39;;
+	var reg = /(^[+-]?\d+)(\d{3})/;
+	while (reg.test(n)){n = n.replace(reg, &#39;$1&#39; + &#39;,&#39; + &#39;$2&#39;);}
+	return n;
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;여러가지가 있고 여러가지를 만들수 있다.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 23 Sep 2016 21:10:00 +0900</pubDate>
+        <link>//javascript/2016/09/23/javascript_prototype/</link>
+        <guid isPermaLink="true">//javascript/2016/09/23/javascript_prototype/</guid>
+      </item>
+    
+      <item>
         <title>Swift Adobe Image Editor</title>
         <description>&lt;p&gt;해당 소스는 깃허브페이지
 &lt;a href=&quot;https://github.com/pikachu987/TIL/tree/master/swift2/AdobeImageEditor&quot;&gt;github&lt;/a&gt;
