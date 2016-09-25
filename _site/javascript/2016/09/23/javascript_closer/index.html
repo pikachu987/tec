@@ -3,17 +3,17 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>css animation &#8211; Technology</title>
+    <title>javaScript closer &#8211; Technology</title>
     <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
     <link rel="dns-prefetch" href="//cdn.mathjax.org">
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="css 애니메이션에 대하여">
+    <meta name="description" content="closer에 대해 기초적인 문법을 배워보자!">
     <meta name="robots" content="all">
     <meta name="author" content="guanho kim">
     
-    <meta name="keywords" content="css">
-    <link rel="canonical" href="//css/2016/08/30/cssAnimation/">
+    <meta name="keywords" content="javascript">
+    <link rel="canonical" href="//javascript/2016/09/23/javascript_closer/">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Technology" href="/feed.xml" />
 
     <!-- Custom CSS -->
@@ -37,17 +37,17 @@
     <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="css animation">
+    <meta property="og:title" content="javaScript closer">
     <meta property="og:description" content="pikachu987 Technology">
-    <meta property="og:url" content="//css/2016/08/30/cssAnimation/">
+    <meta property="og:url" content="//javascript/2016/09/23/javascript_closer/">
     <meta property="og:site_name" content="Technology">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
     
-    <meta name="twitter:title" content="css animation" />
-    <meta name="twitter:description" content="css 애니메이션에 대하여" />
-    <meta name="twitter:url" content="//css/2016/08/30/cssAnimation/" />
+    <meta name="twitter:title" content="javaScript closer" />
+    <meta name="twitter:description" content="closer에 대해 기초적인 문법을 배워보자!" />
+    <meta name="twitter:url" content="//javascript/2016/09/23/javascript_closer/" />
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
@@ -121,8 +121,8 @@
 
 
 <div class="post-header mb2">
-  <h1>css animation</h1>
-  <span class="post-meta">Aug 30, 2016</span><br>
+  <h1>javaScript closer</h1>
+  <span class="post-meta">Sep 23, 2016</span><br>
   
   <span class="post-meta small">
   
@@ -132,106 +132,131 @@
 </div>
 
 <article class="post-content">
-  <p>일단 애니메이션 예제들을 살펴보자.<br />
-<a href="https://web-animations.github.io/web-animations-demos/" target="_blank">https://web-animations.github.io/web-animations-demos/</a></p>
+  <p>closer란?</p>
 
-<p><a href="/tec/testFile/1/test.html" target="_blank">test1</a></p>
+<blockquote>
+  <p>클로저는 독립적인 (자유) 변수를 가리키는 함수이다. 또는, 클로저 안에 정의된 함수는 만들어진 환경을 ‘기억한다’.
+<a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Closures">https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/Closures</a></p>
+</blockquote>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>animation-delay: 애니메이션이 언제 시작할지 ex)2s(2초후 시작)
+<p>일단 우리가 기본적으로 쓰는 function 에 대해서 만들어보자</p>
 
-animation-name: keyframes 이름
-
-animation-duration: 한 싸이클의 애니메이션의 시간 ex)2s(2초동안)
-
-animation-fill-mode: 애니메이션이 시작되기 전이나 끝나고 난 후 어떻게 적용될지 지정
-* forwards; (마지막 키프레임에 지정된 값을 유지)
-* backwards; (첫 번째 키프레임에 지정한 값으로 돌아감)
-
-animation-timing-function: 중간 상태의 애니메이션을 어떻게 진행할지 지정
-* ease; 시작과 종료를 부드럽게
-* linear; 일정
-* ease-in; 서서히 시작
-* ease-out; 서서히 종료
-* ease-in-out; 서서히 시작하여 서서히 종료
-* cubic-bezier(1,.23,0,1.56); /* 배지어곡선 */
-
-animation-iteration-count: 애니메이션이 몇반 반복될지 지정
-* infinite; 무한반복
-
-animation-direction: 애니메이션이 종료된 다음 어떤식으로 진행될지 지정
-* nomal;(기본값, 애니메이션이 시작될 때마다 처음으로 설정됨)
-* reverse;(반대로 진행)
-* alternate;(순방향으로 진행한 후 역방향으로 진행)
-* alternate-reverse;(역방향으로 진행한 후 순방향으로 진행)
-
-animation-play-state: 애니메이션을 멈추가나 다시 시작
-* running;
-* paused;
-
-
-
-@keyframes &lt;name&gt; {
-  from{
-  	margin-left: 0px;
-  }
-
-  to{
-  	margin-left: 300px;
-  }
+<div class="highlighter-rouge"><pre class="highlight"><code>function add(x, y){
+ return x+y;
 }
 
-@keyframes &lt;name&gt; {
-  0% {
-  	transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(30deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+add(3, 4); //7
+</code></pre>
+</div>
+
+<p>이렇게 쓴다.</p>
+
+<p>그러면 콜백함수에 대해서 알아보자.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>function callbackTest(callback){
+ if(callback != undefined){
+   callback();
+ }
 }
+
+callbackTest(function(){
+  console.log('callback success!');
+});
+</code></pre>
+</div>
+
+<p>많이 사용하는 문법이다. 예를 들어 jQuery의 click같은..</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$('#btn_01').click(function(){
+  //click
+});
+</code></pre>
+</div>
+
+<p>그리고 함수를 리턴하는 방식도 있다.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+function returnFunc(a){
+ return function(b){
+   alert(a+b);
+ }
+}
+returnFunc(3)(4); //7
+
+var rf = returnFunc(3);
+rf(5); //8
 
 </code></pre>
 </div>
 
-<p><a href="/tec/testFile/1/t_translate.html" target="_blank">translate</a><br />
-<a href="/tec/testFile/1/t_scale.html" target="_blank">scale</a><br />
-<a href="/tec/testFile/1/t_rotate.html" target="_blank">rotate</a><br />
-<a href="/tec/testFile/1/t_skew.html" target="_blank">skew</a><br />
-<a href="/tec/testFile/1/t_matrix.html" target="_blank">matrix</a></p>
+<p>그럼 이제 클로저로 들어가 보겠다.
+클로저는 함수 내부에 지역변수가 있고 지역변수가 값을 기억하고 있는 것이다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>2D transform 메소드
+<div class="highlighter-rouge"><pre class="highlight"><code>function outerFunc(){
+    var a= 0;
+    return {
+        innerFunc1 : function(){
+            a+=1;
+            console.log("a :"+a);
+        },
+        innerFunc2 : function(){
+            a+=2;
+            console.log("a :"+a);
+        }
+    };
+}
+var out = outerFunc();
+out.innerFunc1();
+out.innerFunc2();
+out.innerFunc2();
+out.innerFunc1();
 
-translate(x, y) : 가로, 세로 방향으로 이동
-- translateX(x)
-- translateY(y)
+//실행결과
+/*
+a = 1
+a = 3
+a = 5
+a = 6
+*/
+</code></pre>
+</div>
 
-scale(x, y) : 확대/축소 비율 지정
-- scaleX(x)
-- scaleY(y)
-
-rotate(angle) : 객체를 회전시킴 (단위 - deg(degree))
-
-skew(x-angle, y-angle) : 객체를 기울임 (단위 - deg)
-- skewX(x-angle)
-- skewY(y-angle)
-/* 비표준 */
-
-matrix(a, c, b, d, tx, ty) : 다 합침
-/* a, b, c, d 로 transformation matrix 가 구성되며,
-   ┌     ┐
-   │ a b │
-   │ c d │
-   └     ┘
-   tx, ty 는 이동되는 값이다.  */
-
-c: scaleY
-b: scaleX
-
+<div class="highlighter-rouge"><pre class="highlight"><code>
+function outerFunc(){
+    var a= 0;
+    return {
+        innerFunc1 : function(){
+            a+=1;
+            console.log("a :"+a);
+        },
+        innerFunc2 : function(){
+            a+=2;
+            console.log("a :"+a);
+        }
+    };
+}
+var out = outerFunc();
+var out2 = outerFunc();
+out.innerFunc1();
+out.innerFunc2();
+out2.innerFunc1();
+out2.innerFunc2();
+//실행결과
+/*
+a = 1
+a = 3
+a = 1
+a = 3
+*/
 
 </code></pre>
 </div>
+
+<p><a href="http://www.nextree.co.kr/p7363/">예제 참고</a></p>
+
+<p>변수는 지역변수, 전역변수로 나뉘는데 지역변수는 함수안에서 선언해서 함수가 끝나면 지역변수도 사라지기 때문에 지역변수를 다시 호출할 수 없게 된다.
+그런데 script에서는 사라진 지역변수를 사용할 수 있다.
+이런 것을 클로저라고 부른다. 그리고 지금은 새벽 2시 30분이다. 너무 피곤하다.</p>
 
 </article>
 

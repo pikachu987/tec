@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>//javascript/2016/09/23/javascript_closer/</loc>
+<lastmod>2016-09-23T21:20:00+09:00</lastmod>
+</url>
+<url>
 <loc>//javascript/2016/09/23/javascript_prototype/</loc>
 <lastmod>2016-09-23T21:10:00+09:00</lastmod>
 </url>
