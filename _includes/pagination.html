@@ -12,7 +12,7 @@
   </div>
   <div class="right">
     {% if paginator.next_page %}
-      <a class="pagination-item" href="{{ paginator.next_page_path }}">{{ site.text.pagination.older }}</a>
+      <a class="pagination-item" href="{{ site.baseurl }}{{ paginator.next_page_path }}">{{ site.text.pagination.older }}</a>
     {% else %}
       <span class="pagination-item disabled">{{ site.text.pagination.older }}</span>
     {% endif %}
