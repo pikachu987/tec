@@ -1,0 +1,89 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+  <div>
+    팀갯수
+    <form action="javascript:void(0);">
+      <input type="number"/> <button>클릭</button>
+    </form>
+  </div>
+  <div id="vs"></div>
+  <script>
+    $(document).ready(function(){
+      function appendStr(str){
+        $('#vs').append(str+"<br />");
+      }
+      function match(teams){
+        var winnerTeam = [];
+        function match2(idx, team1, team2){
+          if(Math.floor(Math.random() * 2) == 0){
+            winnerTeam.push(team1);
+            appendStr(idx+"번째 경기 : "+team1.name+" 팀과 "+team2.name+" 팀이 붙습니다 ----- "+team1.name+"팀이 이겼습니다.");
+          }else{
+            winnerTeam.push(team2);
+            appendStr(idx+"번째 경기 : "+team1.name+" 팀과 "+team2.name+" 팀이 붙습니다 ----- "+team2.name+"팀이 이겼습니다.");
+          }
+        }
+        if(teams.length == 1){
+          winnerTeam.push(teams[0]);
+        }else{
+          for(var i=0; i < Math.ceil((teams.length/2)) ; i++){
+            if(i*2 < teams.length){
+              if(i*2+1 < teams.length){
+                match2(i, teams[i*2], teams[i*2+1])
+              }else{
+                winnerTeam.push(teams[i*2]);
+              }
+            }
+          }
+        }
+        return winnerTeam;
+      }
+      function start(){
+        $('#vs').html('');
+        var teamCnt = $("input").val();
+        var teams = [];
+        for(var i=1; i<Number(teamCnt)+1; i++){
+          var team = {"name":i};
+          teams.push(team);
+        }
+        if(teams.length > 1){
+          var matchCnt = Math.ceil(teams.length/2) + teams.length%2
+          var matchTeams = teams
+          for(var k=1; k <= matchCnt; k++){
+            appendStr('<br /><br />----------------------');
+            appendStr(k+"조 경기입니다.");
+            appendStr('----------------------');
+            var teamListArr = ""
+            for(var j=0; j<matchTeams.length; j++){
+              teamListArr += matchTeams[j].name+"   "
+            }
+            appendStr("이번 시즌 경기 대진표입니다.");
+            appendStr("@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            appendStr(teamListArr+"팀    ");
+            appendStr("@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            var winnerTeam = match(matchTeams)
+            if(winnerTeam.length == 1){
+              appendStr('<br /><br />----------------------');
+              appendStr("우승 팀은 "+winnerTeam[0].name+"팀 입니다.");
+              appendStr('----------------------');
+              break
+            }else{
+              matchTeams = winnerTeam;
+            }
+          }
+        }
+      }
+      $("button").click(function(){
+        start();
+      });
+    });
+  </script>
+</body>
+</html>
