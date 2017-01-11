@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      cocoapods lib create
-date:       2017-01-11 20:00:00
+date:       2017-01-11 10:00:00
 summary:    ios cocoapods에서 라이브러리를 생성해보자! (cocoapods lib create)
 categories: ios
 ---
