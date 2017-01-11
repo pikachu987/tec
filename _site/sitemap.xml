@@ -68,7 +68,15 @@
 <lastmod>2016-08-30T23:49:39+09:00</lastmod>
 </url>
 <url>
+<loc>//testfile/match.html</loc>
+<lastmod>2017-01-02T13:41:23+09:00</lastmod>
+</url>
+<url>
 <loc>//testfile/temp/1.html</loc>
 <lastmod>2016-09-23T23:58:47+09:00</lastmod>
+</url>
+<url>
+<loc>//testfile/test.html</loc>
+<lastmod>2016-12-20T21:50:37+09:00</lastmod>
 </url>
 </urlset>
