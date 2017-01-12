@@ -285,7 +285,11 @@ Profile 파일에
 pod "PKCUtil"
 ~~~~
 
-을 쓰게 되면 바로 설치가 된당~~~ 후훗
+을 쓰게 되면 바로 설치가 된다
+
+[cocoapods](https://guides.cocoapods.org/making/making-a-cocoapod.html) 에 정상적으로 올라와 있는 스크린샷이다.
+
+![Alt text](/tec/images/ios_cocoapods/22.png)
 
 
 
