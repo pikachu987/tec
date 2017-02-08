@@ -12,15 +12,15 @@
   <script type="text/javascript" charset="UTF-8">
     function success(){
       var str = encodeURI('김관호');
-      document.location = "EdubagApp://success(str,'01047460000')";
+      document.location = "EdubagApp://success("+str+",'01047460000')";
     }
     function fail1(){
       var str = escape('김관호');
-      document.location = "EdubagApp://fail('사용자 취소')";
+      document.location = "EdubagApp://fail("+str+")";
     }
     function fail2(){
       var str = encodeURIComponent('김관호');
-      document.location = "EdubagApp://fail('서버 점검')";
+      document.location = "EdubagApp://fail("+str+")";
     }
     function fail3(){
       document.location = "EdubagApp://fail('다른이유')";
