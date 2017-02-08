@@ -343,7 +343,7 @@ pod 'podName'
 
 을 적고
 
-~~~~~
+~~~~
 pod install
 ~~~~
 

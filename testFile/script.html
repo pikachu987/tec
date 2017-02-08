@@ -1,0 +1,20 @@
+<body>
+  <button>성공</button><br />
+  <button>실패1</button><br />
+  <button>실패2</button><br />
+  <button>실패3</button>
+  <script type="text/javascript">
+    function success(){
+      document.location = "EdubagApp://success('김관호', '01047460000')";
+    }
+    function fail1(){
+      document.location = "EdubagApp://fail('사용자 취소')";
+    }
+    function fail2(){
+      document.location = "EdubagApp://fail('서버 점검')";
+    }
+    function fail3(){
+      document.location = "EdubagApp://fail('다른이유')";
+    }
+  </script>
+</body>
