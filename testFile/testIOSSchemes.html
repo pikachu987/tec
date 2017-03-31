@@ -1,0 +1,75 @@
+<html>
+<head>
+  <script src="http://code.jquery.com/jquery.min.js"></script>
+</head>
+<body>
+  <script type="text/javascript">
+  $(document).ready(function() {
+alert("222");
+   var androidAppLink = '://'; //각자 정의된 scheme 를 적는다..
+   var androidIntentUrl = '://';
+   var iosAppLink = 'doctalkDoctor://';
+   var playStorePrefix = 'market://'; //각자 정의된 store url 을 적는다..
+   var appStorePrefix = 'https://itunes.apple.com/kr/app/id1220724684?mt=8'; //각자 정의된 store url 을 적는다..
+
+   var ua = navigator.userAgent;
+   var supportDevicesRegEx = /Android|iPhone|iPad/i;
+   var supportDevice = ua.match(supportDevicesRegEx);
+
+   if(!!supportDevice) {
+     alert("1111");
+    var deviceName = supportDevice.pop();
+    launchApp(deviceName);
+
+   } else {
+     alert("222");
+    location.href = playStorePrefix;
+   }
+
+   function launchApp(deviceName) {
+    var isIOS = 'Android' != deviceName ? true : false;
+
+    if(isIOS && isChromeAndBigThanChromeVersion18()) {
+     location.href = androidIntentUrl;
+
+    } else if(isIOS && isBigThanIOS9()) {
+     location.href = universalLink;
+     failApp(isIOS);
+
+    } else {
+     var src = deviceName == 'Android' ? androidAppLink : iosAppLink;
+     $('<iframe>').attr('src', src);
+     failApp(isIOS);
+    }
+   }
+
+   function isChromeAndBigThanChromeVersion18() {
+    var ua = navigator.userAgent;
+    if(ua.indexOf('Chrome') == -1 ){
+     return false;
+    }
+
+    var versionRegEx = /Chrome\/[0-9]+\.[0-9]+\.[0-9]+/;
+    var majorVersion = ua.match(versionRegEx).pop().split('\/')[2];
+    return parseInt(majorVersion) > 18 ? true: false;
+   }
+
+   function isBigThanIOS9(){
+    var ua = navigator.userAgent;
+    var versionRegEx = /iPhone OS [0-9]+/;
+    var version = ua.match(versionRegEx).pop().split(' ')[2];
+    var majorVersion = parseInt(version.split('_')[0]);
+    return majorVersion >=9 ? true: false;
+   }
+
+   function failApp(isIOS) {
+    var storeURL = isIOS ? appStorePrefix : playStorePrefix;
+    var deLay = 1000;
+    setTimeout(function() {
+     location.href = storeURL;
+    }, deLay);
+   }
+  });
+  </script>
+</body>
+</html>
