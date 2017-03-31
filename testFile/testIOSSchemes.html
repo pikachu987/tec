@@ -5,7 +5,6 @@
 <body>
   <script type="text/javascript">
   $(document).ready(function() {
-alert("222");
    var androidAppLink = '://'; //각자 정의된 scheme 를 적는다..
    var androidIntentUrl = '://';
    var iosAppLink = 'doctalkDoctor://';
@@ -17,26 +16,26 @@ alert("222");
    var supportDevice = ua.match(supportDevicesRegEx);
 
    if(!!supportDevice) {
-     alert("1111");
     var deviceName = supportDevice.pop();
     launchApp(deviceName);
-
    } else {
-     alert("222");
     location.href = playStorePrefix;
    }
 
    function launchApp(deviceName) {
     var isIOS = 'Android' != deviceName ? true : false;
-
+    alert("1111");
     if(isIOS && isChromeAndBigThanChromeVersion18()) {
+      alert("22222");
      location.href = androidIntentUrl;
 
     } else if(isIOS && isBigThanIOS9()) {
+      alert("33333");
      location.href = universalLink;
      failApp(isIOS);
 
     } else {
+      alert("4444");
      var src = deviceName == 'Android' ? androidAppLink : iosAppLink;
      $('<iframe>').attr('src', src);
      failApp(isIOS);
