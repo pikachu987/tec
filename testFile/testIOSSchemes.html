@@ -24,18 +24,18 @@
 
    function launchApp(deviceName) {
     var isIOS = 'Android' != deviceName ? true : false;
-    alert("1111");
+    alert("11ㅋㅋㅋㅋ11");
     if(isIOS && isChromeAndBigThanChromeVersion18()) {
-      alert("22222");
+      alert("22ㅌㅌㅌ222");
      location.href = androidIntentUrl;
 
     } else if(isIOS && isBigThanIOS9()) {
-      alert("33333");
+      alert("333ㅊㅊㅊㅊ33");
      location.href = universalLink;
      failApp(isIOS);
 
     } else {
-      alert("4444");
+      alert("44ㅍㅍㅍㅍ44");
      var src = deviceName == 'Android' ? androidAppLink : iosAppLink;
      $('<iframe>').attr('src', src);
      failApp(isIOS);
