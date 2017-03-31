@@ -24,18 +24,13 @@
 
    function launchApp(deviceName) {
     var isIOS = 'Android' != deviceName ? true : false;
-    alert("11ㅋㅋㅋㅋ11");
     if(isIOS && isChromeAndBigThanChromeVersion18()) {
-      alert("22ㅌㅌㅌ222");
      location.href = androidIntentUrl;
 
     } else if(isIOS && isBigThanIOS9()) {
-      alert("333ㅊㅊㅊㅊ33");
-     location.href = universalLink;
+     location.href = iosAppLink;
      failApp(isIOS);
-
     } else {
-      alert("44ㅍㅍㅍㅍ44");
      var src = deviceName == 'Android' ? androidAppLink : iosAppLink;
      $('<iframe>').attr('src', src);
      failApp(isIOS);
