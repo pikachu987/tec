@@ -97,7 +97,7 @@ pod install
 
 <br><br><br>
 
-### 1. PKCUtil.podspec를 보겠다.
+### PKCUtil.podspec를 보겠다.
 
 ![Alt text](/tec/images/ios_cocoapods/8.png)
 
@@ -110,7 +110,7 @@ pod install
 
 <br><br>
 
-### 3. Pods/Development Pods/PKCUtil(podName)/PKCUtil(podName)/Classes 를 보겠다.
+### Pods/Development Pods/PKCUtil(podName)/PKCUtil(podName)/Classes 를 보겠다.
 
 ReplaceMe.swift라고 친절히 나를 바꾸세요 라는 클래스가 있다.
 
