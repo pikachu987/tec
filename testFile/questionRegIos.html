@@ -1,35 +1,27 @@
 
-
-
-
-
-
-
-
-
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>DOCTALK</title>
-    
-    <link rel="stylesheet" type="text/css" href="http://52.79.145.39/hugmom/assets/dfs/css/common.css">
-    
 
-    
+    <link rel="stylesheet" type="text/css" href="http://52.79.145.39/hugmom/assets/dfs/css/common.css">
+
+
+
    <script type="text/javascript" src="http://52.79.145.39/hugmom/assets/third-party/jquery/jquery-1.12.2.min.js"></script>
 	<script type="text/javascript" src="http://52.79.145.39/hugmom/assets/dfs/js/common.js" charset="euc-kr"></script>
 	<script type="text/javascript" src="http://52.79.145.39/hugmom/assets/dfs/js/dfs.js"></script>
 	<script type="text/javascript" src="http://52.79.145.39/hugmom/assets/dfs/js/dt_lib.js?v=1612231701b"></script>
 	<script type="text/javascript" src="http://52.79.145.39/hugmom/assets/dfs/js/dt_layout.js?v=1612281756b"></script>
-	
+
 	<script type="text/javascript">
 		function showErrorPage(){$('#container').html('페이지를 찾을 수 없습니다');}
-		
+
 		if('DTLayout' in window){
 			DTLayout.contextPath='/hugmom';
-			
+
 			DTLayout.params=(function(){
 				var paramMap={};
 				var params=location.search.replace(/\?/ig,'').split('&');
@@ -46,20 +38,20 @@
 				return paramMap;
 			})();
 		}
-		
+
 		if('DynamicImage' in window){
 			DynamicImage.imgDNS='/hugmom';//'http://52.79.145.39/hugmom/hugmom';
 		}
-		
+
 		if(!window.FileReader||!window.FormData||!window.Image){
 			alert('최신 브라우저를 설치해주세요. 해당 브라우저로는 정상적인 이용이 불가능합니다.');
 		}
 
 	</script>
-	
+
 <script type="text/javascript">
 $(document).ready(function(){
-	
+
 
 });
 
@@ -68,102 +60,78 @@ $(window).load(function(){
 		placeholder:'',
 		h:$('#textarea_answer').height()-40
 	});
-	
-}); 
+
+});
 var category = "";
 $(function(){
 
 	$('.btnCategory').click(function(){
 		$('.subCategory').show();
 	});
-	
-	$('#qustionImage').click(function(){
-		webkit.messageHandlers.callbackHandler.postMessage('upload');
-	});
-	
+
+	// $('#qustionImage').click(function(){
+	// 	webkit.messageHandlers.callbackHandler.postMessage('upload');
+	// });
+
 	/*답변 이미지 업로드*/
-// 	$('#qustionImage').on('change',function(){
-		
-// 		//console.log(1);
-// 		var _this = this;
-// 		if(!$(this).val()){
-// 			alert('파일을 선택해주세요.');
-// 			return;
-// 		}
-// 		if(!FileExpVerifier.isValid("image", $(this).val())){
-// 			return;
-// 		}
-		
-// 		var data = new FormData();
-// 		data.append('image',this.files[0]);
-		
-// 		DoctalkTool.ajaxFile({
-// 			url: '/consult/uploadquestionImage.sub',
-// 			lock:function(){
-// 				alert('이미지를 올리는 중입니다.');
-// 			},
-// 			data:data,
-// 			success:function(header,body,userData,response,status,xhr){
-				
-// 				insertImage(body.uploadImageList[0].filePath,body.uploadImageList[0].originName);
-				
-// 				$(_this).val('');
-				
-// 			},
-// 			fail:function(){
-// 				alert('파일 업로드를 실패하였습니다.');
-// 			},
-// 			error:function(xhr,status,error){
-// 				alert('파일 업로드를 실패하였습니다.\n'+status+"\n"+error);
-// 				return false;
-// 			},
-// 			complete:function(){
-// 				//btn.button('reset');
-				
-// 			}
-// 		});
-// 	});
-	
+	$('#qustionImage').on('change',function(){
+
+		//console.log(1);
+		var _this = this;
+		if(!$(this).val()){
+			alert('파일을 선택해주세요.');
+			return;
+		}
+		if(!FileExpVerifier.isValid("image", $(this).val())){
+			return;
+		}
+
+		var data = new FormData();
+		data.append('image',this.files[0]);
+		alert(data);
+
+	});
+
 
 });
 
 function getImagePath(path){
-    
+
     insertImage(path);
 }
 
 function categorySelect(name, code) {
 	$('.btnCategory').children().text(name);
 	$('.subCategory').hide();
-	
+
 	category = code;
 }
 
 function getAnswerWindow(){
-	
+
 	return document.getElementById('textarea_answer').contentWindow;
 }
 
 
 
 function regQuestion(){
-	
+
 	if(getAnswerWindow().isEmpty()){
 		alert('글을 작성해주세요.')
 		return;
 	}
-	
+
 	if($('.btnCategory').children().text() == '문의 카테고리 선택'){
 		alert('카테고리를 선택 하세요.')
 		return;
 	}
-	
+
 	DTAlert.confirm({
 		title:'문의 등록하기',
 		contents:'현재까지 작성된 문의를 등록하시겠습니까? 등록 후에는 수정이 불가능합니다.',
 		ok_name:'등록',
 		ok:function(){
-			
+
 			DoctalkTool.ajax({
 				url: '/hugmom/customerCenter/writeQuestion2.sub',
 				data:{
@@ -173,23 +141,23 @@ function regQuestion(){
 					authKey:DTLayout.params.authKey
 				},
 				success:function(header,body,userData,response,status,xhr){
-					
+
 					//answerPage.update(parseInt(_body.pageMap.pageNumber), parseInt(_body.pageMap.pageCount));
-					
+
 					DTApi.doctalk(body.api,{
 						success: function(_header,_body,_response){
-							
+
 							//$('#requestOnesDrBox h4 .num').html(_body.pageMap.totalCount);
 						}
 					});
-					
+
 					alert('등록되었습니다.');
-					
+
 // 					$("#blackWrap").hide();
 // 					location.reload();
 // 					question();
 					location.href = DTLayout.contextPath+'/notice.jsp?authKey='+DTLayout.params.authKey+"&check=question";
-					
+
 				},
 				error:function(xhr,status,error){
 					alert(status+"\n"+error);
@@ -197,7 +165,7 @@ function regQuestion(){
 				},
 				complete:function(){
 					//btn.button('reset');
-					
+
 				}
 			});
 		}
@@ -205,49 +173,49 @@ function regQuestion(){
 }
 
 function regclose() {
-	
+
 // 	alert(DTLayout.params.authKey);
-	var result = confirm('문의하기 작성을 취소 하시겠습니까?'); 
-	if(result) { //yes location.replace('index.php'); 
+	var result = confirm('문의하기 작성을 취소 하시겠습니까?');
+	if(result) { //yes location.replace('index.php');
 // 	alert(DTLayout.contextPath+'/notice.jsp?authKey='+DTLayout.params.authKey+"&check=question");
 		location.href = DTLayout.contextPath+'/notice.jsp?authKey='+DTLayout.params.authKey+"&check=question";
-	} else { 
-		
+	} else {
+
 	}
-	
+
 }
 
 function toggleAnswerEditorSize(){
-	
+
 //	var ta=$('[data-df-selector="popup_answer"] .reBody textarea');
 	var ta=$('#textarea_answer');
 	console.log(ta.height());
 	if(ta.height()>400){
-		
+
 		ta.height(112);
 		getAnswerWindow().height(112);
-		
+
 		var btn=$('[data-df-selector="btn_answer_size"]');
 		btn.attr('src',btn.attr('src').replace('icon_arrow001','icon_arrow002'));
 	}
 	else{
-		
+
 		ta.height(435);
 		getAnswerWindow().height(435);
-		
+
 		var btn=$('[data-df-selector="btn_answer_size"]');
 		btn.attr('src',btn.attr('src').replace('icon_arrow002','icon_arrow001'));
 	}
 }
 
 function getAnswerWindow(){
-	
+
 	return document.getElementById('textarea_answer').contentWindow;
 }
 
 function insertImage(url,name){
-	
-	getAnswerWindow().insertImage(url,name);   
+
+	getAnswerWindow().insertImage(url,name);
 }
 </script>
 
@@ -257,19 +225,12 @@ function insertImage(url,name){
 
 <!-- contants_area start-->
 <div id="container"  >
-<div id="contents"> 
-	
-<!--     <div class="bodyBox" id="noticeBox" style="margin:0 0 0 0;"> -->
+<div id="contents">
 
-        <!-- popup start ------------------------------------------------------------------------------------------>
-<!-- 		<div id="blackWrap"> -->
-<!-- 		    <div id="popup01" style="width:700px; margin:-422px 0 0 -350px;"> -->
-<!-- 		        <p class="btn_close"><a href="#">&nbsp;</a></p> -->
 		        <div class="pop_cont" style="height: 100%; padding: 10px 10px 10px 10px ">
 
-		            
+
 		            <div class="pTitle">
-<!-- 		            	<p class="title">문의하기</p> -->
 		                <p class="btnCategory" style="padding-right: 5px;"><a href="#">문의 카테고리 선택</a></p>
 		                <div class="subCategory" style="display: none;">
 		                	<ul>
@@ -282,13 +243,13 @@ function insertImage(url,name){
 		            </div>
 		            <br>
 		            <div class="textarea10" style=""><iframe id="textarea_answer" src="http://52.79.145.39/hugmom/assets/dfs/contents/summernote.jsp" style="border:none; width:100%; height:350px; /*height:112px;*/" placeholder="답변 등록 후에는 수정이 불가하며, 추가 답변만 가능합니다."></iframe></div>
-		
-		           
 
-		           
+
+
+
 		            <div class="btnArea02 mt20">
-		
-		                
+
+
 		            	<input type="file" id="qustionImage" style="display: none;">
 		            	<p class="btnIme"><a href="javascript:void(0);"><label for="qustionImage" style="cursor: pointer; "><img src="http://52.79.145.39/hugmom/assets/dfs/images/template/ico_add_img.png" alt="" style="padding-left: 11px;"/></label></a></p>
 		                <p class="tr" style="    padding-right: 4px;">
@@ -296,17 +257,17 @@ function insertImage(url,name){
 		                	<a href="javascript:regQuestion();" class="btn_blue02" style="width: 100px;">저장</a>
 		                </p>
 		            </div>
-		            
-		           
-		            
+
+
+
 		        </div>
 <!-- 		    </div> -->
 <!-- 		</div> -->
 		<!-- //popup end ------------------------------------------------------------------------------------------>
-        
+
 <!--     </div> -->
 
-    
+
 </div>
 <!-- contants_area start-->
 
