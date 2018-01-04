@@ -1,0 +1,58 @@
+{
+  "header" : {
+    "errMsg" : null,
+    "svcKey" : null,
+    "rescode" : "0000",
+    "url" : "\/chat\/makeChatInfo",
+    "version" : null,
+    "callStatus" : "0000"
+  },
+  "body" : {
+    "dataList" : [
+      {
+        "uid" : "me",
+        "msg_type" : "text",
+        "reg_date" : "1515044208000",
+        "send_cnt" : "2",
+        "op3" : "DOCTOR",
+        "seq" : "5271",
+        "op1" : "",
+        "readcnt" : "0",
+        "message_id" : "379",
+        "receive_cnt" : "2",
+        "msg" : "너나",
+        "op2" : ""
+      },
+      {
+        "uid" : "me",
+        "msg_type" : "text",
+        "reg_date" : "1515044206000",
+        "send_cnt" : "2",
+        "op3" : "DOCTOR",
+        "seq" : "5270",
+        "op1" : "",
+        "readcnt" : "0",
+        "message_id" : "379",
+        "receive_cnt" : "2",
+        "msg" : "머넝",
+        "op2" : ""
+      },
+      {
+        "receive_cnt" : "2",
+        "uid" : "uid_24b9452d910ded278c91b1879f16e0a42694",
+        "message_id" : "379",
+        "msg_type" : "text",
+        "msg" : "ㅁㄴㅇㅁㄴㅇ",
+        "reg_date" : "1515044169000",
+        "send_cnt" : "2",
+        "readcnt" : "0",
+        "seq" : "5269"
+      }
+    ],
+    "dataMap" : {
+      "report_yn" : "N",
+      "userCount" : "2",
+      "message_id" : "379"
+    }
+  }
+}
