@@ -1,0 +1,39 @@
+<body>
+
+
+<script>
+
+var currentUrlPath = window.location.href;
+var currentUrl = new URL(currentUrlPath);
+var pageParams = currentUrl.searchParams.get("page");
+var page = parseInt(pageParams);
+if (isNaN(page)){
+ page = 0;
+}
+
+var homepageUrlPath = "https://raw.githubusercontent.com/pikachu987/twemoji/gh-pages/emoji/72/img_";
+var homepageUrl = "https://pikachu987.github.io/tec/testFile/emoji.html?page=";
+
+var pagePerRow = 100;
+var startRow = page*pagePerRow;
+var endRow = (page*pagePerRow)+pagePerRow;
+
+var array = [];
+for(var i=startRow;i<endRow;i++){
+  if (i <= 2841) {
+   array.push({"urlPath": homepageUrlPath+i+".png"});
+  }
+}
+
+var obj = {"array": array};
+if(page+1 <= 28){
+ obj["nextUrl"] = homepageUrl+(page+1);
+}else {
+ obj["nextUrl"] = "";
+}
+
+var jsonString = JSON.stringify(obj);
+document.write(jsonString);
+</script>
+
+</body>
