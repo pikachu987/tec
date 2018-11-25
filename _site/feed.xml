@@ -3,8 +3,263 @@
   <channel>
     <title>Technology</title>
     <description>pikachu987 Technology</description>
-    <link>//</link>
-    <atom:link href="//feed.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>cocoapods lib create</title>
+        <description>&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;1-cocoapods-남들이-만들어주신걸-써보기&quot;&gt;1. cocoapods 남들이 만들어주신걸 써보기&lt;/h4&gt;
+
+&lt;h4 id=&quot;2-내가-라이브러리를-만들어서-cocoapods에-올려보자&quot;&gt;2. 내가 라이브러리를 만들어서 cocoapods에 올려보자!&lt;/h4&gt;
+
+&lt;h4 id=&quot;3-cocoapods-올린걸-업데이트-하기&quot;&gt;3. cocoapods 올린걸 업데이트 하기&lt;/h4&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://cocoapods.org/&quot;&gt;https://cocoapods.org/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;1-cocoapods-남들이-만들어주신걸-써보기-1&quot;&gt;1. cocoapods 남들이 만들어주신걸 써보기&lt;/h2&gt;
+
+&lt;p&gt;남들이 만들어주신걸 쓰기에는 엄청 편하다.
+프로젝트를 생성해서 터미널로 해당 프로젝트가 있는 폴더에&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pod init
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이라고 하면 Podfile이라는 파일이 만들어진다.
+해당 파일을 열어보면&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/1.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이런식의 구조가 만들어져 있을 것이다.
+그럼 use_frameworks! 밑에줄에 스페이스바두번 이후에 pod ‘podName’ 이런식으로 적으면 된다.&lt;/p&gt;
+
+&lt;h4 id=&quot;예제&quot;&gt;예제!&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/2.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이후에 저장하고 터미널로&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pod install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이라고 하면 터미널에서 엄청 많은것들이 다운받아지고 폴더 구조가 바뀐다.
+그리고 .xcworkspace 을 실행시키면 라이브러리들이 다운받아져 있는걸 볼수 있다!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/3.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-내가-라이브러리를-만들어서-cocoapods에-올려보자-1&quot;&gt;2. 내가 라이브러리를 만들어서 cocoapods에 올려보자!&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://guides.cocoapods.org/making/making-a-cocoapod.html&quot;&gt;https://guides.cocoapods.org/making/making-a-cocoapod.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;터미널을 연다. 그리고 라이브러리 폴더를 내가 보기편한곳에 나두려면 터미널에서 해당 장소로간다.(나는 Desktop)
+그리고 pod lib create [라이브러리네임] 을 친다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/4.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;그럼 이런 창이 나오게 된다.&lt;/p&gt;
+
+&lt;p&gt;그리고 언어를 물어보는데 나는 Swift라고 하겠다.
+다음은 데모 앱을 만들겠냐고 하는건데 Yes를 입력하겠다.
+그다음은 None, No&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/5.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이후에 이렇게 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/6.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/7.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;pkcutilpodspec를-보겠다&quot;&gt;PKCUtil.podspec를 보겠다.&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/8.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;일단 #은 주석임&lt;/p&gt;
+
+&lt;p&gt;고칠꺼는 s.summary 과 s.description 깃허브 아이디들&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/9.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;podsdevelopment-podspkcutilpodnamepkcutilpodnameclasses-를-보겠다&quot;&gt;Pods/Development Pods/PKCUtil(podName)/PKCUtil(podName)/Classes 를 보겠다.&lt;/h3&gt;
+
+&lt;p&gt;ReplaceMe.swift라고 친절히 나를 바꾸세요 라는 클래스가 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;그리고 깃허브(https://github.com) 에서 리포지토리(repository)를 podName과 똑같이 하나 만들어 놓자!
+그리고 해당 깃을(나는 https://github.com/pikachu987/PKCUtil.git) clone하자.
+클론하는 방법은 터미널에서&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/pikachu987/PKCUtil.git
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;라고 하면 터미널 pwd 위치에 클론이 된다.
+clone한 폴더에 내가 만든 cocoapods 폴더 전체(command+A)를 넣자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/14.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;이제-터미널&quot;&gt;이제 터미널!&lt;/h2&gt;
+
+&lt;p&gt;터미널에서 만든 폴더(나는 데스크탑에 PKCUtil를 만들었으니까 /Users/guanho/Desktop/PKCUtil)에 cd로 들어간다.
+그리고 터미널에서&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pod lib lint
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;를 써준다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/10.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;만약에 에러가 나면&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/11.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이런식으로 난다.&lt;/p&gt;
+
+&lt;p&gt;어떤 에러인지 찾아보자&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/12.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pod lib lint --allow-warnings PKCUtil.podspec
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;그대로 복사하지 말고 PKCUtil를 podName으로 바꿔주자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/13.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;그러면 어떤것들이 잘못됬는지 리스트로 보인다.  고친다음 다시 pod lib lint를 하자&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://guides.cocoapods.org/making/making-a-cocoapod.html&quot;&gt;cocoapods&lt;/a&gt; 에서는 이런식으로 설명이 되어있다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git add -A &amp;amp;&amp;amp; git commit -m &quot;커밋 메시지를 쓰세요~~~~&quot;
+git tag '0.1.0'
+git push --tags
+git push origin master
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;git tag에는 PKCUtil.podspec파일의 s.version 과 같은 버전을 쓰면된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/15.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/16.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/17.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;이제-cocoapods-올려야함&quot;&gt;이제 cocoapods 올려야함&lt;/h3&gt;
+
+&lt;p&gt;터미널에서&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pod trunk push PKCUtil.podspec
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/18.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;하지만 &lt;a href=&quot;https://guides.cocoapods.org/making/making-a-cocoapod.html&quot;&gt;cocoapods&lt;/a&gt; 여기에 바로 나오는건 아니고 좀 시간을 기다려야 나오게 된다.
+하지만 프로젝트를 만든 후에
+Profile 파일에&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pod &quot;PKCUtil&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;을 쓰게 되면 바로 설치가 된다&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://guides.cocoapods.org/making/making-a-cocoapod.html&quot;&gt;cocoapods&lt;/a&gt; 에 정상적으로 올라와 있는 스크린샷이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/22.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3-cocoapods-올린걸-업데이트-하기-1&quot;&gt;3. cocoapods 올린걸 업데이트 하기&lt;/h2&gt;
+
+&lt;p&gt;그리고 업데이트를 하려면 수정할 클래스파일 등등을 수정 후&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/21.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;podName.podspec 에 s.version 버전을 바꾼 후&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/19.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/tec/images/ios_cocoapods/20.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;여기 여기로 해서 버전을 같게 바꾸자.&lt;/p&gt;
+
+&lt;p&gt;그리고&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pod lib lint
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;를 해서 에러검사를 하고&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git add -A &amp;amp;&amp;amp; git commit -m &quot;커밋 메시지를 쓰세요~~~~&quot;
+git tag '바꾼 버전'
+git push --tags
+git push origin master
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;git tag에 버전을 같게 올린다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pod trunk push PKCUtil.podspec
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;그리고 cocoapods에 푸시&lt;/p&gt;
+
+&lt;p&gt;하면 끝난다.
+버전 업데이트 또한 푸시하자마자 cocoapods에서 바로 버전바뀐게 보이지 않고 시간이 지나야 보이게 된다.
+하지만 Profile에&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pod 'podName'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;을 적고&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pod install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;을 하면 바로 수정이 된다.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 11 Jan 2017 19:00:00 +0900</pubDate>
+        <link>http://localhost:4000/ios/2017/01/11/cocoapodsCreate/</link>
+        <guid isPermaLink="true">http://localhost:4000/ios/2017/01/11/cocoapodsCreate/</guid>
+      </item>
     
       <item>
         <title>javaScript closer</title>
@@ -17,41 +272,38 @@
 
 &lt;p&gt;일단 우리가 기본적으로 쓰는 function 에 대해서 만들어보자&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function add(x, y){
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function add(x, y){
  return x+y;
 }
 
 add(3, 4); //7
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;이렇게 쓴다.&lt;/p&gt;
 
 &lt;p&gt;그러면 콜백함수에 대해서 알아보자.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function callbackTest(callback){
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function callbackTest(callback){
  if(callback != undefined){
    callback();
  }
 }
 
 callbackTest(function(){
-  console.log(&#39;callback success!&#39;);
+  console.log('callback success!');
 });
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;많이 사용하는 문법이다. 예를 들어 jQuery의 click같은..&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$(&#39;#btn_01&#39;).click(function(){
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$('#btn_01').click(function(){
   //click
 });
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;그리고 함수를 리턴하는 방식도 있다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 function returnFunc(a){
  return function(b){
    alert(a+b);
@@ -62,13 +314,12 @@ returnFunc(3)(4); //7
 var rf = returnFunc(3);
 rf(5); //8
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;그럼 이제 클로저로 들어가 보겠다.
 클로저는 함수 내부에 지역변수가 있고 지역변수가 값을 기억하고 있는 것이다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function outerFunc(){
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function outerFunc(){
     var a= 0;
     return {
         innerFunc1 : function(){
@@ -94,10 +345,9 @@ a = 3
 a = 5
 a = 6
 */
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 function outerFunc(){
     var a= 0;
     return {
@@ -125,8 +375,7 @@ a = 1
 a = 3
 */
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.nextree.co.kr/p7363/&quot;&gt;예제 참고&lt;/a&gt;&lt;/p&gt;
 
@@ -135,8 +384,8 @@ a = 3
 이런 것을 클로저라고 부른다. 그리고 지금은 새벽 2시 30분이다. 너무 피곤하다.&lt;/p&gt;
 </description>
         <pubDate>Fri, 23 Sep 2016 21:20:00 +0900</pubDate>
-        <link>//javascript/2016/09/23/javascript_closer/</link>
-        <guid isPermaLink="true">//javascript/2016/09/23/javascript_closer/</guid>
+        <link>http://localhost:4000/javascript/2016/09/23/javascript_closer/</link>
+        <guid isPermaLink="true">http://localhost:4000/javascript/2016/09/23/javascript_closer/</guid>
       </item>
     
       <item>
@@ -151,12 +400,11 @@ a = 3
 
 &lt;p&gt;라고 설명되어 있는데 간단히 설명하자면 객체의 모태가되는 형태(Arrays, String, Number …)를 프로토타입이라고 한다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;script&amp;gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;script&amp;gt;
   var text = new String();
   console.log(text);
 &amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;간단하게 이러한 코드를 작성하고 크롬 console로 열어보면&lt;/p&gt;
 
@@ -168,11 +416,11 @@ a = 3
 프로토타입이 객체를 만들어내기 위한 원형이면 Prototype Object 는 자신을 원형으로 만들어질 다른 객체가 참조할 프로토타입이 된다.
 위에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;__proto__&lt;/code&gt; 라는 prototype 에 대한 link는 상위에서 물려받은 객체의 프로토타입에 대한 정보이다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 &amp;lt;script&amp;gt;
 var A = function () { };
 A.prototype.x = function () {
-    console.log(&#39;prototype&#39;);
+    console.log('prototype');
 };
 
 A.x();
@@ -183,26 +431,23 @@ B.x();
 //prototype
 &amp;lt;/script&amp;gt;
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;A는 아직 객체로 만들어지지 않은 원형인 상태이고 B는 A를 물려받은 객체이다. 그래서 저런 결과가 나오게 된다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 B.prototype.y = function(){
-  console.log(&#39;prototype2&#39;);
+  console.log('prototype2');
 }
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;만약 위의 코드에 이코드를 추가하면 어떻게 될까?
 정답은 Uncaught TypeError: Cannot set property ‘y’ of undefined 이런 에러가 나게 된다.
 아까 말했듯이 객체 원형에 대해 숨겨진 연결이라고 했는데 이미 B는 객체 원형이 아니라 prototype를 쓸 수 없게 된다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;console.log(B);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;console.log(B);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;B를 console.log로 찍어 보면&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/tec/images/script_prototype/2.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
@@ -213,32 +458,30 @@ B.prototype.y = function(){
 
 &lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;section&quot;&gt;그렇다면 이걸 어떻게 활용을 할까???&lt;/h3&gt;
+&lt;h3 id=&quot;그렇다면-이걸-어떻게-활용을-할까&quot;&gt;그렇다면 이걸 어떻게 활용을 할까???&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;String.prototype.width = function(font) {
-	var f = font || &#39;10px arial&#39;, o = $(&#39;&amp;lt;div&amp;gt;&#39;+this+&#39;&amp;lt;/div&amp;gt;&#39;).css({&#39;position&#39;: &#39;absolute&#39;, &#39;float&#39;: &#39;left&#39;, &#39;white-space&#39;: &#39;nowrap&#39;, &#39;visibility&#39;: &#39;hidden&#39;, &#39;font&#39;: f}).appendTo($(&#39;body&#39;)),w = o.width();
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;String.prototype.width = function(font) {
+	var f = font || '10px arial', o = $('&amp;lt;div&amp;gt;'+this+'&amp;lt;/div&amp;gt;').css({'position': 'absolute', 'float': 'left', 'white-space': 'nowrap', 'visibility': 'hidden', 'font': f}).appendTo($('body')),w = o.width();
 	o.remove();
 	return w;
 };
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;해당 String에 대해 font를 적용한 실제 길이를 리턴하게 된다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 &amp;lt;div&amp;gt;Hello&amp;lt;/div&amp;gt;
-$(&#39;#&#39;)
-var str = &#39;Hello&#39;;
+$('#')
+var str = 'Hello';
 console.log(str.width());
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;이 width를 활용하는 간단한 예제를 보겠다.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/tec/images/script_prototype/3.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 &amp;lt;style&amp;gt;
   .widthTest&amp;gt;div{
     display: inline-block; float: left; width: 240px; background-color: #efefef;
@@ -253,19 +496,19 @@ console.log(str.width());
 &amp;lt;/div&amp;gt;
 &amp;lt;script&amp;gt;
 String.prototype.width = function(font) {
-  var f = font || &#39;10px arial&#39;, o = $(&#39;&amp;lt;div&amp;gt;&#39;+this+&#39;&amp;lt;/div&amp;gt;&#39;).css({&#39;position&#39;: &#39;absolute&#39;, &#39;float&#39;: &#39;left&#39;, &#39;white-space&#39;: &#39;nowrap&#39;, &#39;visibility&#39;: &#39;hidden&#39;, &#39;font&#39;: f}).appendTo($(&#39;body&#39;)),w = o.width();
+  var f = font || '10px arial', o = $('&amp;lt;div&amp;gt;'+this+'&amp;lt;/div&amp;gt;').css({'position': 'absolute', 'float': 'left', 'white-space': 'nowrap', 'visibility': 'hidden', 'font': f}).appendTo($('body')),w = o.width();
   o.remove();
   return w;
 };
 
 
 
-$(&#39;.widthTest&amp;gt;div&#39;).each(function(){
+$('.widthTest&amp;gt;div').each(function(){
 
 
   var $this = $(this);
-  if($this.width() &amp;lt; $this.text().width($this.css(&#39;font&#39;))){
-    $this.css(&#39;line-height&#39;, Number($this.css(&#39;line-height&#39;).replace(&#39;px&#39;,&#39;&#39;))/2+&#39;px&#39;);
+  if($this.width() &amp;lt; $this.text().width($this.css('font'))){
+    $this.css('line-height', Number($this.css('line-height').replace('px',''))/2+'px');
 
 
 
@@ -278,9 +521,9 @@ $(&#39;.widthTest&amp;gt;div&#39;).each(function(){
 
 
 
-    // var lineHeight = $this.css(&#39;line-height&#39;);
-    // var lineHeightReplace = lineHeight.replace(&#39;px&#39;,&#39;&#39;);
-    // $this.css(&#39;line-height&#39;, Number(lineHeightReplace/2)+&#39;px&#39;);
+    // var lineHeight = $this.css('line-height');
+    // var lineHeightReplace = lineHeight.replace('px','');
+    // $this.css('line-height', Number(lineHeightReplace/2)+'px');
   }
 
 
@@ -292,14 +535,13 @@ $(&#39;.widthTest&amp;gt;div&#39;).each(function(){
 
 &amp;lt;/script&amp;gt;
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;/tec/images/script_prototype/4.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;이것 말고도&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Array.prototype.remove = function(idx){
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Array.prototype.remove = function(idx){
 	var temp = [];
 	var i = this.length;
 	while(i &amp;gt; idx){
@@ -312,24 +554,23 @@ $(&#39;.widthTest&amp;gt;div&#39;).each(function(){
 	}
 };
 String.prototype.replaceAll = function(find,replace){
-	if(this === null || this === &#39;&#39;) return &#39;&#39;;
-	return this.replace( new RegExp( find, &#39;g&#39; ), replace );
+	if(this === null || this === '') return '';
+	return this.replace( new RegExp( find, 'g' ), replace );
 };
 String.prototype.setPriceComma = function() {
 	var n = this;
-	n += &#39;&#39;;
+	n += '';
 	var reg = /(^[+-]?\d+)(\d{3})/;
-	while (reg.test(n)){n = n.replace(reg, &#39;$1&#39; + &#39;,&#39; + &#39;$2&#39;);}
+	while (reg.test(n)){n = n.replace(reg, '$1' + ',' + '$2');}
 	return n;
 };
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;여러가지가 있고 여러가지를 만들수 있다.&lt;/p&gt;
 </description>
         <pubDate>Fri, 23 Sep 2016 21:10:00 +0900</pubDate>
-        <link>//javascript/2016/09/23/javascript_prototype/</link>
-        <guid isPermaLink="true">//javascript/2016/09/23/javascript_prototype/</guid>
+        <link>http://localhost:4000/javascript/2016/09/23/javascript_prototype/</link>
+        <guid isPermaLink="true">http://localhost:4000/javascript/2016/09/23/javascript_prototype/</guid>
       </item>
     
       <item>
@@ -394,9 +635,9 @@ String.prototype.setPriceComma = function() {
 
 &lt;p&gt;브릿지헤더에서 이런식으로 적어준다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 //
-//  Use this file to import your target&#39;s public headers that you would like to expose to Swift.
+//  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
 #ifndef AdobeCreative_Bridging_Header_h
@@ -408,8 +649,7 @@ String.prototype.setPriceComma = function() {
 #endif /* AdobeCreative_Bridging_Header_h */
 
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/13.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
 
@@ -423,12 +663,11 @@ String.prototype.setPriceComma = function() {
 
 &lt;p&gt;AppDelegate.swift에 이런식으로 ID와 SECRET를 한줄 추가한다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 //adobe
         AdobeUXAuthManager.sharedManager().setAuthenticationParametersWithClientID(&quot;ea2bb582861f48d8970f0155a54fee22&quot;, withClientSecret: &quot;0ce233b2-3f4a-4851-8307-934930cbcc1e&quot;)
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://pikachu987.github.io/tec/images/swift_adobeEditor/16.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
 
@@ -436,11 +675,10 @@ String.prototype.setPriceComma = function() {
 
 &lt;p&gt;UIViewController에&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 UIImagePickerControllerDelegate, UINavigationControllerDelegate, AdobeUXImageEditorViewControllerDelegate
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;를 추가하자.&lt;/p&gt;
 
@@ -473,7 +711,7 @@ AdobeUXImageEditorViewControllerDelegate는 AdobeImageEditor하는데 필요한 
 
 &lt;p&gt;UIViewController 소스이다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 //
 //  ViewController.swift
 //  AdobeImageEditor
@@ -625,8 +863,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
 
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;미리보기 이미지!&lt;/p&gt;
 
@@ -661,8 +898,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 &lt;p&gt;엄청 쉽게 고급기능을 쓸 수 있게 해주는 Adobe이다. 너무 좋은듯하다.&lt;/p&gt;
 </description>
         <pubDate>Mon, 12 Sep 2016 17:30:00 +0900</pubDate>
-        <link>//swift/2016/09/12/swiftAdobeImageEditro/</link>
-        <guid isPermaLink="true">//swift/2016/09/12/swiftAdobeImageEditro/</guid>
+        <link>http://localhost:4000/swift/2016/09/12/swiftAdobeImageEditro/</link>
+        <guid isPermaLink="true">http://localhost:4000/swift/2016/09/12/swiftAdobeImageEditro/</guid>
       </item>
     
       <item>
@@ -710,7 +947,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 &lt;p&gt;info.plist 를 마우스 우 클릭해서 Open As &amp;gt; Source Code를 누른다.
 그리고 기존 페이스북설정에 카카오톡 설정을 추가한다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 &amp;lt;key&amp;gt;CFBundleURLTypes&amp;lt;/key&amp;gt;
     &amp;lt;array&amp;gt;
         &amp;lt;dict&amp;gt;
@@ -748,8 +985,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         &amp;lt;string&amp;gt;kakaostory-2.9.0&amp;lt;/string&amp;gt;
     &amp;lt;/array&amp;gt;
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;/tec/images/swift_kakaoLogin/09.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
 
@@ -770,7 +1006,7 @@ Objective-C 코드를 Swift에서 import만 하면 쓸 수 있게 만들어주�
 
 &lt;p&gt;&lt;img src=&quot;/tec/images/swift_kakaoLogin/12.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;create-briding-header---&quot;&gt;이때 제일 중요한게 꼭 Create Briding Header를 눌러야 브릿지헤더가 생성이된다!!!!&lt;/h4&gt;
+&lt;h4 id=&quot;이때-제일-중요한게-꼭-create-briding-header를-눌러야-브릿지헤더가-생성이된다&quot;&gt;이때 제일 중요한게 꼭 Create Briding Header를 눌러야 브릿지헤더가 생성이된다!!!!&lt;/h4&gt;
 
 &lt;p&gt;&lt;img src=&quot;/tec/images/swift_kakaoLogin/13.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
 
@@ -780,17 +1016,16 @@ Objective-C 코드를 Swift에서 import만 하면 쓸 수 있게 만들어주�
 
 &lt;p&gt;생성된 브릿지 헤더에 kakao SDK를 import 해준다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 #import &amp;lt;KakaoOpenSDK/KakaoOpenSDK.h&amp;gt;
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;/tec/images/swift_kakaoLogin/15.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;AppDelegate.swift 파일에 들어가서 Kakao관련 내용을 추가한다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&amp;gt; Bool {
         // Override point for customization after application launch.
 
@@ -817,14 +1052,13 @@ func application(application: UIApplication, didFinishLaunchingWithOptions launc
         return false
     }
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;/tec/images/swift_kakaoLogin/16.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;이제 아까 만들었던 카카오 버튼 이벤트에 내용을 추가하는 것이다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 let session: KOSession = KOSession.sharedSession();
         if session.isOpen() {
             session.close()
@@ -856,8 +1090,7 @@ let session: KOSession = KOSession.sharedSession();
             }
         })
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;물론 더 많은 것을 쓸 수 있겠지만 그것들은 자기가 연구해보길…. 카카오 개발자센터에서 쉽게 확인 할 수 있다.&lt;/p&gt;
 
@@ -865,15 +1098,14 @@ let session: KOSession = KOSession.sharedSession();
 
 &lt;p&gt;이미지등등을 외부에서 가져오려면 info.plist파일에 Security라는걸 추가해줘야 한다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 &amp;lt;key&amp;gt;NSAppTransportSecurity&amp;lt;/key&amp;gt;
     &amp;lt;dict&amp;gt;
         &amp;lt;key&amp;gt;NSAllowsArbitraryLoads&amp;lt;/key&amp;gt;
         &amp;lt;true/&amp;gt;
     &amp;lt;/dict&amp;gt;
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;/tec/images/swift_kakaoLogin/18.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
 
@@ -889,18 +1121,17 @@ let session: KOSession = KOSession.sharedSession();
 
 &lt;p&gt;그리고 페북, 카톡 로그인하기 할 때 아이디값(회원의 고유값) 은&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 페이스북 = user?.uid
 카카오톡 = String(kakao.ID)
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;을 쓰면 된다.&lt;/p&gt;
 </description>
         <pubDate>Sun, 11 Sep 2016 17:30:00 +0900</pubDate>
-        <link>//swift/2016/09/11/swiftKakaoLogin/</link>
-        <guid isPermaLink="true">//swift/2016/09/11/swiftKakaoLogin/</guid>
+        <link>http://localhost:4000/swift/2016/09/11/swiftKakaoLogin/</link>
+        <guid isPermaLink="true">http://localhost:4000/swift/2016/09/11/swiftKakaoLogin/</guid>
       </item>
     
       <item>
@@ -1004,15 +1235,14 @@ Facebook 앱 네임을 넣는데 FB나 Facebook 관련 글자는 써지지가 �
 
 &lt;p&gt;그리고 앱 Podfile에&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;use_frameworks!
-pod &#39;Firebase&#39;
-pod &#39;Firebase/Core&#39;
-pod &#39;Firebase/Auth&#39;
-pod &#39;FBSDKCoreKit&#39;
-pod &#39;FBSDKShareKit&#39;
-pod &#39;FBSDKLoginKit&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;use_frameworks!
+pod 'Firebase'
+pod 'Firebase/Core'
+pod 'Firebase/Auth'
+pod 'FBSDKCoreKit'
+pod 'FBSDKShareKit'
+pod 'FBSDKLoginKit'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;을 넣고 pod install 을 한다.&lt;/p&gt;
 
@@ -1022,7 +1252,7 @@ pod &#39;FBSDKLoginKit&#39;
 
 &lt;p&gt;그리고 앱을 실행 후 Info.plist파일 - 소스보기를 누른다. 아까 페이스북에서 봤던 코드 붙여넣기!!!&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;key&amp;gt;CFBundleURLTypes&amp;lt;/key&amp;gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;key&amp;gt;CFBundleURLTypes&amp;lt;/key&amp;gt;
     &amp;lt;array&amp;gt;
         &amp;lt;dict&amp;gt;
             &amp;lt;key&amp;gt;CFBundleURLSchemes&amp;lt;/key&amp;gt;
@@ -1042,14 +1272,13 @@ pod &#39;FBSDKLoginKit&#39;
         &amp;lt;string&amp;gt;fbauth2&amp;lt;/string&amp;gt;
         &amp;lt;string&amp;gt;fbshareextension&amp;lt;/string&amp;gt;
     &amp;lt;/array&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;/tec/images/swift_fbLogin/22.png&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;앱 딜리게이트로 가서 간단하게&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import UIKit
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import UIKit
 import Firebase
 import FirebaseAuth
 import FBSDKCoreKit
@@ -1072,8 +1301,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;이렇게 코드를 넣어주자!!!&lt;/p&gt;
 
@@ -1085,7 +1313,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 &lt;p&gt;UIViewController에서 button에 action을 받자. 그리고 코드를 넣어준다.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let login = FBSDKLoginManager()
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let login = FBSDKLoginManager()
         login.logInWithReadPermissions([&quot;public_profile&quot;], fromViewController: self, handler: { (result, error) in
             if error != nil{
                 print(&quot;Facebook login failed. Error \(error)&quot;)
@@ -1113,8 +1341,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         })
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;엄청 간단하다…&lt;/p&gt;
 
@@ -1129,8 +1356,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 &lt;p&gt;구글 로그인을 빼니까 카톡, 페북로그인이 다 잘됨(아직 왜인지 모른다…)&lt;/p&gt;
 </description>
         <pubDate>Thu, 08 Sep 2016 05:30:00 +0900</pubDate>
-        <link>//swift/2016/09/08/swiftFBLogin/</link>
-        <guid isPermaLink="true">//swift/2016/09/08/swiftFBLogin/</guid>
+        <link>http://localhost:4000/swift/2016/09/08/swiftFBLogin/</link>
+        <guid isPermaLink="true">http://localhost:4000/swift/2016/09/08/swiftFBLogin/</guid>
       </item>
     
       <item>
@@ -1140,7 +1367,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 &lt;p&gt;&lt;a href=&quot;/tec/testFile/1/test.html&quot; target=&quot;_blank&quot;&gt;test1&lt;/a&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;animation-delay: 애니메이션이 언제 시작할지 ex)2s(2초후 시작)
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;animation-delay: 애니메이션이 언제 시작할지 ex)2s(2초후 시작)
 
 animation-name: keyframes 이름
 
@@ -1195,8 +1422,7 @@ animation-play-state: 애니메이션을 멈추가나 다시 시작
   }
 }
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;a href=&quot;/tec/testFile/1/t_translate.html&quot; target=&quot;_blank&quot;&gt;translate&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;/tec/testFile/1/t_scale.html&quot; target=&quot;_blank&quot;&gt;scale&lt;/a&gt;&lt;br /&gt;
@@ -1204,7 +1430,7 @@ animation-play-state: 애니메이션을 멈추가나 다시 시작
 &lt;a href=&quot;/tec/testFile/1/t_skew.html&quot; target=&quot;_blank&quot;&gt;skew&lt;/a&gt;&lt;br /&gt;
 &lt;a href=&quot;/tec/testFile/1/t_matrix.html&quot; target=&quot;_blank&quot;&gt;matrix&lt;/a&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;2D transform 메소드
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;2D transform 메소드
 
 translate(x, y) : 가로, 세로 방향으로 이동
 - translateX(x)
@@ -1233,12 +1459,11 @@ c: scaleY
 b: scaleX
 
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Tue, 30 Aug 2016 05:30:00 +0900</pubDate>
-        <link>//css/2016/08/30/cssAnimation/</link>
-        <guid isPermaLink="true">//css/2016/08/30/cssAnimation/</guid>
+        <link>http://localhost:4000/css/2016/08/30/cssAnimation/</link>
+        <guid isPermaLink="true">http://localhost:4000/css/2016/08/30/cssAnimation/</guid>
       </item>
     
   </channel>

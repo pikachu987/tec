@@ -10,14 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="prototype에 대해 기초적인 문법을 배워보자!">
     <meta name="robots" content="all">
-    <meta name="author" content="guanho kim">
+    <meta name="author" content="gwanho kim">
     
     <meta name="keywords" content="javascript">
-    <link rel="canonical" href="//javascript/2016/09/23/javascript_prototype/">
+    <link rel="canonical" href="http://localhost:4000/javascript/2016/09/23/javascript_prototype/">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Technology" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?201701120212" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?201811251745" type="text/css">
 
     <!-- Fonts -->
     
@@ -39,7 +39,7 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="javaScript prototype">
     <meta property="og:description" content="pikachu987 Technology">
-    <meta property="og:url" content="//javascript/2016/09/23/javascript_prototype/">
+    <meta property="og:url" content="http://localhost:4000/javascript/2016/09/23/javascript_prototype/">
     <meta property="og:site_name" content="Technology">
 
     <!-- Twitter Card -->
@@ -47,7 +47,7 @@
     
     <meta name="twitter:title" content="javaScript prototype" />
     <meta name="twitter:description" content="prototype에 대해 기초적인 문법을 배워보자!" />
-    <meta name="twitter:url" content="//javascript/2016/09/23/javascript_prototype/" />
+    <meta name="twitter:url" content="http://localhost:4000/javascript/2016/09/23/javascript_prototype/" />
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
@@ -71,10 +71,18 @@
        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-       ga('create', 'UA-80258859-1', 'auto');
+       ga('create', 'UA-129769659-2', 'auto');
        ga('send', 'pageview');
     </script>
     
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-8234147734135901",
+        enable_page_level_ads: true
+      });
+    </script>
 </head>
 
 <body class="site">
@@ -85,13 +93,17 @@
     <header class="site-header px2 px-responsive">
   <div class="mt2 wrap">
     <div class="measure">
-      <a href="/" class="site-title">Technology</a>
+      <a href="http://localhost:4000" class="site-title">Technology</a>
       <nav class="site-nav">
         
     
 
     
         <a href="https://pikachu987.github.io/">Blog</a>
+    
+
+    
+
     
 
     
@@ -142,12 +154,11 @@
 
 <p>라고 설명되어 있는데 간단히 설명하자면 객체의 모태가되는 형태(Arrays, String, Number …)를 프로토타입이라고 한다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;script&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script&gt;
   var text = new String();
   console.log(text);
 &lt;/script&gt;
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>간단하게 이러한 코드를 작성하고 크롬 console로 열어보면</p>
 
@@ -159,7 +170,7 @@
 프로토타입이 객체를 만들어내기 위한 원형이면 Prototype Object 는 자신을 원형으로 만들어질 다른 객체가 참조할 프로토타입이 된다.
 위에서 <code class="highlighter-rouge">__proto__</code> 라는 prototype 에 대한 link는 상위에서 물려받은 객체의 프로토타입에 대한 정보이다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 &lt;script&gt;
 var A = function () { };
 A.prototype.x = function () {
@@ -174,26 +185,23 @@ B.x();
 //prototype
 &lt;/script&gt;
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>A는 아직 객체로 만들어지지 않은 원형인 상태이고 B는 A를 물려받은 객체이다. 그래서 저런 결과가 나오게 된다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 B.prototype.y = function(){
   console.log('prototype2');
 }
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>만약 위의 코드에 이코드를 추가하면 어떻게 될까?
 정답은 Uncaught TypeError: Cannot set property ‘y’ of undefined 이런 에러가 나게 된다.
 아까 말했듯이 객체 원형에 대해 숨겨진 연결이라고 했는데 이미 B는 객체 원형이 아니라 prototype를 쓸 수 없게 된다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>console.log(B);
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>console.log(B);
+</code></pre></div></div>
 <p>B를 console.log로 찍어 보면</p>
 
 <p><img src="/tec/images/script_prototype/2.png" alt="Alt text" /></p>
@@ -204,32 +212,30 @@ B.prototype.y = function(){
 
 <p><br /><br /><br /></p>
 
-<h3 id="section">그렇다면 이걸 어떻게 활용을 할까???</h3>
+<h3 id="그렇다면-이걸-어떻게-활용을-할까">그렇다면 이걸 어떻게 활용을 할까???</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>String.prototype.width = function(font) {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String.prototype.width = function(font) {
 	var f = font || '10px arial', o = $('&lt;div&gt;'+this+'&lt;/div&gt;').css({'position': 'absolute', 'float': 'left', 'white-space': 'nowrap', 'visibility': 'hidden', 'font': f}).appendTo($('body')),w = o.width();
 	o.remove();
 	return w;
 };
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>해당 String에 대해 font를 적용한 실제 길이를 리턴하게 된다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 &lt;div&gt;Hello&lt;/div&gt;
 $('#')
 var str = 'Hello';
 console.log(str.width());
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>이 width를 활용하는 간단한 예제를 보겠다.</p>
 
 <p><img src="/tec/images/script_prototype/3.png" alt="Alt text" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 &lt;style&gt;
   .widthTest&gt;div{
     display: inline-block; float: left; width: 240px; background-color: #efefef;
@@ -283,14 +289,13 @@ $('.widthTest&gt;div').each(function(){
 
 &lt;/script&gt;
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><img src="/tec/images/script_prototype/4.png" alt="Alt text" /></p>
 
 <p>이것 말고도</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Array.prototype.remove = function(idx){
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Array.prototype.remove = function(idx){
 	var temp = [];
 	var i = this.length;
 	while(i &gt; idx){
@@ -313,8 +318,7 @@ String.prototype.setPriceComma = function() {
 	while (reg.test(n)){n = n.replace(reg, '$1' + ',' + '$2');}
 	return n;
 };
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>여러가지가 있고 여러가지를 만들수 있다.</p>
 

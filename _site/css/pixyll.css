@@ -637,7 +637,7 @@ body {
 
 a {
   color: #0076df;
-  background-image: linear-gradient(to top, transparent 13%, rgba(0, 118, 223, 0.8) 13%, rgba(0, 118, 223, 0.8) 18%, transparent 17%);
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0) 13%, rgba(0, 118, 223, 0.8) 13%, rgba(0, 118, 223, 0.8) 18%, rgba(0, 0, 0, 0) 17%);
   text-shadow: white 1px 0px 0px, white -1px 0px 0px; }
 
 a:hover,
@@ -646,7 +646,7 @@ a:active {
   border: 0;
   color: #000a13;
   text-decoration: none;
-  background-image: linear-gradient(to top, transparent 13%, rgba(0, 10, 19, 0.8) 13%, rgba(0, 10, 19, 0.8) 17%, transparent 17%);
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0) 13%, rgba(0, 10, 19, 0.8) 13%, rgba(0, 10, 19, 0.8) 17%, rgba(0, 0, 0, 0) 17%);
   text-shadow: white 1px 0px 0px, white -1px 0px 0px; }
 
 button,

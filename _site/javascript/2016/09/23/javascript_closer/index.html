@@ -10,14 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="closer에 대해 기초적인 문법을 배워보자!">
     <meta name="robots" content="all">
-    <meta name="author" content="guanho kim">
+    <meta name="author" content="gwanho kim">
     
     <meta name="keywords" content="javascript">
-    <link rel="canonical" href="//javascript/2016/09/23/javascript_closer/">
+    <link rel="canonical" href="http://localhost:4000/javascript/2016/09/23/javascript_closer/">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Technology" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?201701120212" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?201811251745" type="text/css">
 
     <!-- Fonts -->
     
@@ -39,7 +39,7 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="javaScript closer">
     <meta property="og:description" content="pikachu987 Technology">
-    <meta property="og:url" content="//javascript/2016/09/23/javascript_closer/">
+    <meta property="og:url" content="http://localhost:4000/javascript/2016/09/23/javascript_closer/">
     <meta property="og:site_name" content="Technology">
 
     <!-- Twitter Card -->
@@ -47,7 +47,7 @@
     
     <meta name="twitter:title" content="javaScript closer" />
     <meta name="twitter:description" content="closer에 대해 기초적인 문법을 배워보자!" />
-    <meta name="twitter:url" content="//javascript/2016/09/23/javascript_closer/" />
+    <meta name="twitter:url" content="http://localhost:4000/javascript/2016/09/23/javascript_closer/" />
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
@@ -71,10 +71,18 @@
        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-       ga('create', 'UA-80258859-1', 'auto');
+       ga('create', 'UA-129769659-2', 'auto');
        ga('send', 'pageview');
     </script>
     
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-8234147734135901",
+        enable_page_level_ads: true
+      });
+    </script>
 </head>
 
 <body class="site">
@@ -85,13 +93,17 @@
     <header class="site-header px2 px-responsive">
   <div class="mt2 wrap">
     <div class="measure">
-      <a href="/" class="site-title">Technology</a>
+      <a href="http://localhost:4000" class="site-title">Technology</a>
       <nav class="site-nav">
         
     
 
     
         <a href="https://pikachu987.github.io/">Blog</a>
+    
+
+    
+
     
 
     
@@ -141,19 +153,18 @@
 
 <p>일단 우리가 기본적으로 쓰는 function 에 대해서 만들어보자</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>function add(x, y){
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function add(x, y){
  return x+y;
 }
 
 add(3, 4); //7
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>이렇게 쓴다.</p>
 
 <p>그러면 콜백함수에 대해서 알아보자.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>function callbackTest(callback){
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function callbackTest(callback){
  if(callback != undefined){
    callback();
  }
@@ -162,20 +173,18 @@ add(3, 4); //7
 callbackTest(function(){
   console.log('callback success!');
 });
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>많이 사용하는 문법이다. 예를 들어 jQuery의 click같은..</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$('#btn_01').click(function(){
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$('#btn_01').click(function(){
   //click
 });
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>그리고 함수를 리턴하는 방식도 있다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 function returnFunc(a){
  return function(b){
    alert(a+b);
@@ -186,13 +195,12 @@ returnFunc(3)(4); //7
 var rf = returnFunc(3);
 rf(5); //8
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>그럼 이제 클로저로 들어가 보겠다.
 클로저는 함수 내부에 지역변수가 있고 지역변수가 값을 기억하고 있는 것이다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>function outerFunc(){
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function outerFunc(){
     var a= 0;
     return {
         innerFunc1 : function(){
@@ -218,10 +226,9 @@ a = 3
 a = 5
 a = 6
 */
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 function outerFunc(){
     var a= 0;
     return {
@@ -249,8 +256,7 @@ a = 1
 a = 3
 */
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><a href="http://www.nextree.co.kr/p7363/">예제 참고</a></p>
 

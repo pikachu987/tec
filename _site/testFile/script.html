@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+  <button onclick="success()">성공</button><br />
+  <button onclick="fail1()">실패1</button><br />
+  <button onclick="fail2()">실패2</button><br />
+  <button onclick="fail3()">실패3</button>
+  <script type="text/javascript" charset="UTF-8">
+    function success(){
+      document.location = "EdubagApp://success("+encodeURI('김관호')+","+encodeURI('01047460000')+")";
+    }
+    function fail1(){
+      document.location = "EdubagApp://fail("+encodeURI('사용자 취소')+")";
+    }
+    function fail2(){
+      document.location = "EdubagApp://fail("+encodeURI('서버에러')+")";
+    }
+    function fail3(){
+      document.location = "EdubagApp://fail("+encodeURI('다른이유')+")";
+    }
+  </script>
+</body>
+</html>

@@ -10,14 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="앞에서 했던 FacebookLogin에서 Kakao Login 카카오톡 로그인 추가하기">
     <meta name="robots" content="all">
-    <meta name="author" content="guanho kim">
+    <meta name="author" content="gwanho kim">
     
     <meta name="keywords" content="swift">
-    <link rel="canonical" href="//swift/2016/09/11/swiftKakaoLogin/">
+    <link rel="canonical" href="http://localhost:4000/swift/2016/09/11/swiftKakaoLogin/">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Technology" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?201701120212" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?201811251745" type="text/css">
 
     <!-- Fonts -->
     
@@ -39,7 +39,7 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="Swift Kakao Login">
     <meta property="og:description" content="pikachu987 Technology">
-    <meta property="og:url" content="//swift/2016/09/11/swiftKakaoLogin/">
+    <meta property="og:url" content="http://localhost:4000/swift/2016/09/11/swiftKakaoLogin/">
     <meta property="og:site_name" content="Technology">
 
     <!-- Twitter Card -->
@@ -47,7 +47,7 @@
     
     <meta name="twitter:title" content="Swift Kakao Login" />
     <meta name="twitter:description" content="앞에서 했던 FacebookLogin에서 Kakao Login 카카오톡 로그인 추가하기" />
-    <meta name="twitter:url" content="//swift/2016/09/11/swiftKakaoLogin/" />
+    <meta name="twitter:url" content="http://localhost:4000/swift/2016/09/11/swiftKakaoLogin/" />
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
@@ -71,10 +71,18 @@
        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-       ga('create', 'UA-80258859-1', 'auto');
+       ga('create', 'UA-129769659-2', 'auto');
        ga('send', 'pageview');
     </script>
     
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-8234147734135901",
+        enable_page_level_ads: true
+      });
+    </script>
 </head>
 
 <body class="site">
@@ -85,13 +93,17 @@
     <header class="site-header px2 px-responsive">
   <div class="mt2 wrap">
     <div class="measure">
-      <a href="/" class="site-title">Technology</a>
+      <a href="http://localhost:4000" class="site-title">Technology</a>
       <nav class="site-nav">
         
     
 
     
         <a href="https://pikachu987.github.io/">Blog</a>
+    
+
+    
+
     
 
     
@@ -175,7 +187,7 @@
 <p>info.plist 를 마우스 우 클릭해서 Open As &gt; Source Code를 누른다.
 그리고 기존 페이스북설정에 카카오톡 설정을 추가한다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 &lt;key&gt;CFBundleURLTypes&lt;/key&gt;
     &lt;array&gt;
         &lt;dict&gt;
@@ -213,8 +225,7 @@
         &lt;string&gt;kakaostory-2.9.0&lt;/string&gt;
     &lt;/array&gt;
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><img src="/tec/images/swift_kakaoLogin/09.png" alt="Alt text" /></p>
 
@@ -235,7 +246,7 @@ Objective-C 코드를 Swift에서 import만 하면 쓸 수 있게 만들어주�
 
 <p><img src="/tec/images/swift_kakaoLogin/12.png" alt="Alt text" /></p>
 
-<h4 id="create-briding-header---">이때 제일 중요한게 꼭 Create Briding Header를 눌러야 브릿지헤더가 생성이된다!!!!</h4>
+<h4 id="이때-제일-중요한게-꼭-create-briding-header를-눌러야-브릿지헤더가-생성이된다">이때 제일 중요한게 꼭 Create Briding Header를 눌러야 브릿지헤더가 생성이된다!!!!</h4>
 
 <p><img src="/tec/images/swift_kakaoLogin/13.png" alt="Alt text" /></p>
 
@@ -245,17 +256,16 @@ Objective-C 코드를 Swift에서 import만 하면 쓸 수 있게 만들어주�
 
 <p>생성된 브릿지 헤더에 kakao SDK를 import 해준다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 #import &lt;KakaoOpenSDK/KakaoOpenSDK.h&gt;
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><img src="/tec/images/swift_kakaoLogin/15.png" alt="Alt text" /></p>
 
 <p>AppDelegate.swift 파일에 들어가서 Kakao관련 내용을 추가한다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -&gt; Bool {
         // Override point for customization after application launch.
 
@@ -282,14 +292,13 @@ func application(application: UIApplication, didFinishLaunchingWithOptions launc
         return false
     }
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><img src="/tec/images/swift_kakaoLogin/16.png" alt="Alt text" /></p>
 
 <p>이제 아까 만들었던 카카오 버튼 이벤트에 내용을 추가하는 것이다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 let session: KOSession = KOSession.sharedSession();
         if session.isOpen() {
             session.close()
@@ -321,8 +330,7 @@ let session: KOSession = KOSession.sharedSession();
             }
         })
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>물론 더 많은 것을 쓸 수 있겠지만 그것들은 자기가 연구해보길…. 카카오 개발자센터에서 쉽게 확인 할 수 있다.</p>
 
@@ -330,15 +338,14 @@ let session: KOSession = KOSession.sharedSession();
 
 <p>이미지등등을 외부에서 가져오려면 info.plist파일에 Security라는걸 추가해줘야 한다.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 &lt;key&gt;NSAppTransportSecurity&lt;/key&gt;
     &lt;dict&gt;
         &lt;key&gt;NSAllowsArbitraryLoads&lt;/key&gt;
         &lt;true/&gt;
     &lt;/dict&gt;
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><img src="/tec/images/swift_kakaoLogin/18.png" alt="Alt text" /></p>
 
@@ -354,12 +361,11 @@ let session: KOSession = KOSession.sharedSession();
 
 <p>그리고 페북, 카톡 로그인하기 할 때 아이디값(회원의 고유값) 은</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 페이스북 = user?.uid
 카카오톡 = String(kakao.ID)
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>을 쓰면 된다.</p>
 

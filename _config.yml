@@ -1,19 +1,22 @@
 # Site settings
 title:       Technology
-email:       pikachu987@naver.com
-author:      guanho kim
+email:       pikachu77769@gmail.com
+author:      gwanho kim
 description: "pikachu987 Technology"
-#baseurl:     ""
-#url:         "/"
+
+# baseurl:     ""
+# url:         "/"
+
 baseurl:     "https://pikachu987.github.io/tec"
 url:         "/tec"
+
 date_format: "%b %-d, %Y"
 
 # Google services
 google_verification:
 # Use either direct GA implementation or set up GTM account
 # - using both will skew your data (leave blank to not use at all)
-google_analytics: "UA-80258859-1"
+google_analytics: "UA-129769659-2"
 google_tag_manager:
 # Bing services
 bing_verification:
@@ -35,7 +38,7 @@ fb_page_id:
 
 # Disqus post comments
 # (leave blank to disable Disqus)
-disqus_shortname:
+disqus_shortname: 댓글
 
 # Facebook Comments plugin
 # (leave blank to disable Facebook Comments, otherwise set it to true)
@@ -109,7 +112,7 @@ markdown:     kramdown
 redcarpet:
   extensions: ['smart', 'tables', 'with_toc_data']
 permalink:    pretty
-paginate:     4
+paginate:     5
 sass:
   compressed: true
 gems:
