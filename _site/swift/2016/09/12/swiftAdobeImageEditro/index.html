@@ -17,7 +17,7 @@
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Technology" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?201811251808" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?201812011315" type="text/css">
 
     <!-- Fonts -->
     
@@ -156,49 +156,49 @@
 <p>우리가 일단 Adobe 이미지 에디터를 사용려면 당연히 Adobe 개발자 사이트 <a href="https://creativesdk.adobe.com/downloads.html">adobe</a> 에 회원가입을 해야 한다.
 상단에 보면 Downloads와 My Apps에만 들어갈 것이다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/2.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/2.png" alt="Alt text" /></p>
 
 <p>일단 <a href="https://creativesdk.adobe.com/downloads.html">Downloads</a> 에 들어가서 STATIC FRAMEWORKS(DEPRECATED)를 클릭해서 다운받자.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/3.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/3.png" alt="Alt text" /></p>
 
 <p>다운받으면 framework가 엄청 많다…</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/4.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/4.png" alt="Alt text" /></p>
 
 <p>우리한테 필요한 것은 이 4개이다. 그런데 .bundle는 어디 있을까?
 정답은 .framework를 들어가면 .bundle이 있을것이다. 복붙해서 이렇게 4개를 만들자.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/5.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/5.png" alt="Alt text" /></p>
 
 <p>해당 IOS앱 폴더에 해당 4개를 넣자.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/6.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/6.png" alt="Alt text" /></p>
 
 <p>그리고 4개를 드래그해서 xCode상에 넣자.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/7.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/7.png" alt="Alt text" /></p>
 
 <p>TARGETS에서 General에서 Linked Frameworks and Libraies 에 보면 이런식으로 4개가 생겼을 것이다.
 여기서 +를 눌러서 추가한다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/8.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/8.png" alt="Alt text" /></p>
 
 <p>이런식으로 하나씩하나씩 추가를 해서</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/9.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/9.png" alt="Alt text" /></p>
 
 <p>이렇게 나오도록 추가를 한다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/10.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/10.png" alt="Alt text" /></p>
 
 <p>이제 Bulid Settings에 들어가서 Linking를 찾는다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/11.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/11.png" alt="Alt text" /></p>
 
 <p>Other Linker Flags에 이런식으로 적어준다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/12.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/12.png" alt="Alt text" /></p>
 
 <p>브릿지헤더에서 이런식으로 적어준다.</p>
 
@@ -218,15 +218,15 @@
 
 </code></pre></div></div>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/13.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/13.png" alt="Alt text" /></p>
 
 <p><a href="https://creativesdk.adobe.com/myapps.html">MyApps</a> 에 들어가서 새로운 앱을 만든다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/14.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/14.png" alt="Alt text" /></p>
 
 <p>여기서 중요한건 SECRET를 꼭 복사해놓자.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/15.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/15.png" alt="Alt text" /></p>
 
 <p>AppDelegate.swift에 이런식으로 ID와 SECRET를 한줄 추가한다.</p>
 
@@ -236,7 +236,7 @@
 
 </code></pre></div></div>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/16.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/16.png" alt="Alt text" /></p>
 
 <p>(하단부분에 총 소스를 올려두겠다.)</p>
 
@@ -252,27 +252,27 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, AdobeUXImageEdi
 <p>UIImagePickerControllerDelegate와 UINavigationControllerDelegate는 카메라, 사진 선택하는데 필요한 딜리게이트이고
 AdobeUXImageEditorViewControllerDelegate는 AdobeImageEditor하는데 필요한 딜리게이트이다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/17.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/17.png" alt="Alt text" /></p>
 
 <p>카메라, 사진에 필요한 Picker를 변수로 지정.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/18.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/18.png" alt="Alt text" /></p>
 
 <p>picker설정을 한다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/19.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/19.png" alt="Alt text" /></p>
 
 <p>버튼이벤트를 준다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/20.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/20.png" alt="Alt text" /></p>
 
 <p>picker 딜리게이트 관련 메소드이다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/21.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/21.png" alt="Alt text" /></p>
 
 <p>여기는 adobe 관련 설정을 한다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/22.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/22.png" alt="Alt text" /></p>
 
 <p>adobe에서 완성된 이미지를 받아온다.</p>
 
@@ -434,31 +434,31 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
 <p>미리보기 이미지!</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/23.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/23.png" alt="Alt text" /></p>
 
 <p>첫 화면이다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/24.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/24.png" alt="Alt text" /></p>
 
 <p>클릭을 하면 선택을 할수있다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/25.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/25.png" alt="Alt text" /></p>
 
 <p>이미지 에디터 화면이다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/26.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/26.png" alt="Alt text" /></p>
 
 <p>크롭화면이다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/27.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/27.png" alt="Alt text" /></p>
 
 <p>방향전환 화면이다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/28.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/28.png" alt="Alt text" /></p>
 
 <p>그리기 화면이다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/29.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/29.png" alt="Alt text" /></p>
 
 <p>완료후 받아온 이미지이다.</p>
 

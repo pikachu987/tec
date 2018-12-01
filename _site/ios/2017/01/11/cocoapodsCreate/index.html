@@ -17,7 +17,7 @@
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Technology" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?201811251808" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?201812011315" type="text/css">
 
     <!-- Fonts -->
     
@@ -167,14 +167,14 @@
 <p>이라고 하면 Podfile이라는 파일이 만들어진다.
 해당 파일을 열어보면</p>
 
-<p><img src="/tec/images/ios_cocoapods/1.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/1.png" alt="Alt text" /></p>
 
 <p>이런식의 구조가 만들어져 있을 것이다.
 그럼 use_frameworks! 밑에줄에 스페이스바두번 이후에 pod ‘podName’ 이런식으로 적으면 된다.</p>
 
 <h4 id="예제">예제!</h4>
 
-<p><img src="/tec/images/ios_cocoapods/2.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/2.png" alt="Alt text" /></p>
 
 <p>이후에 저장하고 터미널로</p>
 
@@ -184,7 +184,7 @@
 <p>이라고 하면 터미널에서 엄청 많은것들이 다운받아지고 폴더 구조가 바뀐다.
 그리고 .xcworkspace 을 실행시키면 라이브러리들이 다운받아져 있는걸 볼수 있다!</p>
 
-<p><img src="/tec/images/ios_cocoapods/3.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/3.png" alt="Alt text" /></p>
 
 <p><br /><br /><br /><br /></p>
 
@@ -197,7 +197,7 @@
 
 <p><br /><br /></p>
 
-<p><img src="/tec/images/ios_cocoapods/4.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/4.png" alt="Alt text" /></p>
 
 <p><br /><br /></p>
 
@@ -209,7 +209,7 @@
 
 <p><br /><br /></p>
 
-<p><img src="/tec/images/ios_cocoapods/5.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/5.png" alt="Alt text" /></p>
 
 <p><br /><br /></p>
 
@@ -217,23 +217,23 @@
 
 <p><br /><br /></p>
 
-<p><img src="/tec/images/ios_cocoapods/6.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/6.png" alt="Alt text" /></p>
 
 <p><br /><br /></p>
 
-<p><img src="/tec/images/ios_cocoapods/7.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/7.png" alt="Alt text" /></p>
 
 <p><br /><br /><br /></p>
 
 <h3 id="pkcutilpodspec를-보겠다">PKCUtil.podspec를 보겠다.</h3>
 
-<p><img src="/tec/images/ios_cocoapods/8.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/8.png" alt="Alt text" /></p>
 
 <p>일단 #은 주석임</p>
 
 <p>고칠꺼는 s.summary 과 s.description 깃허브 아이디들</p>
 
-<p><img src="/tec/images/ios_cocoapods/9.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/9.png" alt="Alt text" /></p>
 
 <p><br /><br /></p>
 
@@ -253,7 +253,7 @@
 <p>라고 하면 터미널 pwd 위치에 클론이 된다.
 clone한 폴더에 내가 만든 cocoapods 폴더 전체(command+A)를 넣자.</p>
 
-<p><img src="/tec/images/ios_cocoapods/14.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/14.png" alt="Alt text" /></p>
 
 <p><br /><br /><br /></p>
 
@@ -267,26 +267,26 @@ clone한 폴더에 내가 만든 cocoapods 폴더 전체(command+A)를 넣자.</
 
 <p>를 써준다.</p>
 
-<p><img src="/tec/images/ios_cocoapods/10.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/10.png" alt="Alt text" /></p>
 
 <p><br /><br /><br /></p>
 
 <p>만약에 에러가 나면</p>
 
-<p><img src="/tec/images/ios_cocoapods/11.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/11.png" alt="Alt text" /></p>
 
 <p>이런식으로 난다.</p>
 
 <p>어떤 에러인지 찾아보자</p>
 
-<p><img src="/tec/images/ios_cocoapods/12.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/12.png" alt="Alt text" /></p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pod lib lint --allow-warnings PKCUtil.podspec
 </code></pre></div></div>
 
 <p>그대로 복사하지 말고 PKCUtil를 podName으로 바꿔주자.</p>
 
-<p><img src="/tec/images/ios_cocoapods/13.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/13.png" alt="Alt text" /></p>
 
 <p>그러면 어떤것들이 잘못됬는지 리스트로 보인다.  고친다음 다시 pod lib lint를 하자</p>
 
@@ -304,11 +304,11 @@ git push origin master
 
 <p><br /><br /></p>
 
-<p><img src="/tec/images/ios_cocoapods/15.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/15.png" alt="Alt text" /></p>
 
-<p><img src="/tec/images/ios_cocoapods/16.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/16.png" alt="Alt text" /></p>
 
-<p><img src="/tec/images/ios_cocoapods/17.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/17.png" alt="Alt text" /></p>
 
 <p><br /><br /></p>
 
@@ -323,7 +323,7 @@ git push origin master
 
 <p><br /><br /></p>
 
-<p><img src="/tec/images/ios_cocoapods/18.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/18.png" alt="Alt text" /></p>
 
 <p><br /></p>
 
@@ -338,7 +338,7 @@ Profile 파일에</p>
 
 <p><a href="https://guides.cocoapods.org/making/making-a-cocoapod.html">cocoapods</a> 에 정상적으로 올라와 있는 스크린샷이다.</p>
 
-<p><img src="/tec/images/ios_cocoapods/22.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/22.png" alt="Alt text" /></p>
 
 <p><br /><br /><br /><br /></p>
 
@@ -346,13 +346,13 @@ Profile 파일에</p>
 
 <p>그리고 업데이트를 하려면 수정할 클래스파일 등등을 수정 후</p>
 
-<p><img src="/tec/images/ios_cocoapods/21.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/21.png" alt="Alt text" /></p>
 
 <p>podName.podspec 에 s.version 버전을 바꾼 후</p>
 
-<p><img src="/tec/images/ios_cocoapods/19.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/19.png" alt="Alt text" /></p>
 
-<p><img src="/tec/images/ios_cocoapods/20.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/20.png" alt="Alt text" /></p>
 
 <p>여기 여기로 해서 버전을 같게 바꾸자.</p>
 

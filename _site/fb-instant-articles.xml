@@ -9,6 +9,47 @@
     
         
             <item>
+                <title>swift UIBezierPath Shape</title>
+                <link>http://localhost:4000/swift/2018/11/20/swift-bezier-path/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <h4 id="1-라인line">1. 라인(Line)</h4>
+
+<pre><code class="language-Swift">
+class Example: UIView {
+    override func draw(_ rect: CGRect) {
+        let path = UIBezierPath(rect: rect)
+        UIColor.lightGray.setFill()
+        path.fill()
+        path.close()
+
+        let linePath = UIBezierPath()
+        linePath.move(to: CGPoint(x: 0, y: rect.height / 2))
+        linePath.addLine(to: CGPoint(x: rect.width, y: rect.height / 2))
+        linePath.lineWidth = 6
+        UIColor.black.set()
+        linePath.stroke()
+        linePath.close()
+    }
+}
+
+</code></pre>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/swift/2018/11/20/swift-bezier-path/</guid>
+                <description>
+                    
+                    Swift UIBezierPath로 여러가지 도형, 말풍선 그리기(Arrow, Triangle, Square, Pentagon, Star, Heart, Bubble, Chat, Message)
+                    
+                </description>
+                <pubDate>Tue, 20 Nov 2018 17:00:00 +0900</pubDate>
+                <author>gwanho kim</author>
+            </item>
+        
+    
+        
+            <item>
                 <title>cocoapods lib create</title>
                 <link>http://localhost:4000/ios/2017/01/11/cocoapodsCreate/</link>
                 <content:encoded>
@@ -38,14 +79,14 @@
 <p>이라고 하면 Podfile이라는 파일이 만들어진다.
 해당 파일을 열어보면</p>
 
-<p><img src="/tec/images/ios_cocoapods/1.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/1.png" alt="Alt text" /></p>
 
 <p>이런식의 구조가 만들어져 있을 것이다.
 그럼 use_frameworks! 밑에줄에 스페이스바두번 이후에 pod ‘podName’ 이런식으로 적으면 된다.</p>
 
 <h4 id="예제">예제!</h4>
 
-<p><img src="/tec/images/ios_cocoapods/2.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/2.png" alt="Alt text" /></p>
 
 <p>이후에 저장하고 터미널로</p>
 
@@ -55,7 +96,7 @@
 <p>이라고 하면 터미널에서 엄청 많은것들이 다운받아지고 폴더 구조가 바뀐다.
 그리고 .xcworkspace 을 실행시키면 라이브러리들이 다운받아져 있는걸 볼수 있다!</p>
 
-<p><img src="/tec/images/ios_cocoapods/3.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/3.png" alt="Alt text" /></p>
 
 <p><br /><br /><br /><br /></p>
 
@@ -68,7 +109,7 @@
 
 <p><br /><br /></p>
 
-<p><img src="/tec/images/ios_cocoapods/4.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/4.png" alt="Alt text" /></p>
 
 <p><br /><br /></p>
 
@@ -80,7 +121,7 @@
 
 <p><br /><br /></p>
 
-<p><img src="/tec/images/ios_cocoapods/5.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/5.png" alt="Alt text" /></p>
 
 <p><br /><br /></p>
 
@@ -88,23 +129,23 @@
 
 <p><br /><br /></p>
 
-<p><img src="/tec/images/ios_cocoapods/6.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/6.png" alt="Alt text" /></p>
 
 <p><br /><br /></p>
 
-<p><img src="/tec/images/ios_cocoapods/7.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/7.png" alt="Alt text" /></p>
 
 <p><br /><br /><br /></p>
 
 <h3 id="pkcutilpodspec를-보겠다">PKCUtil.podspec를 보겠다.</h3>
 
-<p><img src="/tec/images/ios_cocoapods/8.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/8.png" alt="Alt text" /></p>
 
 <p>일단 #은 주석임</p>
 
 <p>고칠꺼는 s.summary 과 s.description 깃허브 아이디들</p>
 
-<p><img src="/tec/images/ios_cocoapods/9.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/9.png" alt="Alt text" /></p>
 
 <p><br /><br /></p>
 
@@ -124,7 +165,7 @@
 <p>라고 하면 터미널 pwd 위치에 클론이 된다.
 clone한 폴더에 내가 만든 cocoapods 폴더 전체(command+A)를 넣자.</p>
 
-<p><img src="/tec/images/ios_cocoapods/14.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/14.png" alt="Alt text" /></p>
 
 <p><br /><br /><br /></p>
 
@@ -138,26 +179,26 @@ clone한 폴더에 내가 만든 cocoapods 폴더 전체(command+A)를 넣자.</
 
 <p>를 써준다.</p>
 
-<p><img src="/tec/images/ios_cocoapods/10.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/10.png" alt="Alt text" /></p>
 
 <p><br /><br /><br /></p>
 
 <p>만약에 에러가 나면</p>
 
-<p><img src="/tec/images/ios_cocoapods/11.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/11.png" alt="Alt text" /></p>
 
 <p>이런식으로 난다.</p>
 
 <p>어떤 에러인지 찾아보자</p>
 
-<p><img src="/tec/images/ios_cocoapods/12.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/12.png" alt="Alt text" /></p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pod lib lint --allow-warnings PKCUtil.podspec
 </code></pre></div></div>
 
 <p>그대로 복사하지 말고 PKCUtil를 podName으로 바꿔주자.</p>
 
-<p><img src="/tec/images/ios_cocoapods/13.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/13.png" alt="Alt text" /></p>
 
 <p>그러면 어떤것들이 잘못됬는지 리스트로 보인다.  고친다음 다시 pod lib lint를 하자</p>
 
@@ -175,11 +216,11 @@ git push origin master
 
 <p><br /><br /></p>
 
-<p><img src="/tec/images/ios_cocoapods/15.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/15.png" alt="Alt text" /></p>
 
-<p><img src="/tec/images/ios_cocoapods/16.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/16.png" alt="Alt text" /></p>
 
-<p><img src="/tec/images/ios_cocoapods/17.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/17.png" alt="Alt text" /></p>
 
 <p><br /><br /></p>
 
@@ -194,7 +235,7 @@ git push origin master
 
 <p><br /><br /></p>
 
-<p><img src="/tec/images/ios_cocoapods/18.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/18.png" alt="Alt text" /></p>
 
 <p><br /></p>
 
@@ -209,7 +250,7 @@ Profile 파일에</p>
 
 <p><a href="https://guides.cocoapods.org/making/making-a-cocoapod.html">cocoapods</a> 에 정상적으로 올라와 있는 스크린샷이다.</p>
 
-<p><img src="/tec/images/ios_cocoapods/22.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/22.png" alt="Alt text" /></p>
 
 <p><br /><br /><br /><br /></p>
 
@@ -217,13 +258,13 @@ Profile 파일에</p>
 
 <p>그리고 업데이트를 하려면 수정할 클래스파일 등등을 수정 후</p>
 
-<p><img src="/tec/images/ios_cocoapods/21.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/21.png" alt="Alt text" /></p>
 
 <p>podName.podspec 에 s.version 버전을 바꾼 후</p>
 
-<p><img src="/tec/images/ios_cocoapods/19.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/19.png" alt="Alt text" /></p>
 
-<p><img src="/tec/images/ios_cocoapods/20.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2017/01/ios_cocoapods/20.png" alt="Alt text" /></p>
 
 <p>여기 여기로 해서 버전을 같게 바꾸자.</p>
 
@@ -294,49 +335,49 @@ git push origin master
 <p>우리가 일단 Adobe 이미지 에디터를 사용려면 당연히 Adobe 개발자 사이트 <a href="https://creativesdk.adobe.com/downloads.html">adobe</a> 에 회원가입을 해야 한다.
 상단에 보면 Downloads와 My Apps에만 들어갈 것이다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/2.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/2.png" alt="Alt text" /></p>
 
 <p>일단 <a href="https://creativesdk.adobe.com/downloads.html">Downloads</a> 에 들어가서 STATIC FRAMEWORKS(DEPRECATED)를 클릭해서 다운받자.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/3.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/3.png" alt="Alt text" /></p>
 
 <p>다운받으면 framework가 엄청 많다…</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/4.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/4.png" alt="Alt text" /></p>
 
 <p>우리한테 필요한 것은 이 4개이다. 그런데 .bundle는 어디 있을까?
 정답은 .framework를 들어가면 .bundle이 있을것이다. 복붙해서 이렇게 4개를 만들자.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/5.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/5.png" alt="Alt text" /></p>
 
 <p>해당 IOS앱 폴더에 해당 4개를 넣자.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/6.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/6.png" alt="Alt text" /></p>
 
 <p>그리고 4개를 드래그해서 xCode상에 넣자.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/7.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/7.png" alt="Alt text" /></p>
 
 <p>TARGETS에서 General에서 Linked Frameworks and Libraies 에 보면 이런식으로 4개가 생겼을 것이다.
 여기서 +를 눌러서 추가한다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/8.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/8.png" alt="Alt text" /></p>
 
 <p>이런식으로 하나씩하나씩 추가를 해서</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/9.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/9.png" alt="Alt text" /></p>
 
 <p>이렇게 나오도록 추가를 한다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/10.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/10.png" alt="Alt text" /></p>
 
 <p>이제 Bulid Settings에 들어가서 Linking를 찾는다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/11.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/11.png" alt="Alt text" /></p>
 
 <p>Other Linker Flags에 이런식으로 적어준다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/12.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/12.png" alt="Alt text" /></p>
 
 <p>브릿지헤더에서 이런식으로 적어준다.</p>
 
@@ -356,15 +397,15 @@ git push origin master
 
 </code></pre></div></div>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/13.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/13.png" alt="Alt text" /></p>
 
 <p><a href="https://creativesdk.adobe.com/myapps.html">MyApps</a> 에 들어가서 새로운 앱을 만든다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/14.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/14.png" alt="Alt text" /></p>
 
 <p>여기서 중요한건 SECRET를 꼭 복사해놓자.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/15.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/15.png" alt="Alt text" /></p>
 
 <p>AppDelegate.swift에 이런식으로 ID와 SECRET를 한줄 추가한다.</p>
 
@@ -374,7 +415,7 @@ git push origin master
 
 </code></pre></div></div>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/16.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/16.png" alt="Alt text" /></p>
 
 <p>(하단부분에 총 소스를 올려두겠다.)</p>
 
@@ -390,27 +431,27 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, AdobeUXImageEdi
 <p>UIImagePickerControllerDelegate와 UINavigationControllerDelegate는 카메라, 사진 선택하는데 필요한 딜리게이트이고
 AdobeUXImageEditorViewControllerDelegate는 AdobeImageEditor하는데 필요한 딜리게이트이다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/17.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/17.png" alt="Alt text" /></p>
 
 <p>카메라, 사진에 필요한 Picker를 변수로 지정.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/18.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/18.png" alt="Alt text" /></p>
 
 <p>picker설정을 한다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/19.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/19.png" alt="Alt text" /></p>
 
 <p>버튼이벤트를 준다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/20.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/20.png" alt="Alt text" /></p>
 
 <p>picker 딜리게이트 관련 메소드이다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/21.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/21.png" alt="Alt text" /></p>
 
 <p>여기는 adobe 관련 설정을 한다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/22.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/22.png" alt="Alt text" /></p>
 
 <p>adobe에서 완성된 이미지를 받아온다.</p>
 
@@ -572,31 +613,31 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
 <p>미리보기 이미지!</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/23.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/23.png" alt="Alt text" /></p>
 
 <p>첫 화면이다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/24.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/24.png" alt="Alt text" /></p>
 
 <p>클릭을 하면 선택을 할수있다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/25.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/25.png" alt="Alt text" /></p>
 
 <p>이미지 에디터 화면이다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/26.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/26.png" alt="Alt text" /></p>
 
 <p>크롭화면이다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/27.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/27.png" alt="Alt text" /></p>
 
 <p>방향전환 화면이다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/28.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/28.png" alt="Alt text" /></p>
 
 <p>그리기 화면이다.</p>
 
-<p><img src="https://pikachu987.github.io/tec/images/swift_adobeEditor/29.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_adobeEditor/29.png" alt="Alt text" /></p>
 
 <p>완료후 받아온 이미지이다.</p>
 
@@ -627,39 +668,39 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
 <p>여기서는 앞서했던 Swift2로 Facebook 로그인 하는 예제에서 카카오 로그인을 추가하는 예제를 살펴보겠다.</p>
 
-<p><img src="/tec/images/swift_kakaoLogin/01.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_kakaoLogin/01.png" alt="Alt text" /></p>
 
 <p>카카오톡 로그인버튼을 한개 만들어주자.</p>
 
-<p><img src="/tec/images/swift_kakaoLogin/02.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_kakaoLogin/02.png" alt="Alt text" /></p>
 
 <p>해당 버튼에 이벤트를 추가</p>
 
-<p><img src="/tec/images/swift_kakaoLogin/03.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_kakaoLogin/03.png" alt="Alt text" /></p>
 
 <p><a href="https://developer.kakao.com/">developer.kakao</a> 에 들어가서 새로운 앱을 만들자</p>
 
-<p><img src="/tec/images/swift_kakaoLogin/04.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_kakaoLogin/04.png" alt="Alt text" /></p>
 
 <p>아주아주 간단하개 만들어졌다. 여기서 플랫폼 추가를 누르자.</p>
 
-<p><img src="/tec/images/swift_kakaoLogin/05.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_kakaoLogin/05.png" alt="Alt text" /></p>
 
 <p>번들을 넣고,</p>
 
-<p><img src="/tec/images/swift_kakaoLogin/06.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_kakaoLogin/06.png" alt="Alt text" /></p>
 
 <p>사용자관리에 들어가서 사용 ON을 누른 다음 하단의 텍스트등등을 기록한다. 그리고 저장을 누르자.</p>
 
-<p><img src="/tec/images/swift_kakaoLogin/07.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_kakaoLogin/07.png" alt="Alt text" /></p>
 
 <p>카카오 SDK를 다운받으면 이런 구조로 되어 있다</p>
 
-<p><img src="/tec/images/swift_kakaoLogin/08.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_kakaoLogin/08.png" alt="Alt text" /></p>
 
 <p>framework를 자신의 앱폴더로 이동한 다음 끌어서 앱에 추가한다.</p>
 
-<p><img src="/tec/images/swift_kakaoLogin/19.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_kakaoLogin/19.png" alt="Alt text" /></p>
 
 <p>info.plist 를 마우스 우 클릭해서 Open As &gt; Source Code를 누른다.
 그리고 기존 페이스북설정에 카카오톡 설정을 추가한다.</p>
@@ -704,7 +745,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
 </code></pre></div></div>
 
-<p><img src="/tec/images/swift_kakaoLogin/09.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_kakaoLogin/09.png" alt="Alt text" /></p>
 
 <p>여기서는 브릿지 헤더(bridging header)를 만들어야 한다. 만드는 방법은 마우스 우클릭해서 New File를 누른다.</p>
 
@@ -713,23 +754,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 Objective-C 코드를 Swift에서 import만 하면 쓸 수 있게 만들어주는 역활을 한다.</p>
 </blockquote>
 
-<p><img src="/tec/images/swift_kakaoLogin/10.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_kakaoLogin/10.png" alt="Alt text" /></p>
 
 <p>그리고 C++ File을 누르고</p>
 
-<p><img src="/tec/images/swift_kakaoLogin/11.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_kakaoLogin/11.png" alt="Alt text" /></p>
 
 <p>아무렇게나 이름을 쓴다.</p>
 
-<p><img src="/tec/images/swift_kakaoLogin/12.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_kakaoLogin/12.png" alt="Alt text" /></p>
 
 <h4 id="이때-제일-중요한게-꼭-create-briding-header를-눌러야-브릿지헤더가-생성이된다">이때 제일 중요한게 꼭 Create Briding Header를 눌러야 브릿지헤더가 생성이된다!!!!</h4>
 
-<p><img src="/tec/images/swift_kakaoLogin/13.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_kakaoLogin/13.png" alt="Alt text" /></p>
 
 <p>생성이 된 모습이다. 나머지 aaa. 으로 시작되는 2개 파일은 삭제해준다.</p>
 
-<p><img src="/tec/images/swift_kakaoLogin/14.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_kakaoLogin/14.png" alt="Alt text" /></p>
 
 <p>생성된 브릿지 헤더에 kakao SDK를 import 해준다.</p>
 
@@ -738,7 +779,7 @@ Objective-C 코드를 Swift에서 import만 하면 쓸 수 있게 만들어주�
 
 </code></pre></div></div>
 
-<p><img src="/tec/images/swift_kakaoLogin/15.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_kakaoLogin/15.png" alt="Alt text" /></p>
 
 <p>AppDelegate.swift 파일에 들어가서 Kakao관련 내용을 추가한다.</p>
 
@@ -771,7 +812,7 @@ func application(application: UIApplication, didFinishLaunchingWithOptions launc
 
 </code></pre></div></div>
 
-<p><img src="/tec/images/swift_kakaoLogin/16.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_kakaoLogin/16.png" alt="Alt text" /></p>
 
 <p>이제 아까 만들었던 카카오 버튼 이벤트에 내용을 추가하는 것이다.</p>
 
@@ -811,7 +852,7 @@ let session: KOSession = KOSession.sharedSession();
 
 <p>물론 더 많은 것을 쓸 수 있겠지만 그것들은 자기가 연구해보길…. 카카오 개발자센터에서 쉽게 확인 할 수 있다.</p>
 
-<p><img src="/tec/images/swift_kakaoLogin/17.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_kakaoLogin/17.png" alt="Alt text" /></p>
 
 <p>이미지등등을 외부에서 가져오려면 info.plist파일에 Security라는걸 추가해줘야 한다.</p>
 
@@ -824,7 +865,7 @@ let session: KOSession = KOSession.sharedSession();
 
 </code></pre></div></div>
 
-<p><img src="/tec/images/swift_kakaoLogin/18.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_kakaoLogin/18.png" alt="Alt text" /></p>
 
 <p>짜잔!!!!! 완성</p>
 
@@ -873,94 +914,94 @@ let session: KOSession = KOSession.sharedSession();
 
 <p>가장 먼저 앱을 만들어 보자.</p>
 
-<p><img src="/tec/images/swift_fbLogin/01.png" alt="Alt text" /></p>
+<p><img src="/images/2016/09/swift_fbLogin/01.png" alt="Alt text" /></p>
 
-<p><img src="/tec/images/swift_fbLogin/02.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/02.png" alt="Alt text" /></p>
 
 <p><br />
 그리고 <a href="http://developer.facebook.com">developer.facebook</a>에 들어가서 새 앱을 만든다.
 <br /><br /></p>
 
-<p><img src="/tec/images/swift_fbLogin/03.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/03.png" alt="Alt text" /></p>
 
 <p><br />
 IOS를 클릭!! 한다.
 <br /><br /></p>
 
-<p><img src="/tec/images/swift_fbLogin/04.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/04.png" alt="Alt text" /></p>
 
 <p><br />
 Facebook 앱 네임을 넣는데 FB나 Facebook 관련 글자는 써지지가 않는다.
 <br /><br /></p>
 
-<p><img src="/tec/images/swift_fbLogin/05.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/05.png" alt="Alt text" /></p>
 
 <p><br />
 연락처이메일과 카테고리를 선택후 앱 ID를 만든다.
 <br /><br /></p>
 
-<p><img src="/tec/images/swift_fbLogin/06.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/06.png" alt="Alt text" /></p>
 
 <p><br /><br /></p>
 
-<p><img src="/tec/images/swift_fbLogin/07.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/07.png" alt="Alt text" /></p>
 
-<p><img src="/tec/images/swift_fbLogin/08.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/08.png" alt="Alt text" /></p>
 
 <p><br />
 이 값들은 Swift앱 내의 info.plist파일 안에 넣어야 하는내용이므로 어딘가에 복사해두기로 한다.
 <br /><br /></p>
 
-<p><img src="/tec/images/swift_fbLogin/09.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/09.png" alt="Alt text" /></p>
 
 <p><br />
 하단으로 내려가면 Swift APP Bundle적는 부분이 있다. 자신이 만든 앱 Bundle와 맞춰서 적으면 된다.
 <br /><br /></p>
 
-<p><img src="/tec/images/swift_fbLogin/10.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/10.png" alt="Alt text" /></p>
 
 <p><br />
 <a href="https://console.firebase.google.com/">console.firebase</a>에 들어가서 새 프로젝트를 만든다.
 <br /><br /></p>
 
-<p><img src="/tec/images/swift_fbLogin/11.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/11.png" alt="Alt text" /></p>
 
-<p><img src="/tec/images/swift_fbLogin/12.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/12.png" alt="Alt text" /></p>
 
 <p><br />
 번들을 적는다.
 <br /><br /></p>
 
-<p><img src="/tec/images/swift_fbLogin/14.png" alt="Alt text" />
+<p><img src="/tec/images/2016/09/swift_fbLogin/14.png" alt="Alt text" />
 다시 페이스북으로 간 다음 대시보드에서 앱 ID와 앱 시크릿코드를 확인한다.</p>
 
 <p><br /></p>
 
-<p><img src="/tec/images/swift_fbLogin/13.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/13.png" alt="Alt text" /></p>
 
 <p>파이어베이스 Auth에 들어가서 로그인 방법을 클릭한다. 그러면 페이스북이 두둥! 있을것이다.</p>
 
-<p><img src="/tec/images/swift_fbLogin/15.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/15.png" alt="Alt text" /></p>
 
 <p>페이스북을 사용설정한 뒤 페이스북에서 확인한 앱ID와 앱 시크릿코드를 확인한 다음 OAuth 리디렉션 URI를 복사한다.</p>
 
-<p><img src="/tec/images/swift_fbLogin/16.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/16.png" alt="Alt text" /></p>
 
 <p>이제 마지막부분이다! 페이스북으로 가서 +제품추가를 클릭한 뒤</p>
 
-<p><img src="/tec/images/swift_fbLogin/17.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/17.png" alt="Alt text" /></p>
 
 <p>Facebook 로그인 시작하기 버튼을 누른다.</p>
 
-<p><img src="/tec/images/swift_fbLogin/18.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/18.png" alt="Alt text" /></p>
 
 <p>그리고 복사해두었던 리디렉션 URI를 붙이고 하단에 버튼을 누른다.</p>
 
-<p><img src="/tec/images/swift_fbLogin/19.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/19.png" alt="Alt text" /></p>
 
 <p>파이어베이스에 들어가서 GoogleService-info.plist파일을다운 받고 해당 파일을 앱 폴더안 info.plist옆에 넣는다.</p>
 
-<p><img src="/tec/images/swift_fbLogin/21.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/21.png" alt="Alt text" /></p>
 
 <p>그리고 앱 Podfile에</p>
 
@@ -977,7 +1018,7 @@ pod 'FBSDKLoginKit'
 
 <p>해당 부분은 <a href="https://cocoapods.org/">cocoapods</a> 참조</p>
 
-<p><img src="/tec/images/swift_fbLogin/20.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/20.png" alt="Alt text" /></p>
 
 <p>그리고 앱을 실행 후 Info.plist파일 - 소스보기를 누른다. 아까 페이스북에서 봤던 코드 붙여넣기!!!</p>
 
@@ -1003,7 +1044,7 @@ pod 'FBSDKLoginKit'
     &lt;/array&gt;
 </code></pre></div></div>
 
-<p><img src="/tec/images/swift_fbLogin/22.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/22.png" alt="Alt text" /></p>
 
 <p>앱 딜리게이트로 가서 간단하게</p>
 
@@ -1034,11 +1075,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 <p>이렇게 코드를 넣어주자!!!</p>
 
-<p><img src="/tec/images/swift_fbLogin/23.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/23.png" alt="Alt text" /></p>
 
 <p>그리고 스토리보드에서 UIButton을 하나 만들고 페이스북과 비슷한 background를 넣고 png이미지 파일을 구해서 넣어주자(디자인은 상관없슴! 사실 아무 버튼만 넣으면 상관 x)</p>
 
-<p><img src="/tec/images/swift_fbLogin/24.png" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/24.png" alt="Alt text" /></p>
 
 <p>UIViewController에서 button에 action을 받자. 그리고 코드를 넣어준다.</p>
 
@@ -1074,7 +1115,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 <p>엄청 간단하다…</p>
 
-<p><img src="/tec/images/swift_fbLogin/25.jpeg" alt="Alt text" /></p>
+<p><img src="/tec/images/2016/09/swift_fbLogin/25.jpeg" alt="Alt text" /></p>
 
 <p>실행을 시키면 잘 나오는것을 확인 할 수 있다.</p>
 

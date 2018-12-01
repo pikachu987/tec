@@ -33,14 +33,14 @@ pod init
 이라고 하면 Podfile이라는 파일이 만들어진다.
 해당 파일을 열어보면
 
-![Alt text](/tec/images/ios_cocoapods/1.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/1.png)
 
 이런식의 구조가 만들어져 있을 것이다.
 그럼 use_frameworks! 밑에줄에 스페이스바두번 이후에 pod 'podName' 이런식으로 적으면 된다.
 
 #### 예제!
 
-![Alt text](/tec/images/ios_cocoapods/2.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/2.png)
 
 
 이후에 저장하고 터미널로
@@ -52,7 +52,7 @@ pod install
 이라고 하면 터미널에서 엄청 많은것들이 다운받아지고 폴더 구조가 바뀐다.
 그리고 .xcworkspace 을 실행시키면 라이브러리들이 다운받아져 있는걸 볼수 있다!
 
-![Alt text](/tec/images/ios_cocoapods/3.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/3.png)
 
 <br><br><br><br>
 
@@ -69,7 +69,7 @@ pod install
 
 <br><br>
 
-![Alt text](/tec/images/ios_cocoapods/4.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/4.png)
 
 <br><br>
 
@@ -81,7 +81,7 @@ pod install
 
 <br><br>
 
-![Alt text](/tec/images/ios_cocoapods/5.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/5.png)
 
 <br><br>
 
@@ -89,24 +89,24 @@ pod install
 
 <br><br>
 
-![Alt text](/tec/images/ios_cocoapods/6.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/6.png)
 
 <br><br>
 
-![Alt text](/tec/images/ios_cocoapods/7.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/7.png)
 
 <br><br><br>
 
 ### PKCUtil.podspec를 보겠다.
 
-![Alt text](/tec/images/ios_cocoapods/8.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/8.png)
 
 일단 #은 주석임
 
 고칠꺼는 s.summary 과 s.description 깃허브 아이디들
 
 
-![Alt text](/tec/images/ios_cocoapods/9.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/9.png)
 
 <br><br>
 
@@ -127,7 +127,7 @@ git clone https://github.com/pikachu987/PKCUtil.git
 라고 하면 터미널 pwd 위치에 클론이 된다.
 clone한 폴더에 내가 만든 cocoapods 폴더 전체(command+A)를 넣자.
 
-![Alt text](/tec/images/ios_cocoapods/14.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/14.png)
 
 <br><br><br>
 
@@ -142,21 +142,21 @@ pod lib lint
 
 를 써준다.
 
-![Alt text](/tec/images/ios_cocoapods/10.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/10.png)
 
 
 <br><br><br>
 
 만약에 에러가 나면
 
-![Alt text](/tec/images/ios_cocoapods/11.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/11.png)
 
 
 이런식으로 난다.
 
 어떤 에러인지 찾아보자
 
-![Alt text](/tec/images/ios_cocoapods/12.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/12.png)
 
 ~~~~
 pod lib lint --allow-warnings PKCUtil.podspec
@@ -165,7 +165,7 @@ pod lib lint --allow-warnings PKCUtil.podspec
 그대로 복사하지 말고 PKCUtil를 podName으로 바꿔주자.
 
 
-![Alt text](/tec/images/ios_cocoapods/13.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/13.png)
 
 그러면 어떤것들이 잘못됬는지 리스트로 보인다.  고친다음 다시 pod lib lint를 하자
 
@@ -185,11 +185,11 @@ git tag에는 PKCUtil.podspec파일의 s.version 과 같은 버전을 쓰면된�
 
 <br><br>
 
-![Alt text](/tec/images/ios_cocoapods/15.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/15.png)
 
-![Alt text](/tec/images/ios_cocoapods/16.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/16.png)
 
-![Alt text](/tec/images/ios_cocoapods/17.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/17.png)
 
 <br><br>
 
@@ -207,7 +207,7 @@ pod trunk push PKCUtil.podspec
 
 <Br><Br>
 
-![Alt text](/tec/images/ios_cocoapods/18.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/18.png)
 
 
 <br>
@@ -224,7 +224,7 @@ pod "PKCUtil"
 
 [cocoapods](https://guides.cocoapods.org/making/making-a-cocoapod.html) 에 정상적으로 올라와 있는 스크린샷이다.
 
-![Alt text](/tec/images/ios_cocoapods/22.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/22.png)
 
 
 
@@ -234,13 +234,13 @@ pod "PKCUtil"
 
 그리고 업데이트를 하려면 수정할 클래스파일 등등을 수정 후
 
-![Alt text](/tec/images/ios_cocoapods/21.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/21.png)
 
 podName.podspec 에 s.version 버전을 바꾼 후
 
-![Alt text](/tec/images/ios_cocoapods/19.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/19.png)
 
-![Alt text](/tec/images/ios_cocoapods/20.png)
+![Alt text](/tec/images/2017/01/ios_cocoapods/20.png)
 
 여기 여기로 해서 버전을 같게 바꾸자.
 

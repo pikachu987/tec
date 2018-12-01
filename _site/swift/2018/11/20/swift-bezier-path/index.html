@@ -3,17 +3,17 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Thanks For Your Message &#8211; Technology</title>
+    <title>swift UIBezierPath Shape &#8211; Technology</title>
     <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
     <link rel="dns-prefetch" href="//cdn.mathjax.org">
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="pikachu987 Technology">
+    <meta name="description" content="Swift UIBezierPath로 여러가지 도형, 말풍선 그리기(Arrow, Triangle, Square, Pentagon, Star, Heart, Bubble, Chat, Message)">
     <meta name="robots" content="all">
     <meta name="author" content="gwanho kim">
     
-    
-    <link rel="canonical" href="http://localhost:4000/thanks/">
+    <meta name="keywords" content="swift">
+    <link rel="canonical" href="http://localhost:4000/swift/2018/11/20/swift-bezier-path/">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Technology" href="/feed.xml" />
 
     <!-- Custom CSS -->
@@ -37,17 +37,17 @@
     <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Thanks For Your Message">
+    <meta property="og:title" content="swift UIBezierPath Shape">
     <meta property="og:description" content="pikachu987 Technology">
-    <meta property="og:url" content="http://localhost:4000/thanks/">
+    <meta property="og:url" content="http://localhost:4000/swift/2018/11/20/swift-bezier-path/">
     <meta property="og:site_name" content="Technology">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
     
-    <meta name="twitter:title" content="Thanks For Your Message" />
-    <meta name="twitter:description" content="pikachu987 Technology" />
-    <meta name="twitter:url" content="http://localhost:4000/thanks/" />
+    <meta name="twitter:title" content="swift UIBezierPath Shape" />
+    <meta name="twitter:description" content="Swift UIBezierPath로 여러가지 도형, 말풍선 그리기(Arrow, Triangle, Square, Pentagon, Star, Heart, Bubble, Chat, Message)" />
+    <meta name="twitter:url" content="http://localhost:4000/swift/2018/11/20/swift-bezier-path/" />
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
@@ -127,15 +127,77 @@
 
     <div class="post p2 p-responsive wrap" role="main">
       <div class="measure">
-        <div class="post">
-  <header class="post-header">
-    <h1 class="h2">Thanks For Your Message</h1>
-  </header>
-  <article class="post-content">
-  <p>Thanks for contacting us. We will reply as soon as possible.</p>
+        
 
-  </article>
+
+<div class="post-header mb2">
+  <h1>swift UIBezierPath Shape</h1>
+  <span class="post-meta">Nov 20, 2018</span><br>
+  
+  <span class="post-meta small">
+  
+    1 minute read
+  
+  </span>
 </div>
+
+<article class="post-content">
+  <h4 id="1-라인line">1. 라인(Line)</h4>
+
+<pre><code class="language-Swift">
+class Example: UIView {
+    override func draw(_ rect: CGRect) {
+        let path = UIBezierPath(rect: rect)
+        UIColor.lightGray.setFill()
+        path.fill()
+        path.close()
+
+        let linePath = UIBezierPath()
+        linePath.move(to: CGPoint(x: 0, y: rect.height / 2))
+        linePath.addLine(to: CGPoint(x: rect.width, y: rect.height / 2))
+        linePath.lineWidth = 6
+        UIColor.black.set()
+        linePath.stroke()
+        linePath.close()
+    }
+}
+
+</code></pre>
+
+</article>
+
+
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//pikachu987blog.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pikachu987blog.disqus.com/count.js" async></script>
+
+
+
+
 
       </div>
     </div>

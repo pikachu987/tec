@@ -4,11 +4,11 @@ email:       pikachu77769@gmail.com
 author:      gwanho kim
 description: "pikachu987 Technology"
 
-# baseurl:     ""
-# url:         "/"
+baseurl:     ""
+url:         "/"
 
-baseurl:     "https://pikachu987.github.io/tec"
-url:         "/tec"
+# baseurl:     "https://pikachu987.github.io/tec"
+# url:         "/tec"
 
 date_format: "%b %-d, %Y"
 
@@ -114,9 +114,12 @@ redcarpet:
 permalink:    pretty
 paginate:     5
 sass:
-  compressed: true
-gems:
+  style: compressed
+plugins:
   - jekyll-paginate
   - jekyll-sitemap
 # https://github.com/jekyll/jekyll/issues/2938
-exclude: [vendor]
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor

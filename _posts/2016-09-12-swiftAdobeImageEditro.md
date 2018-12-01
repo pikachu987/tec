@@ -27,50 +27,50 @@ categories: swift
 
 
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/2.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/2.png)
 
 일단 [Downloads](https://creativesdk.adobe.com/downloads.html) 에 들어가서 STATIC FRAMEWORKS(DEPRECATED)를 클릭해서 다운받자.
 
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/3.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/3.png)
 
 다운받으면 framework가 엄청 많다...
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/4.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/4.png)
 
 우리한테 필요한 것은 이 4개이다. 그런데 .bundle는 어디 있을까?
 정답은 .framework를 들어가면 .bundle이 있을것이다. 복붙해서 이렇게 4개를 만들자.
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/5.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/5.png)
 
 해당 IOS앱 폴더에 해당 4개를 넣자.
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/6.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/6.png)
 
 그리고 4개를 드래그해서 xCode상에 넣자.
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/7.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/7.png)
 
 TARGETS에서 General에서 Linked Frameworks and Libraies 에 보면 이런식으로 4개가 생겼을 것이다.
 여기서 +를 눌러서 추가한다.
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/8.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/8.png)
 
 이런식으로 하나씩하나씩 추가를 해서
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/9.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/9.png)
 
 이렇게 나오도록 추가를 한다.
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/10.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/10.png)
 
 이제 Bulid Settings에 들어가서 Linking를 찾는다.
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/11.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/11.png)
 
 Other Linker Flags에 이런식으로 적어준다.
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/12.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/12.png)
 
 브릿지헤더에서 이런식으로 적어준다.
 
@@ -91,17 +91,17 @@ Other Linker Flags에 이런식으로 적어준다.
 
 ~~~~
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/13.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/13.png)
 
 [MyApps](https://creativesdk.adobe.com/myapps.html) 에 들어가서 새로운 앱을 만든다.
 
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/14.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/14.png)
 
 여기서 중요한건 SECRET를 꼭 복사해놓자.
 
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/15.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/15.png)
 
 AppDelegate.swift에 이런식으로 ID와 SECRET를 한줄 추가한다.
 
@@ -112,7 +112,7 @@ AppDelegate.swift에 이런식으로 ID와 SECRET를 한줄 추가한다.
 
 ~~~~
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/16.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/16.png)
 
 (하단부분에 총 소스를 올려두겠다.)
 
@@ -130,32 +130,32 @@ UIImagePickerControllerDelegate, UINavigationControllerDelegate, AdobeUXImageEdi
 UIImagePickerControllerDelegate와 UINavigationControllerDelegate는 카메라, 사진 선택하는데 필요한 딜리게이트이고
 AdobeUXImageEditorViewControllerDelegate는 AdobeImageEditor하는데 필요한 딜리게이트이다.
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/17.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/17.png)
 
 카메라, 사진에 필요한 Picker를 변수로 지정.
 
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/18.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/18.png)
 
 picker설정을 한다.
 
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/19.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/19.png)
 
 버튼이벤트를 준다.
 
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/20.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/20.png)
 
 picker 딜리게이트 관련 메소드이다.
 
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/21.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/21.png)
 
 여기는 adobe 관련 설정을 한다.
 
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/22.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/22.png)
 
 adobe에서 완성된 이미지를 받아온다.
 
@@ -321,37 +321,37 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
 미리보기 이미지!
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/23.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/23.png)
 
 첫 화면이다.
 
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/24.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/24.png)
 
 클릭을 하면 선택을 할수있다.
 
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/25.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/25.png)
 
 이미지 에디터 화면이다.
 
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/26.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/26.png)
 
 크롭화면이다.
 
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/27.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/27.png)
 
 방향전환 화면이다.
 
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/28.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/28.png)
 
 그리기 화면이다.
 
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/29.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/29.png)
 
 완료후 받아온 이미지이다.
 
