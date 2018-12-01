@@ -17,10 +17,11 @@ categories: swift
 <br>
 
 [동영상보기](https://www.youtube.com/embed/8VzEs-gEeEQ)
+
 [![동영상 클릭](https://pikachu987.github.io/tec/images/swift_adobeEditor/30.png)](https://www.youtube.com/embed/8VzEs-gEeEQ "editor")
 
 
-![Alt text](https://pikachu987.github.io/tec/images/swift_adobeEditor/1.png)
+![Alt text](/tec/images/2016/09/swift_adobeEditor/1.png)
 
 우리가 일단 Adobe 이미지 에디터를 사용려면 당연히 Adobe 개발자 사이트 [adobe](https://creativesdk.adobe.com/downloads.html) 에 회원가입을 해야 한다.
 상단에 보면 Downloads와 My Apps에만 들어갈 것이다.
