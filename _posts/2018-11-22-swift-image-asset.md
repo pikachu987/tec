@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      swift PHAsset Permission, fetchAssetCollections, fetchAssets, requestImage, progress
+title:      swift PHAsset, Collections, Image progress
 date:       2018-11-22 08:00:00
 summary:    Swift PHAsset을 사용해서 권한획득, Album List, Picture List, Get Image, iCloud Download Progress 확인하기
 categories: swift
