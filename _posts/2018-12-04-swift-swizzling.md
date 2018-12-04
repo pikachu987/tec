@@ -1,12 +1,12 @@
 ---
 layout:     post
-title:      swift swizzled 스위즐링
+title:      swift swizzling 스위즐링
 date:       2018-12-04 08:00:00
-summary:    Swift swizzled 써보기
+summary:    Swift swizzling 써보기
 categories: swift
 ---
 
-#### 스위즐링
+#### Method Swizzling
 
 스위즐링은 런타임에 해당 메서드를 내가 원하는 메서드로 바꿀 수 있다.
 
