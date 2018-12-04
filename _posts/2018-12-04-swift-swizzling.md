@@ -19,7 +19,7 @@ extension UIViewController {
 
     }
 
-    static let swizzleMethodWillAppear: Void = {
+    public static func swizzleMethodInitialize() {
         let originalSelector = #selector(viewWillAppear(_:))
         let swizzledSelector = #selector(customViewWillAppear(_:))
 
@@ -29,7 +29,7 @@ extension UIViewController {
         if let originalMethod = originalMethod, let swizzledMethod = swizzledMethod {
             method_exchangeImplementations(originalMethod, swizzledMethod)
         }
-    }()
+    }
 }
 
 ```
@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
-        UIViewController.swizzleMethodWillAppear
+        UIViewController.swizzleMethodInitialize()
 
         return true
     }
@@ -54,6 +54,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 ```
 
 이렇게 하면 UIViewController에서 viewWillAppear가 호출이 될때 내가 만든 메서드가 호출이 된다.
+
+
+#### Swizzling할 메서드의 Selector를 가져온다.
+
+```Swift
+
+let originalSelector = #selector(viewWillAppear(_:))
+let swizzledSelector = #selector(customViewWillAppear(_:))
+
+```
+
+#### UIViewController 클래스의 인스턴스메서드를 가져온다.
+
+```Swift
+
+let originalMethod = class_getInstanceMethod(UIViewController.self, originalSelector)
+let swizzledMethod = class_getInstanceMethod(UIViewController.self, swizzledSelector)
+
+```
+
+#### originalMethod와 swizzledMethod를 바꾼다.
+
+```Swift
+
+method_exchangeImplementations(originalMethod, swizzledMethod)
+
+```
 
 #### 단점
 
