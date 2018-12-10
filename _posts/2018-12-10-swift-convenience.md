@@ -1,12 +1,12 @@
 ---
 layout:     post
-title:      swift convenience 편리 생성자
+title:      swift convenience 편의 생성자
 date:       2018-12-10 08:00:00
 summary:    Swift convenience
 categories: swift
 ---
 
-convenience는 편리 생성자라고 하는데
+convenience는 편의 생성자라고 하는데
 
 기존에 구현했던 init을 수정하지 않고 커스텀한 init을 사용할수 있게 할수 있다.
 사용 방법은 init앞에 convenience을 붙인다.
