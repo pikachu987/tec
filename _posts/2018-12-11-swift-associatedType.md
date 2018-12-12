@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      swift associatedType 연관타입
-date:       2018-12-06 08:00:00
+date:       2018-12-11 08:00:00
 summary:    Swift protocol의 associatedType 써보기
 categories: swift
 ---
