@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>swift blocking, non-blocking &#8211; Technology</title>
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdn.mathjax.org">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Swift sync, async, blocking, non-blocking에 대해 알아보자">
+    <meta name="robots" content="all">
+    <meta name="author" content="gwanho kim">
+    
+    <meta name="keywords" content="swift">
+    <link rel="canonical" href="http://localhost:4000/swift/2018/12/13/swift-blocking/">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Technology" href="/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css?201812132246" type="text/css">
+
+    <!-- Fonts -->
+    
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+    
+
+    <!-- MathJax -->
+    
+
+    <!-- Verifications -->
+    
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="swift blocking, non-blocking">
+    <meta property="og:description" content="pikachu987 Technology">
+    <meta property="og:url" content="http://localhost:4000/swift/2018/12/13/swift-blocking/">
+    <meta property="og:site_name" content="Technology">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+    <meta name="twitter:title" content="swift blocking, non-blocking" />
+    <meta name="twitter:description" content="Swift sync, async, blocking, non-blocking에 대해 알아보자" />
+    <meta name="twitter:url" content="http://localhost:4000/swift/2018/12/13/swift-blocking/" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+
+    
+    <script type="text/javascript">
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+       ga('create', 'UA-129769659-2', 'auto');
+       ga('send', 'pageview');
+    </script>
+    
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-8234147734135901",
+        enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+<body class="site">
+  
+	
+
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://localhost:4000" class="site-title">Technology</a>
+      <nav class="site-nav">
+        
+    
+
+    
+        <a href="https://pikachu987.github.io/">Blog</a>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+      </nav>
+      <div class="clearfix"></div>
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1>swift blocking, non-blocking</h1>
+  <span class="post-meta">Dec 13, 2018</span><br>
+  
+  <span class="post-meta small">
+  
+    2 minute read
+  
+  </span>
+</div>
+
+<article class="post-content">
+  <h4 id="blocking">blocking</h4>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">Network</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">isLoading</span> <span class="o">=</span> <span class="kc">false</span>
+
+    <span class="kd">func</span> <span class="nf">blocking</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"start date: </span><span class="se">\(</span><span class="kt">Date</span><span class="p">()</span><span class="o">.</span><span class="n">timeIntervalSince1970</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+        <span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"end date: </span><span class="se">\(</span><span class="kt">Date</span><span class="p">()</span><span class="o">.</span><span class="n">timeIntervalSince1970</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">true</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">Example</span> <span class="p">{</span>
+
+    <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">network</span> <span class="o">=</span> <span class="kt">Network</span><span class="p">()</span>
+
+        <span class="k">let</span> <span class="nv">result</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="nf">blocking</span><span class="p">()</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"complete </span><span class="se">\(</span><span class="n">result</span><span class="se">)</span><span class="s"> date: </span><span class="se">\(</span><span class="kt">Date</span><span class="p">()</span><span class="o">.</span><span class="n">timeIntervalSince1970</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">start</span> <span class="nv">date</span><span class="p">:</span> <span class="mf">1544249905.254097</span>
+<span class="n">end</span> <span class="nv">date</span><span class="p">:</span> <span class="mf">1544249906.254911</span>
+<span class="n">complete</span> <span class="kc">true</span> <span class="nv">date</span><span class="p">:</span> <span class="mf">1544249906.25496</span>
+</code></pre></div></div>
+
+<p>블러킹은 함수를 호출했을때 결과가 나올때까지 함수를 반환하지 않는다.</p>
+
+<h4 id="non-blocking">non-blocking</h4>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">Network</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">isLoading</span> <span class="o">=</span> <span class="kc">false</span>
+
+    <span class="kd">func</span> <span class="nf">nonBlocking</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kt">DispatchQueue</span><span class="o">.</span><span class="nf">global</span><span class="p">()</span><span class="o">.</span><span class="nf">asyncAfter</span><span class="p">(</span><span class="nv">deadline</span><span class="p">:</span> <span class="o">.</span><span class="nf">now</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">self</span><span class="o">.</span><span class="n">isLoading</span> <span class="o">=</span> <span class="kc">true</span>
+            <span class="nf">print</span><span class="p">(</span><span class="s">"start date: </span><span class="se">\(</span><span class="kt">Date</span><span class="p">()</span><span class="o">.</span><span class="n">timeIntervalSince1970</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+            <span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">self</span><span class="o">.</span><span class="n">isLoading</span> <span class="o">=</span> <span class="kc">false</span>
+            <span class="nf">print</span><span class="p">(</span><span class="s">"end date: </span><span class="se">\(</span><span class="kt">Date</span><span class="p">()</span><span class="o">.</span><span class="n">timeIntervalSince1970</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">Example</span> <span class="p">{</span>
+
+    <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">network</span> <span class="o">=</span> <span class="kt">Network</span><span class="p">()</span>
+
+        <span class="n">network</span><span class="o">.</span><span class="nf">nonBlocking</span><span class="p">()</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"complete </span><span class="se">\(</span><span class="n">network</span><span class="o">.</span><span class="n">isLoading</span><span class="se">)</span><span class="s"> date: </span><span class="se">\(</span><span class="kt">Date</span><span class="p">()</span><span class="o">.</span><span class="n">timeIntervalSince1970</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">complete</span> <span class="kc">false</span> <span class="nv">date</span><span class="p">:</span> <span class="mf">1544250075.108323</span>
+<span class="n">start</span> <span class="nv">date</span><span class="p">:</span> <span class="mf">1544250075.214427</span>
+<span class="n">end</span> <span class="nv">date</span><span class="p">:</span> <span class="mf">1544250076.21679</span>
+</code></pre></div></div>
+
+<p>넌블러킹은 함수를 호출했을때 바로 반환하고 다른 작업을 수행할 수 있다.</p>
+
+<h4 id="sync동기">Sync(동기)</h4>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">Network</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">isLoading</span> <span class="o">=</span> <span class="kc">false</span>
+
+    <span class="kd">func</span> <span class="nf">sync</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+
+        <span class="k">return</span> <span class="kc">true</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">Example</span> <span class="p">{</span>
+
+    <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">network</span> <span class="o">=</span> <span class="kt">Network</span><span class="p">()</span>
+
+        <span class="k">let</span> <span class="nv">value</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="nf">sync</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>함수의 작업완료를 기다린다.</p>
+
+<h4 id="async비동기">Async(비동기)</h4>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">Network</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">isLoading</span> <span class="o">=</span> <span class="kc">false</span>
+
+    <span class="kd">func</span> <span class="nf">async</span><span class="p">(</span><span class="n">_</span> <span class="nv">callback</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">DispatchQueue</span><span class="o">.</span><span class="nf">global</span><span class="p">()</span><span class="o">.</span><span class="nf">asyncAfter</span><span class="p">(</span><span class="nv">deadline</span><span class="p">:</span> <span class="o">.</span><span class="nf">now</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nf">callback</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">Example</span> <span class="p">{</span>
+
+    <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">network</span> <span class="o">=</span> <span class="kt">Network</span><span class="p">()</span>
+        <span class="n">network</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span>
+            <span class="nf">print</span><span class="p">(</span><span class="s">"complete"</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>함수의 작업완료를 기다리지 않고 callback으로 받는다.</p>
+
+<h2 id="syncasync와-blockingnonblocking를-같이-사용">Sync/Async와 Blocking/NonBlocking를 같이 사용</h2>
+
+<h3 id="sync-blocking">Sync-Blocking</h3>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">Network</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">isLoading</span> <span class="o">=</span> <span class="kc">false</span>
+
+    <span class="kd">func</span> <span class="nf">syncBlocking</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+        <span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">true</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">Example</span> <span class="p">{</span>
+
+    <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">network</span> <span class="o">=</span> <span class="kt">Network</span><span class="p">()</span>
+        <span class="k">let</span> <span class="nv">value</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="nf">syncBlocking</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>싱크 블러킹은 함수를 호출후 리턴될때 까지 아무작업을 할수 없다.<br />
+함수의 작업내용이 작거나 시간이 아주 작게 걸릴때 사용된다.<br />
+그렇지 않으면 앱이 프리즈상태가 될 가능성이 많다.</p>
+
+<h3 id="sync-nonblocking">Sync-NonBlocking</h3>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">Network</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">isLoading</span> <span class="o">=</span> <span class="kc">false</span>
+
+    <span class="kd">func</span> <span class="nf">syncNonBlocking</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+        <span class="kt">DispatchQueue</span><span class="o">.</span><span class="nf">global</span><span class="p">()</span><span class="o">.</span><span class="nf">asyncAfter</span><span class="p">(</span><span class="nv">deadline</span><span class="p">:</span> <span class="o">.</span><span class="nf">now</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nf">print</span><span class="p">(</span><span class="s">"work"</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="kc">true</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">Example</span> <span class="p">{</span>
+
+    <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">network</span> <span class="o">=</span> <span class="kt">Network</span><span class="p">()</span>
+        <span class="k">let</span> <span class="nv">value</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="nf">syncNonBlocking</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>싱크 논블러킹은 함수를 호출후 바로 리턴받고 다른작업을 할수 있다. <br />
+해당 함수의 작업 결과가 중요하지 않을 경우 사용한다.</p>
+
+<h3 id="async-blocking">Async-Blocking</h3>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">Network</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">isLoading</span> <span class="o">=</span> <span class="kc">false</span>
+
+    <span class="kd">func</span> <span class="nf">asyncBlocking</span><span class="p">(</span><span class="n">_</span> <span class="nv">callback</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="nf">callback</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">Example</span> <span class="p">{</span>
+
+    <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">network</span> <span class="o">=</span> <span class="kt">Network</span><span class="p">()</span>
+        <span class="n">network</span><span class="o">.</span><span class="n">asyncBlocking</span> <span class="p">{</span>
+
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>어싱크 블로킹은 콜백호출까지 다른 작업을 할수 없다. <br />
+거의 사용되지 않는다.</p>
+
+<h3 id="async-nonblocking">Async-NonBlocking</h3>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">Network</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">isLoading</span> <span class="o">=</span> <span class="kc">false</span>
+
+    <span class="kd">func</span> <span class="nf">asyncNonBlocking</span><span class="p">(</span><span class="n">_</span> <span class="nv">callback</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">DispatchQueue</span><span class="o">.</span><span class="nf">global</span><span class="p">()</span><span class="o">.</span><span class="nf">asyncAfter</span><span class="p">(</span><span class="nv">deadline</span><span class="p">:</span> <span class="o">.</span><span class="nf">now</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nf">callback</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">Example</span> <span class="p">{</span>
+
+    <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="nv">network</span> <span class="o">=</span> <span class="kt">Network</span><span class="p">()</span>
+        <span class="n">network</span><span class="o">.</span><span class="n">asyncNonBlocking</span> <span class="p">{</span>
+            <span class="nf">print</span><span class="p">(</span><span class="s">"complete"</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"other work"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>어싱크 논블러킹은 콜백호출전에 다른작업이 가능하다. <br />
+함수에서 작업이 완료되면 콜백이 호출된다.<br />
+가장 많이 쓰이는 형태이다.</p>
+
+</article>
+
+
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//pikachu987blog.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pikachu987blog.disqus.com/count.js" async></script>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    
+  </div>
+</footer>
+
+
+</body>
+</html>

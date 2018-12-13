@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>swift Image Face Detector, Blur &#8211; Technology</title>
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdn.mathjax.org">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Swift 이미지에 얼굴찾고 얼굴 모자이크처리, 이미지로 씌우기">
+    <meta name="robots" content="all">
+    <meta name="author" content="gwanho kim">
+    
+    <meta name="keywords" content="swift">
+    <link rel="canonical" href="http://localhost:4000/swift/2018/12/02/swift-designable-inspectable/">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Technology" href="/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css?201812132246" type="text/css">
+
+    <!-- Fonts -->
+    
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+    
+
+    <!-- MathJax -->
+    
+
+    <!-- Verifications -->
+    
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="swift Image Face Detector, Blur">
+    <meta property="og:description" content="pikachu987 Technology">
+    <meta property="og:url" content="http://localhost:4000/swift/2018/12/02/swift-designable-inspectable/">
+    <meta property="og:site_name" content="Technology">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+    <meta name="twitter:title" content="swift Image Face Detector, Blur" />
+    <meta name="twitter:description" content="Swift 이미지에 얼굴찾고 얼굴 모자이크처리, 이미지로 씌우기" />
+    <meta name="twitter:url" content="http://localhost:4000/swift/2018/12/02/swift-designable-inspectable/" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+
+    
+    <script type="text/javascript">
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+       ga('create', 'UA-129769659-2', 'auto');
+       ga('send', 'pageview');
+    </script>
+    
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-8234147734135901",
+        enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+<body class="site">
+  
+	
+
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://localhost:4000" class="site-title">Technology</a>
+      <nav class="site-nav">
+        
+    
+
+    
+        <a href="https://pikachu987.github.io/">Blog</a>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+      </nav>
+      <div class="clearfix"></div>
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1>swift Image Face Detector, Blur</h1>
+  <span class="post-meta">Dec 2, 2018</span><br>
+  
+  <span class="post-meta small">
+  
+    2 minute read
+  
+  </span>
+</div>
+
+<article class="post-content">
+  <p><img src="/tec/images/2018/12/faceDetector/blur.gif" width="200px" /></p>
+
+<h4 id="cidetector를-사용하여-face를-찾기">CIDetector를 사용하여 face를 찾기</h4>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">faceDetector</span><span class="p">(</span><span class="n">_</span> <span class="nv">image</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?)</span> <span class="p">{</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">image</span> <span class="o">=</span> <span class="n">image</span><span class="p">,</span>
+        <span class="k">let</span> <span class="nv">ciImage</span> <span class="o">=</span> <span class="kt">CIImage</span><span class="p">(</span><span class="nv">image</span><span class="p">:</span> <span class="n">image</span><span class="p">),</span>
+        <span class="k">let</span> <span class="nv">ciDetector</span> <span class="o">=</span> <span class="kt">CIDetector</span><span class="p">(</span>
+            <span class="nv">ofType</span><span class="p">:</span> <span class="kt">CIDetectorTypeFace</span><span class="p">,</span>
+            <span class="nv">context</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">options</span><span class="p">:</span> <span class="p">[</span><span class="kt">CIDetectorAccuracy</span> <span class="p">:</span> <span class="kt">CIDetectorAccuracyHigh</span><span class="p">]</span>
+        <span class="p">)</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">nil</span> <span class="p">}</span>
+
+    <span class="k">let</span> <span class="nv">features</span> <span class="o">=</span> <span class="n">ciDetector</span><span class="o">.</span><span class="nf">features</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="n">ciImage</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">features</span><span class="o">.</span><span class="n">isEmpty</span> <span class="p">{</span> <span class="k">return</span> <span class="n">image</span> <span class="p">}</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">features</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h4 id="찾은-face에-blur-적용하기">찾은 face에 blur 적용하기</h4>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">blur</span><span class="p">(</span><span class="n">_</span> <span class="nv">image</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span><span class="p">?</span> <span class="p">{</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">image</span> <span class="o">=</span> <span class="n">image</span><span class="p">,</span>
+        <span class="k">let</span> <span class="nv">ciImage</span> <span class="o">=</span> <span class="kt">CIImage</span><span class="p">(</span><span class="nv">image</span><span class="p">:</span> <span class="n">image</span><span class="p">),</span>
+        <span class="k">let</span> <span class="nv">ciDetector</span> <span class="o">=</span> <span class="kt">CIDetector</span><span class="p">(</span>
+            <span class="nv">ofType</span><span class="p">:</span> <span class="kt">CIDetectorTypeFace</span><span class="p">,</span>
+            <span class="nv">context</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">options</span><span class="p">:</span> <span class="p">[</span><span class="kt">CIDetectorAccuracy</span> <span class="p">:</span> <span class="kt">CIDetectorAccuracyHigh</span><span class="p">]</span>
+        <span class="p">)</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">nil</span> <span class="p">}</span>
+
+    <span class="k">let</span> <span class="nv">features</span> <span class="o">=</span> <span class="n">ciDetector</span><span class="o">.</span><span class="nf">features</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="n">ciImage</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">features</span><span class="o">.</span><span class="n">isEmpty</span> <span class="p">{</span> <span class="k">return</span> <span class="n">image</span> <span class="p">}</span>
+
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">pixelateFiler</span> <span class="o">=</span> <span class="kt">CIFilter</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"CIPixellate"</span><span class="p">),</span>
+        <span class="k">let</span> <span class="nv">composite</span> <span class="o">=</span> <span class="kt">CIFilter</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"CIBlendWithMask"</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="n">image</span> <span class="p">}</span>
+
+    <span class="n">pixelateFiler</span><span class="o">.</span><span class="nf">setValue</span><span class="p">(</span><span class="n">ciImage</span><span class="p">,</span> <span class="nv">forKey</span><span class="p">:</span> <span class="n">kCIInputImageKey</span><span class="p">)</span>
+    <span class="n">pixelateFiler</span><span class="o">.</span><span class="nf">setValue</span><span class="p">(</span><span class="nf">max</span><span class="p">(</span><span class="n">ciImage</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">ciImage</span><span class="o">.</span><span class="n">extent</span><span class="o">.</span><span class="n">height</span><span class="p">)</span> <span class="o">/</span> <span class="mf">60.0</span><span class="p">,</span> <span class="nv">forKey</span><span class="p">:</span> <span class="n">kCIInputScaleKey</span><span class="p">)</span>
+
+    <span class="k">var</span> <span class="nv">maskImage</span><span class="p">:</span> <span class="kt">CIImage</span><span class="p">?</span>
+
+    <span class="n">features</span><span class="o">.</span><span class="nf">forEach</span><span class="p">({</span> <span class="p">(</span><span class="n">feature</span><span class="p">)</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="nv">centerX</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">feature</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mf">2.0</span>
+        <span class="k">let</span> <span class="nv">centerY</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">feature</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mf">2.0</span>
+        <span class="k">let</span> <span class="nv">radius</span> <span class="o">=</span> <span class="nf">min</span><span class="p">(</span><span class="n">feature</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">feature</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">height</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1.5</span>
+
+        <span class="k">let</span> <span class="nv">radialGradient</span> <span class="o">=</span> <span class="kt">CIFilter</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"CIRadialGradient"</span><span class="p">)</span>
+        <span class="n">radialGradient</span><span class="p">?</span><span class="o">.</span><span class="nf">setValue</span><span class="p">(</span><span class="n">radius</span><span class="p">,</span> <span class="nv">forKey</span><span class="p">:</span> <span class="s">"inputRadius0"</span><span class="p">)</span>
+        <span class="n">radialGradient</span><span class="p">?</span><span class="o">.</span><span class="nf">setValue</span><span class="p">(</span><span class="n">radius</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">forKey</span><span class="p">:</span> <span class="s">"inputRadius1"</span><span class="p">)</span>
+        <span class="n">radialGradient</span><span class="p">?</span><span class="o">.</span><span class="nf">setValue</span><span class="p">(</span><span class="kt">CIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">green</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">blue</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span> <span class="mi">1</span><span class="p">),</span> <span class="nv">forKey</span><span class="p">:</span> <span class="s">"inputColor0"</span><span class="p">)</span>
+        <span class="n">radialGradient</span><span class="p">?</span><span class="o">.</span><span class="nf">setValue</span><span class="p">(</span><span class="kt">CIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">green</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">blue</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span> <span class="mi">0</span><span class="p">),</span> <span class="nv">forKey</span><span class="p">:</span> <span class="s">"inputColor1"</span><span class="p">)</span>
+        <span class="n">radialGradient</span><span class="p">?</span><span class="o">.</span><span class="nf">setValue</span><span class="p">(</span><span class="kt">CIVector</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">centerX</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">centerY</span><span class="p">),</span> <span class="nv">forKey</span><span class="p">:</span> <span class="n">kCIInputCenterKey</span><span class="p">)</span>
+
+        <span class="k">let</span> <span class="nv">circleImage</span> <span class="o">=</span> <span class="n">radialGradient</span><span class="p">?</span><span class="o">.</span><span class="n">outputImage</span><span class="p">?</span><span class="o">.</span><span class="nf">cropped</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="n">ciImage</span><span class="o">.</span><span class="n">extent</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">maskImage</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+            <span class="n">maskImage</span> <span class="o">=</span> <span class="n">circleImage</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">let</span> <span class="nv">filter</span> <span class="o">=</span>  <span class="kt">CIFilter</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"CISourceOverCompositing"</span><span class="p">)</span>
+            <span class="n">filter</span><span class="p">?</span><span class="o">.</span><span class="nf">setValue</span><span class="p">(</span><span class="n">circleImage</span><span class="p">,</span> <span class="nv">forKey</span><span class="p">:</span> <span class="n">kCIInputImageKey</span><span class="p">)</span>
+            <span class="n">filter</span><span class="p">?</span><span class="o">.</span><span class="nf">setValue</span><span class="p">(</span><span class="n">maskImage</span><span class="p">,</span> <span class="nv">forKey</span><span class="p">:</span> <span class="n">kCIInputBackgroundImageKey</span><span class="p">)</span>
+            <span class="n">maskImage</span> <span class="o">=</span> <span class="n">filter</span><span class="p">?</span><span class="o">.</span><span class="n">outputImage</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+
+    <span class="n">composite</span><span class="o">.</span><span class="nf">setValue</span><span class="p">(</span><span class="n">pixelateFiler</span><span class="o">.</span><span class="n">outputImage</span><span class="p">,</span> <span class="nv">forKey</span><span class="p">:</span> <span class="n">kCIInputImageKey</span><span class="p">)</span>
+    <span class="n">composite</span><span class="o">.</span><span class="nf">setValue</span><span class="p">(</span><span class="n">ciImage</span><span class="p">,</span> <span class="nv">forKey</span><span class="p">:</span> <span class="n">kCIInputBackgroundImageKey</span><span class="p">)</span>
+    <span class="n">composite</span><span class="o">.</span><span class="nf">setValue</span><span class="p">(</span><span class="n">maskImage</span><span class="p">,</span> <span class="nv">forKey</span><span class="p">:</span> <span class="n">kCIInputMaskImageKey</span><span class="p">)</span>
+
+    <span class="k">let</span> <span class="nv">context</span> <span class="o">=</span> <span class="kt">CIContext</span><span class="p">(</span><span class="nv">options</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">outputImage</span> <span class="o">=</span> <span class="n">composite</span><span class="o">.</span><span class="n">outputImage</span><span class="p">,</span>
+        <span class="k">let</span> <span class="nv">cgImage</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="nf">createCGImage</span><span class="p">(</span><span class="n">outputImage</span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="n">outputImage</span><span class="o">.</span><span class="n">extent</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="n">image</span> <span class="p">}</span>
+
+    <span class="k">return</span> <span class="kt">UIImage</span><span class="p">(</span><span class="nv">cgImage</span><span class="p">:</span> <span class="n">cgImage</span><span class="p">,</span> <span class="nv">scale</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">orientation</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">imageOrientation</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="/tec/images/2018/12/faceDetector/blur.png" alt="Alt Text" /></p>
+
+<h4 id="찾은-face에-이미지-적용하기">찾은 face에 이미지 적용하기</h4>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">imageAdd</span><span class="p">(</span><span class="n">_</span> <span class="nv">image</span><span class="p">:</span> <span class="kt">UIImage</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span><span class="p">?</span> <span class="p">{</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">image</span> <span class="o">=</span> <span class="n">image</span><span class="p">,</span>
+        <span class="k">let</span> <span class="nv">ciImage</span> <span class="o">=</span> <span class="kt">CIImage</span><span class="p">(</span><span class="nv">image</span><span class="p">:</span> <span class="n">image</span><span class="p">),</span>
+        <span class="k">let</span> <span class="nv">ciDetector</span> <span class="o">=</span> <span class="kt">CIDetector</span><span class="p">(</span>
+            <span class="nv">ofType</span><span class="p">:</span> <span class="kt">CIDetectorTypeFace</span><span class="p">,</span>
+            <span class="nv">context</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">options</span><span class="p">:</span> <span class="p">[</span><span class="kt">CIDetectorAccuracy</span> <span class="p">:</span> <span class="kt">CIDetectorAccuracyHigh</span><span class="p">]</span>
+        <span class="p">)</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">nil</span> <span class="p">}</span>
+
+    <span class="k">let</span> <span class="nv">features</span> <span class="o">=</span> <span class="n">ciDetector</span><span class="o">.</span><span class="nf">features</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="n">ciImage</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">features</span><span class="o">.</span><span class="n">isEmpty</span> <span class="p">{</span> <span class="k">return</span> <span class="n">image</span> <span class="p">}</span>
+
+    <span class="kt">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">image</span><span class="o">.</span><span class="nf">draw</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">height</span><span class="p">))</span>
+    <span class="n">features</span><span class="o">.</span><span class="n">forEach</span> <span class="p">{</span>  <span class="p">(</span><span class="n">feature</span><span class="p">)</span> <span class="k">in</span>
+        <span class="k">var</span> <span class="nv">rect</span> <span class="o">=</span> <span class="kt">CGRect</span><span class="p">()</span>
+        <span class="k">let</span> <span class="nv">originalMaxSize</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">feature</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">feature</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+        <span class="k">let</span> <span class="nv">maxSize</span> <span class="o">=</span> <span class="n">originalMaxSize</span> <span class="o">*</span> <span class="mf">1.5</span>
+
+        <span class="n">rect</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">feature</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="n">maxSize</span> <span class="o">-</span> <span class="n">originalMaxSize</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">rect</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">height</span> <span class="o">-</span> <span class="p">(</span><span class="n">feature</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="n">feature</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">maxSize</span> <span class="o">-</span> <span class="n">originalMaxSize</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="p">(</span><span class="n">maxSize</span> <span class="o">-</span> <span class="n">originalMaxSize</span><span class="p">)</span><span class="o">/</span><span class="mi">8</span>
+        <span class="n">rect</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">maxSize</span>
+        <span class="n">rect</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">maxSize</span>
+
+        <span class="kt">UIImage</span><span class="p">(</span><span class="nv">named</span><span class="p">:</span> <span class="s">"2.png"</span><span class="p">)?</span><span class="o">.</span><span class="nf">draw</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="n">rect</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">let</span> <span class="nv">imageValue</span> <span class="o">=</span> <span class="kt">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">()</span>
+    <span class="kt">UIGraphicsEndImageContext</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">imageValue</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><img src="/tec/images/2018/12/faceDetector/image.png" alt="Alt Text" /></p>
+
+<p><a href="/tec/images/2018/12/faceDetector/ViewController.swift">예제</a></p>
+
+</article>
+
+
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//pikachu987blog.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pikachu987blog.disqus.com/count.js" async></script>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    
+  </div>
+</footer>
+
+
+</body>
+</html>

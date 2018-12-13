@@ -8,8 +8,7 @@ categories: swift
 
 #### 1. 라인(Line)
 
-```Swift
-
+```swift
 class Example: UIView {
     override func draw(_ rect: CGRect) {
         let path = UIBezierPath(rect: rect)
@@ -26,7 +25,6 @@ class Example: UIView {
         linePath.close()
     }
 }
-
 ```
 
 ![Alt Text](/tec/images/2018/11/bezierPath/line.png)
@@ -35,8 +33,7 @@ class Example: UIView {
 
 #### 2. 화살표(Arrow)
 
-```Swift
-
+```swift
 class Example: UIView {
     override func draw(_ rect: CGRect) {
       let path = UIBezierPath(rect: rect)
@@ -60,7 +57,6 @@ class Example: UIView {
       arrowPath.close()
     }
 }
-
 ```
 
 ![Alt Text](/tec/images/2018/11/bezierPath/arrow.png)
@@ -69,8 +65,7 @@ class Example: UIView {
 
 #### 3. 삼각형(Triangle)
 
-```Swift
-
+```swift
 class Example: UIView {
     override func draw(_ rect: CGRect) {
         let path = UIBezierPath(rect: rect)
@@ -90,7 +85,6 @@ class Example: UIView {
         triangle.close()
     }
 }
-
 ```
 
 ![Alt Text](/tec/images/2018/11/bezierPath/triangle.png)
@@ -99,8 +93,7 @@ class Example: UIView {
 
 #### 4. 사각형(Square)
 
-```Swift
-
+```swift
 class Example: UIView {
     override func draw(_ rect: CGRect) {
         let path = UIBezierPath(rect: rect)
@@ -121,7 +114,6 @@ class Example: UIView {
         squarePath.close()
     }
 }
-
 ```
 
 ![Alt Text](/tec/images/2018/11/bezierPath/square.png)
@@ -130,8 +122,7 @@ class Example: UIView {
 
 #### 5. 오각형(Pentagon)
 
-```Swift
-
+```swift
 class Example: UIView {
     override func draw(_ rect: CGRect) {
         let path = UIBezierPath(rect: rect)
@@ -174,7 +165,6 @@ class Example: UIView {
         pentagonPath.close()
     }
 }
-
 ```
 
 ![Alt Text](/tec/images/2018/11/bezierPath/pentagon.png)
@@ -183,8 +173,7 @@ class Example: UIView {
 
 #### 6. 별(Star)
 
-```Swift
-
+```swift
 class Example: UIView {
     override func draw(_ rect: CGRect) {
         let path = UIBezierPath(rect: rect)
@@ -238,7 +227,6 @@ class Example: UIView {
         starPath.close()
     }
 }
-
 ```
 
 ![Alt Text](/tec/images/2018/11/bezierPath/star.png)
@@ -247,8 +235,7 @@ class Example: UIView {
 
 #### 7. 하트(Heart)
 
-```Swift
-
+```swift
 class Example: UIView {
     override func draw(_ rect: CGRect) {
         let path = UIBezierPath(rect: rect)
@@ -302,7 +289,6 @@ class Example: UIView {
         heartPath.close()
     }
 }
-
 ```
 
 ![Alt Text](/tec/images/2018/11/bezierPath/heart.png)
@@ -311,8 +297,7 @@ class Example: UIView {
 
 #### 8. 말풍선(Bubble)
 
-```Swift
-
+```swift
 class Example: UIView {
     override func draw(_ rect: CGRect) {
         let path = UIBezierPath(rect: rect)
@@ -351,7 +336,6 @@ class Example: UIView {
         bubblePath.close()
     }
 }
-
 ```
 
 ![Alt Text](/tec/images/2018/11/bezierPath/bubble.png)
@@ -360,8 +344,7 @@ class Example: UIView {
 
 #### 9. 오른쪽 채팅 말풍선(Right Chat Bubble)
 
-```Swift
-
+```swift
 class Example: UIView {
 
     private let cornerDistance: CGFloat = 8
@@ -481,7 +464,6 @@ class Example: UIView {
         chatPath.close()
     }
 }
-
 ```
 
 ![Alt Text](/tec/images/2018/11/bezierPath/rightBubble.png)
@@ -490,8 +472,7 @@ class Example: UIView {
 
 #### 10. 왼쪽 채팅 말풍선(Left Chat Bubble)
 
-```Swift
-
+```swift
 class Example: UIView {
 
     private let cornerDistance: CGFloat = 8
@@ -611,7 +592,6 @@ class Example: UIView {
         chatPath.close()
     }
 }
-
 ```
 
 ![Alt Text](/tec/images/2018/11/bezierPath/leftBubble.png)

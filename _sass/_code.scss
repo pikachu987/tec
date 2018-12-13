@@ -68,3 +68,25 @@ pre a:last-of-type::before {
 pre a:only-of-type::before {
   padding: 10px;
 }
+
+pre {
+  padding: 8px;
+}
+
+code {
+  padding: 0px;
+}
+
+pre,
+code {
+  background-color: rgb(240, 240, 240);
+  font-size: 16px;
+}
+
+li code {
+  padding: 3px;
+}
+
+p code {
+  padding: 3px;
+}

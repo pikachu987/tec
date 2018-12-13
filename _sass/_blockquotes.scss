@@ -1,16 +1,33 @@
 blockquote {
-  border-left: 5px solid #7a7a7a;
+  border-left: 4px solid rgb(160, 160, 160);
   font-style: italic;
-  margin-left: $space-1;
-  padding: $space-1;
+  font-size: 15px;
+  margin: 5px;
+  padding: 0px;
+  margin-left: 15px;
 }
 
 blockquote footer {
   background-color: #fff;
   border-color: transparent;
   color: #7a7a7a;
-  font-size: .85rem;
+  font-size: 3px;
   font-style: normal;
   text-align: left;
   padding: 0;
+  margin-left: 12px;
+}
+
+blockquote p {
+  font-size: 15px;
+  font-style: italic;
+  color: rgb(110, 110, 110);
+  margin-left: 12px;
+  padding: 0px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+blockquote pre {
+  margin-left: 5px;
 }

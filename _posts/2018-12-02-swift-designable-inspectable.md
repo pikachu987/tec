@@ -11,8 +11,7 @@ categories: swift
 
 #### CIDetector를 사용하여 face를 찾기
 
-```Swift
-
+```swift
 private func faceDetector(_ image: UIImage?) {
     guard let image = image,
         let ciImage = CIImage(image: image),
@@ -26,13 +25,11 @@ private func faceDetector(_ image: UIImage?) {
     if features.isEmpty { return image }
     print(features);
 }
-
 ```
 
 #### 찾은 face에 blur 적용하기
 
-```Swift
-
+```swift
 private func blur(_ image: UIImage?) -> UIImage? {
     guard let image = image,
         let ciImage = CIImage(image: image),
@@ -87,15 +84,13 @@ private func blur(_ image: UIImage?) -> UIImage? {
 
     return UIImage(cgImage: cgImage, scale: 1, orientation: image.imageOrientation)
 }
-
 ```
 
 ![Alt Text](/tec/images/2018/12/faceDetector/blur.png)
 
 #### 찾은 face에 이미지 적용하기
 
-```Swift
-
+```swift
 private func imageAdd(_ image: UIImage?) -> UIImage? {
     guard let image = image,
         let ciImage = CIImage(image: image),
@@ -126,7 +121,6 @@ private func imageAdd(_ image: UIImage?) -> UIImage? {
     UIGraphicsEndImageContext()
     return imageValue
 }
-
 ```
 
 ![Alt Text](/tec/images/2018/12/faceDetector/image.png)

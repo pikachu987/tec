@@ -8,19 +8,16 @@ categories: swift
 
 #### CustomView IBDesignable 만들기
 
-```Swift
-
+```swift
 @IBDesignable
 class CustomView: UIView {
 
 }
-
 ```
 
 #### CustomView에 IBInspectable 추가하기
 
-```Swift
-
+```swift
 @IBDesignable
 class CustomView: UIView {
     @IBInspectable
@@ -80,8 +77,6 @@ class CustomView: UIView {
 
     }
 }
-
-
 ```
 
 #### Storyboard나 xib에서 사용하기
@@ -96,29 +91,24 @@ class CustomView: UIView {
 
 Storyboard나 xib에서 사용할 경우
 
-```Swift
-
+```swift
 override func awakeFromNib() {
     super.awakeFromNib()
 
 }
-
 ```
 
 이 호출된다.
 
 코드상에서
 
-```Swift
-
+```swift
 let customView = CustomView(frame: CGRect(x:0, y:0, width: 100, height: 100))
-
 ```
 
 처럼 사용할 경우
 
-```Swift
-
+```swift
 override init(frame: CGRect) {
     super.init(frame: frame)
 
@@ -127,7 +117,6 @@ override init(frame: CGRect) {
 required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
 }
-
 ```
 
 init이 호출되고

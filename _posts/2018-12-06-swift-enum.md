@@ -9,51 +9,43 @@ categories: swift
 #### enum 기본
 
 
-```Swift
-
+```swift
 enum CompassPoint {
     case north
     case south
     case east
     case west
 }
-
 ```
 
 이런식으로 enum을 쓸수 있다.
 
-```Swift
-
+```swift
 enum CompassPoint {
     case north, south, east, west
 }
-
 ```
 
 case를 생략해서 사용할수도 있다.
 
-```Swift
-
+```swift
 let value = CompassPoint.north
-
 ```
 
 이렇게 enum의 값을 가져올수 있다.
 
 #### RawValue
 
-```Swift
-
+```swift
 enum CompassPoint: Int {
     case north, south, east, west
 }
 
 print(CompassPoint.north.rawValue)
 print(CompassPoint.south.rawValue)
-
 ```
 
-```Swift
+```
 0
 1
 ```
@@ -61,8 +53,7 @@ print(CompassPoint.south.rawValue)
 RawValue를 줄수 있다.
 제일 앞의 값은 0부터 시작한다.
 
-```Swift
-
+```swift
 enum CompassPoint: Int {
     case north = 5
     case south, east, west
@@ -70,18 +61,16 @@ enum CompassPoint: Int {
 
 print(CompassPoint.north.rawValue)
 print(CompassPoint.south.rawValue)
-
 ```
 
-```Swift
+```
 5
 6
 ```
 
 RawValue에 초기값을 줄수 있다.
 
-```Swift
-
+```swift
 enum CompassPoint: Int {
     case north = 5
     case south = 7
@@ -93,10 +82,9 @@ print(CompassPoint.north.rawValue)
 print(CompassPoint.south.rawValue)
 print(CompassPoint.east.rawValue)
 print(CompassPoint.west.rawValue)
-
 ```
 
-```Swift
+```
 5
 7
 9
@@ -105,8 +93,7 @@ print(CompassPoint.west.rawValue)
 
 값을 각각 줄수 있다.
 
-```Swift
-
+```swift
 enum CompassPoint: String {
     case north = "동"
     case south = "서"
@@ -118,10 +105,9 @@ print(CompassPoint.north.rawValue)
 print(CompassPoint.south.rawValue)
 print(CompassPoint.east.rawValue)
 print(CompassPoint.west.rawValue)
-
 ```
 
-```Swift
+```
 동
 서
 남
@@ -130,33 +116,29 @@ print(CompassPoint.west.rawValue)
 
 Int가 아닌 다른값으로 RawValue를 줄수 있다.
 
-###### RawValue값은 중복되면 안된다.
+> RawValue값은 중복되면 안된다.
 
 #### Associated Value (연관 값)
 
-예를 들어 그림판에 그리기를 할수 있는 앱을 만들려고 한다.
-화면에 터치했을때 그리기, 지우개, 스포이드, 도형 타입이 있다.
+예를 들어 그림판에 그리기를 할수 있는 앱을 만들려고 한다.<br>
+화면에 터치했을때 그리기, 지우개, 스포이드, 도형 타입이 있다.<br>
 그러면
 
-```Swift
-
+```swift
 enum Draw {
     case pen
     case eraser
     case spoid
     case shape
 }
-
 ```
 
-이런식으로 나타낼수 있다.
-펜은 컬러, 사이즈
-지우개는 사이즈
-도형은 여러 도형타입들이 있다고 했을때
-Associated Value를 사용할수 있다.
+이런식으로 나타낼수 있다.<br>
+펜은 컬러, 사이즈<br>
+지우개는 사이즈<br>
+도형은 여러 도형타입들이 있다고 했을때 Associated Value를 사용할수 있다.
 
-```Swift
-
+```swift
 enum Draw {
     case pen(size: CGFloat, color: UIColor)
     case eraser(size: CGFloat)
@@ -165,14 +147,12 @@ enum Draw {
 }
 
 let pen = Draw.pen(size: 5, color: .red)
-
 ```
 
-이렇게 사용가능하다.
+이렇게 사용가능하다.<br>
 도형도 enum으로 나타낼수 있다.
 
-```Swift
-
+```swift
 enum Shape {
     case line
     case square
@@ -185,17 +165,15 @@ enum Draw {
     case spoid
     case shape(type: Shape)
 }
-
 ```
 
-```Swift
+```swift
 let drawType = Draw.pen(size: 5, color: .red)
 ```
 
 이렇게 pen을 만들었는데 pen의 size와 color를 가져오려면
 
-```Swift
-
+```swift
 switch drawType {
     case .pen(let size, let color):
         print("pen -> size: \(size), color: \(color)")
@@ -206,21 +184,18 @@ switch drawType {
     case .shape(let shape):
         print("shape -> \(shape)")
 }
-
 ```
 
-```Swift
+```
 pen -> size: 5.0, color: UIExtendedSRGBColorSpace 1 0 0 1
 ```
 
 switch로 가져올수 있다.
 
-```Swift
-
+```swift
 if case let .pen(size, color) = drawType {
     print("size: \(size), color: \(color)")
 }
-
 ```
 
 if case로도 가져올수 있다.
@@ -228,20 +203,17 @@ if case로도 가져올수 있다.
 
 #### enum 비교
 
-```Swift
-
+```swift
 let line = Shape.line
 let line2 = Shape.line
 
 print(line == line2)
-
 ```
 
-이렇게 단순한 enum은 비교가 가능하다.
+이렇게 단순한 enum은 비교가 가능하다.<br>
 하지만 Associated Value가 들어간 enum은 기본적인 ==으로 비교할수 없다.
 
-```Swift
-
+```swift
 enum Draw {
     case pen(size: CGFloat, color: UIColor)
     case eraser(size: CGFloat)
@@ -268,7 +240,6 @@ let pen = Draw.pen(size: 11, color: .red)
 let spoid = Draw.spoid
 
 print(pen == spoid)
-
 ```
 
 이렇게 ==를 직접 만들어서 비교할수 있다.
@@ -277,8 +248,7 @@ print(pen == spoid)
 
 #### Property
 
-```Swift
-
+```swift
 enum Shape: String {
     case line = "라인"
     case square = "사각형"
@@ -304,7 +274,6 @@ enum Draw {
         }
     }
 }
-
 ```
 
 이렇게 enum에서 Property를 만들수 있고

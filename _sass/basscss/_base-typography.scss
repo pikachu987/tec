@@ -30,7 +30,12 @@ ul {
 
 ol,
 ul {
-  padding-left: $space-3;
+  padding-left: 1.5rem;
+}
+
+ul p {
+  margin-bottom: 0px;
+  font-size: $h5;
 }
 
 pre,
@@ -49,20 +54,6 @@ pre {
 hr {
   margin-top: $space-3;
   margin-bottom: $space-3;
-}
-
-blockquote {
-  margin-top: $space-3;
-  margin-bottom: $space-3;
-  margin-left: 0;
-  padding-left: $space-2;
-  padding-right: $space-2;
-}
-
-blockquote,
-blockquote p {
-  font-size: $h3;
-  font-style: italic;
 }
 
 h1,

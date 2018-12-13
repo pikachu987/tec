@@ -11,8 +11,7 @@ categories: swift
 스위즐링은 런타임에 해당 메서드를 내가 원하는 메서드로 바꿀 수 있다.
 
 
-```Swift
-
+```swift
 extension UIViewController {
     @objc private func customViewWillAppear(_ animated: Bool) {
         print("customViewWillAppear 호출")
@@ -31,12 +30,10 @@ extension UIViewController {
         }
     }
 }
-
 ```
 
 
-```Swift
-
+```swift
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -50,7 +47,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 }
-
 ```
 
 이렇게 하면 UIViewController에서 viewWillAppear가 호출이 될때 내가 만든 메서드가 호출이 된다.
@@ -58,28 +54,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 #### Swizzling할 메서드의 Selector를 가져온다.
 
-```Swift
-
+```swift
 let originalSelector = #selector(viewWillAppear(_:))
 let swizzledSelector = #selector(customViewWillAppear(_:))
-
 ```
 
 #### UIViewController 클래스의 인스턴스메서드를 가져온다.
 
-```Swift
-
+```swift
 let originalMethod = class_getInstanceMethod(UIViewController.self, originalSelector)
 let swizzledMethod = class_getInstanceMethod(UIViewController.self, swizzledSelector)
-
 ```
 
 #### originalMethod와 swizzledMethod를 바꾼다.
 
-```Swift
-
+```swift
 method_exchangeImplementations(originalMethod, swizzledMethod)
-
 ```
 
 #### 단점

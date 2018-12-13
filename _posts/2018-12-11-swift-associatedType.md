@@ -8,42 +8,33 @@ categories: swift
 
 이런 프로토콜이 있다고 가정해보자
 
-```Swift
-
+```swift
 protocol ExampleProtocol {
     var value: Int { get }
 }
-
 ```
 
-코드에서 이 프로토콜을 공통적으로 사용을 하는데 value가 String이 필요한 화면이 있다.
-
+코드에서 이 프로토콜을 공통적으로 사용을 하는데 value가 String이 필요한 화면이 있다.<br>
 그래서 하나더 만들면
 
-```Swift
-
+```swift
 protocol ExampleProtocol2 {
     var value: String { get }
 }
-
 ```
 
 그러다가 value가 Int와 String을 받는 튜플이 필요하게 되었다.
 
-```Swift
-
+```swift
 protocol ExampleProtocol3 {
     var value: (Int, String) { get }
 }
-
 ```
 
-이건 답이 아닌거같다...
-
+이건 답이 아닌거같다...<br>
 그러면 value를 어디서든 사용할수 있게 타입을 AnyObject로 해보자
 
-```Swift
-
+```swift
 protocol ExampleProtocol {
     var value: AnyObject { get }
 }
@@ -65,15 +56,12 @@ struct Example3: ExampleProtocol {
         return (10, "Hi") as AnyObject
     }
 }
-
 ```
 
-이쁘지가 않다... 타입캐스팅을 해줘야한다.
-
+이쁘지가 않다... 타입캐스팅을 해줘야한다.<br>
 이럴때 associatedType를 사용해보면
 
-```Swift
-
+```swift
 protocol ExampleProtocol {
     associatedtype ExampleType
 
@@ -102,17 +90,14 @@ struct Example3: ExampleProtocol {
         return self.item
     }
 }
-
 ```
 
-아주 만족스럽다.
-
+아주 만족스럽다.<br>
 사용하는 곳에서 타입을 변경해주는게 아주 편리하다.
 
 
 
-```Swift
-
+```swift
 class Test {
 
 }
@@ -122,13 +107,11 @@ protocol ExampleProtocol {
 
     var value: ExampleType { get }
 }
-
 ```
 
 associatedtype에 타입을 지정해줄수 있다.
 
-```Swift
-
+```swift
 class Test {
 
 }
@@ -160,15 +143,12 @@ class Example2: ExampleProtocol {
         return Test2()
     }
 }
-
 ```
 
-이런식으로 짤수 있다.
-
+이런식으로 짤수 있다.<br>
 associatedtype에 Equatable을 써보자
 
-```Swift
-
+```swift
 protocol ExampleProtocol {
     associatedtype ExampleType: Equatable
 
@@ -188,15 +168,12 @@ class Example2: ExampleProtocol {
         return "Hi"
     }
 }
-
 ```
 
-Equatable을 만족하는 타입을 사용하면 이런식으로 할수 있다.
-
+Equatable을 만족하는 타입을 사용하면 이런식으로 할수 있다.<br>
 Test에도 Equatable을 상속받아보자
 
-```Swift
-
+```swift
 class Test: Equatable {
     var value = 0
 
@@ -232,5 +209,4 @@ class Example2: ExampleProtocol {
         return Test2()
     }
 }
-
 ```

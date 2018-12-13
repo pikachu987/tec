@@ -10,8 +10,7 @@ categories: swift
 
 ![Alt Text](/tec/images/2018/11/textGradation/text.png)
 
-```Swift
-
+```swift
 func makeLabel() -> UILabel? {
     let label = UILabel()
     label.frame = CGRect(x: 150, y: 200, width: 200, height: 20)
@@ -45,5 +44,4 @@ func image(_ size: CGSize) -> UIImage? {
     UIGraphicsPopContext()
     return UIGraphicsGetImageFromCurrentImageContext()
 }
-
 ```

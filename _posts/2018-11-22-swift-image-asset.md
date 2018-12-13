@@ -19,10 +19,8 @@ Privacy - Photo Library Usage Description을 추가한다.
 
 Photos 를 import한다.
 
-```Swift
-
+```swift
 import Photos
-
 ```
 
 #### 3. PHPhotoLibraryChangeObserver
@@ -31,10 +29,8 @@ PHPhotoLibraryChangeObserver 를 컨트롤러에 등록한다.
 PHPhotoLibraryChangeObserver 는 이미지가 추가되거나 삭제되거나 수정됬을때 호출이 된다.
 deinit될때 해제되어야 한다.
 
-```Swift
-
+```swift
 class ViewController: UIViewController {
-
     deinit {
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
     }
@@ -51,15 +47,13 @@ extension ViewController: PHPhotoLibraryChangeObserver {
         // fetchData
     }
 }
-
 ```
 
 #### 4. 이미지 Authorization
 
 이미지 권한 체크를 한다.
 
-```Swift
-
+```swift
 if PHPhotoLibrary.authorizationStatus() == .authorized {
     // fetchData
 } else if PHPhotoLibrary.authorizationStatus() == .denied {
@@ -75,7 +69,6 @@ if PHPhotoLibrary.authorizationStatus() == .authorized {
         }
     }
 }
-
 ```
 
 #### 5. 앨범 리스트 가져오기
@@ -83,35 +76,30 @@ if PHPhotoLibrary.authorizationStatus() == .authorized {
 앨범 리스트를 가져온다.
 
 
-```Swift
-
+```swift
 PHAssetCollection.fetchAssetCollections(with: PHAssetCollectionType.smartAlbum, subtype: PHAssetCollectionSubtype.any, options: PHFetchOptions()).enumerateObjects { (collection, _, _) in
     let count = PHAsset.fetchAssets(in: collection, options: nil).count // 앨범안의 사진 갯수
     print(collection); // 앨범
 }
-
 ```
 
 #### 6. 앨범을 통해 사진을 가져오기
 
 앨범을 통해 사진 리스트를 가져온다.
 
-```Swift
-
+```swift
 var assets = [PHAsset]()
 PHAsset.fetchAssets(in: collection, options: PHFetchOptions()).enumerateObjects({ (asset, _, _) in
     assets.append(asset)
 })
 print(assets);
-
 ```
 
 #### 7. PHAsset의 이미지 추출
 
 PHCachingImageManager를 이용하여 PHAsset의 이미지를 추출한다.
 
-```Swift
-
+```swift
 func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PictureCell.identifier, for: indexPath) as? PictureCell else { fatalError() }
 
@@ -128,15 +116,13 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
 
     return cell
 }
-
 ```
 
 #### 8. PHAsset의 이미지를 가져올때 progress 숫자 표시하기
 
 PHImageRequestOptions을 이용하여 iCloud에 있는 이미지를 가져올때 progress를 표시할수 있게 한다.
 
-```Swift
-
+```swift
 let imageRequestOptions = PHImageRequestOptions()
 imageRequestOptions.isSynchronous = true
 imageRequestOptions.deliveryMode = .highQualityFormat
@@ -153,7 +139,6 @@ PHCachingImageManager().requestImage(for: asset, targetSize: PHImageManagerMaxim
         self.label.isHidden = true
     }
 })
-
 ```
 
 ![Alt Text](/tec/images/2018/11/imageAsset/progress.png)

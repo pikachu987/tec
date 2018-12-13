@@ -9,8 +9,7 @@ categories: swift
 #### Subscript
 
 
-```Swift
-
+```swift
 subscript(index: Int) -> Int {
     get {
 
@@ -19,29 +18,24 @@ subscript(index: Int) -> Int {
 
     }
 }
-
 ```
 
 또는
 
-```Swift
-
+```swift
 subscript(index: Int) -> Int {
     // get만 있는 subscript
 }
-
 ```
 
 이렇게 사용할수 있다.
 
-Dictionary 타입에서는 key-value subscript로 구현되며 해당 key값의 옵셔널 타입을 받거나 리턴한다.
-
+Dictionary 타입에서는 key-value subscript로 구현되며 해당 key값의 옵셔널 타입을 받거나 리턴한다.<br>
 Array 타입에서는 index를 받고 해당 index의 값을 받거나 리턴한다.
 
 #### Example
 
-```Swift
-
+```swift
 struct TimesTable {
     let multiplier: Int
 
@@ -54,17 +48,15 @@ let timesTable = TimesTable(multiplier: 3)
 print(timesTable[1])
 print(timesTable[2])
 print(timesTable[3])
-
 ```
 
-```Swift
+```
 3
 6
 9
 ```
 
-```Swift
-
+```swift
 struct Animal {
     let name: String
 
@@ -82,18 +74,15 @@ let dog = Animal(name: "개")
 print(dog[0])
 print(dog[1])
 print(dog[2])
-
 ```
 
-```Swift
-
+```
 사자0
 사자1
 사자2
 개0
 개1
 개2
-
 ```
 
 index 인자값에는 Int뿐만 아니라 다른 타입들을 쓸수 있다.

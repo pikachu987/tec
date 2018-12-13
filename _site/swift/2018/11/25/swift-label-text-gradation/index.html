@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>swift UILabel Text Gradation &#8211; Technology</title>
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdn.mathjax.org">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Swift UILabel의 텍스트에 Gradation 추가하기">
+    <meta name="robots" content="all">
+    <meta name="author" content="gwanho kim">
+    
+    <meta name="keywords" content="swift">
+    <link rel="canonical" href="http://localhost:4000/swift/2018/11/25/swift-label-text-gradation/">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Technology" href="/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css?201812132246" type="text/css">
+
+    <!-- Fonts -->
+    
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+    
+
+    <!-- MathJax -->
+    
+
+    <!-- Verifications -->
+    
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="swift UILabel Text Gradation">
+    <meta property="og:description" content="pikachu987 Technology">
+    <meta property="og:url" content="http://localhost:4000/swift/2018/11/25/swift-label-text-gradation/">
+    <meta property="og:site_name" content="Technology">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+    <meta name="twitter:title" content="swift UILabel Text Gradation" />
+    <meta name="twitter:description" content="Swift UILabel의 텍스트에 Gradation 추가하기" />
+    <meta name="twitter:url" content="http://localhost:4000/swift/2018/11/25/swift-label-text-gradation/" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+
+    
+    <script type="text/javascript">
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+       ga('create', 'UA-129769659-2', 'auto');
+       ga('send', 'pageview');
+    </script>
+    
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-8234147734135901",
+        enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+<body class="site">
+  
+	
+
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://localhost:4000" class="site-title">Technology</a>
+      <nav class="site-nav">
+        
+    
+
+    
+        <a href="https://pikachu987.github.io/">Blog</a>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+      </nav>
+      <div class="clearfix"></div>
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1>swift UILabel Text Gradation</h1>
+  <span class="post-meta">Nov 25, 2018</span><br>
+  
+  <span class="post-meta small">
+  
+    1 minute read
+  
+  </span>
+</div>
+
+<article class="post-content">
+  <p><a href="https://github.com/pikachu987/TextGradation">예제</a></p>
+
+<p><img src="/tec/images/2018/11/textGradation/text.png" alt="Alt Text" /></p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">makeLabel</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">UILabel</span><span class="p">?</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">label</span> <span class="o">=</span> <span class="kt">UILabel</span><span class="p">()</span>
+    <span class="n">label</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">150</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">20</span><span class="p">)</span>
+    <span class="n">label</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">"Hello World!"</span>
+
+    <span class="k">let</span> <span class="nv">textSize</span> <span class="o">=</span> <span class="p">(</span><span class="n">label</span><span class="o">.</span><span class="n">text</span> <span class="p">??</span> <span class="s">""</span><span class="p">)</span><span class="o">.</span><span class="nf">size</span><span class="p">(</span><span class="nv">withAttributes</span><span class="p">:</span> <span class="p">[</span><span class="kt">NSAttributedString</span><span class="o">.</span><span class="kt">Key</span><span class="o">.</span><span class="nv">font</span> <span class="p">:</span> <span class="n">label</span><span class="o">.</span><span class="n">font</span><span class="p">])</span>
+
+    <span class="k">let</span> <span class="nv">tempLabel</span> <span class="o">=</span>  <span class="kt">UILabel</span><span class="p">(</span><span class="nv">frame</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="n">textSize</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="o">.</span><span class="n">greatestFiniteMagnitude</span><span class="p">))</span>
+    <span class="n">tempLabel</span><span class="o">.</span><span class="n">numberOfLines</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">tempLabel</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">tempLabel</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">font</span>
+    <span class="n">tempLabel</span><span class="o">.</span><span class="nf">sizeToFit</span><span class="p">()</span>
+    <span class="k">let</span> <span class="nv">height</span> <span class="o">=</span> <span class="n">tempLabel</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">height</span>
+
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">image</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="nf">image</span><span class="p">(</span><span class="kt">CGSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="n">tempLabel</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="n">height</span><span class="p">))</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">nil</span> <span class="p">}</span>
+
+    <span class="n">label</span><span class="o">.</span><span class="n">textColor</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">patternImage</span><span class="p">:</span> <span class="n">image</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">label</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">image</span><span class="p">(</span><span class="n">_</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span><span class="p">?</span> <span class="p">{</span>
+    <span class="kt">UIGraphicsBeginImageContext</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+    <span class="k">defer</span> <span class="p">{</span> <span class="kt">UIGraphicsEndImageContext</span><span class="p">()</span> <span class="p">}</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">context</span> <span class="o">=</span> <span class="kt">UIGraphicsGetCurrentContext</span><span class="p">()</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">nil</span> <span class="p">}</span>
+    <span class="kt">UIGraphicsPushContext</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">gradient</span> <span class="o">=</span> <span class="kt">CGGradient</span><span class="p">(</span><span class="nv">colorsSpace</span><span class="p">:</span> <span class="kt">CGColorSpaceCreateDeviceRGB</span><span class="p">(),</span> <span class="nv">colors</span><span class="p">:</span> <span class="p">[</span><span class="kt">UIColor</span><span class="o">.</span><span class="n">red</span><span class="o">.</span><span class="n">cgColor</span><span class="p">,</span> <span class="kt">UIColor</span><span class="o">.</span><span class="n">black</span><span class="o">.</span><span class="n">cgColor</span><span class="p">]</span> <span class="k">as</span> <span class="kt">CFArray</span><span class="p">,</span> <span class="nv">locations</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">nil</span> <span class="p">}</span>
+    <span class="n">context</span><span class="o">.</span><span class="nf">drawLinearGradient</span><span class="p">(</span><span class="n">gradient</span><span class="p">,</span> <span class="nv">start</span><span class="p">:</span> <span class="kt">CGPoint</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">size</span><span class="o">.</span><span class="n">height</span><span class="p">),</span> <span class="nv">end</span><span class="p">:</span> <span class="kt">CGPoint</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">size</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">size</span><span class="o">.</span><span class="n">height</span><span class="p">),</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[])</span>
+
+    <span class="kt">UIGraphicsPopContext</span><span class="p">()</span>
+    <span class="k">return</span> <span class="kt">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+</article>
+
+
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//pikachu987blog.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pikachu987blog.disqus.com/count.js" async></script>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    
+  </div>
+</footer>
+
+
+</body>
+</html>
