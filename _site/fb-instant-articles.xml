@@ -9,6 +9,809 @@
     
         
             <item>
+                <title>swift AccessControl 알아보기</title>
+                <link>http://localhost:4000/swift/2018/12/17/swift-accesscontrol/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <h2 id="access-control-접근-한정자">Access Control 접근 한정자</h2>
+
+<p>class나 struct, enum, extension, method에 접근 한정자를 붙여 모듈 외부에서 사용할수 있거나 클래스 내부에서만 사용하게 할수 있다.<br />
+접근한정자의 종류는 open, public, internal, fileprivate, private 이 있다.</p>
+
+<h3 id="open">open</h3>
+
+<p>가장 열려있는 접근 한정자이고 전체적으로는 public과 유사하지만</p>
+
+<ul>
+  <li>타모듈에서 만들어진 class의 접근한정자가 open 이면 상속을 할수 있다.</li>
+  <li>타모듈에서 만들어진 method의 접근한정자가 open이면 override를 할수 있다.</li>
+  <li>같은 모듈에서는 public이나 internal과 동일하다.</li>
+</ul>
+
+<h3 id="public">public</h3>
+
+<ul>
+  <li>다른 모듈의 public 로 된 클래스를 상속할려고 하면
+<code class="highlighter-rouge">Cannot inherit from non-open class '' outside of its defining module</code> 이란 class가 open 되지 않았다는 에러가 나온다.</li>
+  <li>다른 모듈의 public로 된 메서드를 override 하려고 하면
+<code class="highlighter-rouge">Overriding non-open instance method outside of its defining module</code> 이란 method가 open되지 않았다는 에러가 나온다.</li>
+</ul>
+
+<h3 id="internal">internal</h3>
+
+<p>타 모듈에서 internal 접근한정자로 만들어진 클래스를 코드에서는 가져올수 없지만 storyboard, xib에서는 가져올수 있다.</p>
+
+<blockquote>
+  <p>xml에서도 internal의 접근한정자는 쓸수 없어야 하는데 xml과 코드에서 타모듈을 가져오는 구조가 달라서 가져올수 있는거 같다.
+xml에서 @IBOutlet(Interface Bulider Outlet)로 연결하면 <code class="highlighter-rouge">Use of undeclared type ''</code> 이런 에러가 나온다.</p>
+</blockquote>
+
+<p>접근한정자를 지정하지 않았을때 기본적으로 사용되는 접근 수준이고 같은 모듈에서는 자유롭게 사용가능하다.</p>
+
+<h3 id="fileprivate">fileprivate</h3>
+
+<p>타 모듈에서 만들어진 클래스나 메서드를 코드나 storyboard, xib에서 가져올수 없다.<br />
+같은 모듈에서 만들어진 fileprivate 접근한정자 클래스를 storyboard, xib에서  <code class="highlighter-rouge">Unknown class 클래스명 in Interface Builder file.</code> 이란 에러가 나온다.<br />
+클래스는 같은 파일내에서만 접근가능하고 메서드도 같은 파일 내에서만 접근가능하다.</p>
+
+<h3 id="private">private</h3>
+
+<p>타 모듈에서 만들어진 클래스나 메서드를 코드나 storyboard, xib에서 가져올수 없다.<br />
+같은 모듈에서 만들어진 클래스를 xml에서 <code class="highlighter-rouge">Unknown class 클래스명 in Interface Builder file.</code> 이란 에러가 나온다.<br />
+클래스는 같은 파일내에서만 접근가능하고 메서드는 같은 블록(클래스) 내에서만 접근가능하다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">UIViewController</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="k">var</span> <span class="nv">name</span> <span class="o">=</span> <span class="s">""</span>
+<span class="p">}</span>
+
+<span class="kd">extension</span> <span class="kt">ViewController</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">doSomething</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">"name"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>같은 파일에서는 이렇게 extension 안에서도 class, struct, enum등 같은 영역에서는 접근 가능하다.</p>
+
+<h3 id="정리">정리</h3>
+
+<h5 id="같은-모듈">같은 모듈</h5>
+
+<h6 id="클래스">클래스</h6>
+
+<ul>
+  <li>상속가능: open, public, internal</li>
+  <li>접근가능: open, public, internal</li>
+  <li>storyboard, xml에서 사용가능: open, public, internal</li>
+  <li>같은파일에서 접근 가능: open, public, internal, fileprivate, private</li>
+</ul>
+
+<h6 id="메서드">메서드</h6>
+
+<ul>
+  <li>오버라이드가능: open, public, internal</li>
+  <li>호출가능: open, public, internal</li>
+  <li>같은파일에서 호출 가능: open, public, internal, fileprivate</li>
+</ul>
+
+<h5 id="타-모듈">타 모듈</h5>
+
+<h6 id="클래스-1">클래스</h6>
+
+<ul>
+  <li>상속가능: open</li>
+  <li>접근가능: open, public</li>
+  <li>xml에서 사용가능: open, public, internal</li>
+</ul>
+
+<h6 id="메서드-1">메서드</h6>
+
+<ul>
+  <li>오버라이드가능: open</li>
+  <li>호출가능: open, public</li>
+</ul>
+
+<blockquote>
+  <p>open, public, internal은 타모듈을 사용할때 차이가 나누어진다.
+fileprivate와 private은 메서드를 호출할때 블럭 내부에서 호출인지 블럭 외부에서 호출인지 차이가 나누어진다.</p>
+</blockquote>
+
+<h4 id="set">set</h4>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">internal(set)</span> <span class="k">var</span> <span class="nv">name</span> <span class="o">=</span> <span class="s">"Kim Gwanho"</span>
+<span class="nf">fileprivate</span><span class="p">(</span><span class="k">set</span><span class="p">)</span> <span class="k">var</span> <span class="nv">age</span> <span class="o">=</span> <span class="mi">27</span>
+<span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">gender</span> <span class="o">=</span> <span class="s">"M"</span>
+</code></pre></div></div>
+
+<p>이렇게 접근한정자 뒤에 set을 붙여도 된다.<br />
+set을 붙인다는 것은 name이나 age, gender를 접근할때는 internal수준으로 어디서든지 접근할수 있지만 set할때는 접근한정자를 따른다.</p>
+
+<ul>
+  <li>name같은 경우는 어디서든지 값을 출력하고 어디서든지 값을 바꿀수 있다.</li>
+  <li>age같은 경우는 어디서든지 값을 출력하지만 같은 파일내에서만 값을 바꿀수 있다.</li>
+  <li>gender같은 경우는 어디서든지 값을 출력하지만 같은 클래스(블럭) 내부에서만 값을 바꿀수 있다.</li>
+</ul>
+
+<h4 id="inheritmodulefromtarget">inheritModuleFromTarget</h4>
+
+<p><img src="/tec/images/2018/12/accessControl/inheritModuleFromTarget.png" alt="Alt Text" /></p>
+
+<blockquote>
+  <p>By checking the “Inherited from Target” option the module gets compiled in for the targets I use it in (Target Memberships for swift file and everything works.</p>
+</blockquote>
+
+<p>Inherit Module From Target을 체크하면 내가 소속되어있는 타겟 모듈만 기본적으로 선택되고 체크를 안하면 모듈을 직접 넣어줘야 한다.</p>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/swift/2018/12/17/swift-accesscontrol/</guid>
+                <description>
+                    
+                    Swift open, public, internal, fileprivate, private
+                    
+                </description>
+                <pubDate>Mon, 17 Dec 2018 17:00:00 +0900</pubDate>
+                <author>gwanho kim</author>
+            </item>
+        
+    
+        
+            <item>
+                <title>swift where의 사용</title>
+                <link>http://localhost:4000/swift/2018/12/16/swift-where/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <p>코드를 짜다보면 어려군데에서 where을 사용하고 있다.<br />
+where를 사용하는 곳을 정리해보자</p>
+
+<h3 id="for">for</h3>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">array</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">130</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">element</span> <span class="k">in</span> <span class="n">array</span> <span class="k">where</span> <span class="n">element</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>for문에 where을 추가해서 원하는 값만 동작하게 할수 있다.</p>
+
+<h3 id="switch-case">switch case</h3>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">enum</span> <span class="kt">NetworkType</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">success</span>
+    <span class="k">case</span> <span class="n">suspend</span>
+    <span class="k">case</span> <span class="nf">error</span><span class="p">(</span><span class="nv">code</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span>
+
+    <span class="k">var</span> <span class="nv">result</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span>
+        <span class="k">switch</span> <span class="k">self</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="o">.</span><span class="nv">success</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">true</span>
+        <span class="k">case</span> <span class="o">.</span><span class="nv">suspend</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">false</span>
+        <span class="k">case</span> <span class="o">.</span><span class="nf">error</span><span class="p">(</span><span class="k">let</span> <span class="nv">statusCode</span><span class="p">)</span> <span class="k">where</span> <span class="mi">200</span> <span class="o">&lt;</span> <span class="n">statusCode</span> <span class="o">&amp;&amp;</span> <span class="n">statusCode</span> <span class="o">&lt;</span> <span class="mi">300</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">true</span>
+        <span class="k">default</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">false</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>case에 where를 넣어서 해당하는 것만 빼낼수 있다.</p>
+
+<h3 id="extension">extension</h3>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">extension</span> <span class="kt">Array</span> <span class="k">where</span> <span class="kt">Element</span> <span class="o">==</span> <span class="kt">Int</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">sum</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Int</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">self</span><span class="o">.</span><span class="nf">reduce</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">+</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="nf">sum</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>extension에 원하는 타입만 받을수 있다.</p>
+
+<h3 id="func">func</h3>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="n">printValue</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Optional</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">where</span> <span class="kt">T</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="k">self</span><span class="o">.</span><span class="nf">printValue</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="k">self</span><span class="o">.</span><span class="nf">printValue</span><span class="p">(</span><span class="s">"홍길동"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">People</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">let</span> <span class="nv">age</span><span class="p">:</span> <span class="kt">Int</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
+    <span class="p">}</span>
+
+    <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">People</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">People</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">lhs</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">rhs</span><span class="o">.</span><span class="n">name</span> <span class="o">&amp;&amp;</span> <span class="n">lhs</span><span class="o">.</span><span class="n">age</span> <span class="o">==</span> <span class="n">rhs</span><span class="o">.</span><span class="n">age</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">self</span><span class="o">.</span><span class="nf">printValue</span><span class="p">(</span><span class="kt">People</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"홍길동"</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="mi">50</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>func에 원하는 타입만 받을수 있다.</p>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/swift/2018/12/16/swift-where/</guid>
+                <description>
+                    
+                    Swift 여러군데에서 나오는 where을 사용해보자
+                    
+                </description>
+                <pubDate>Sun, 16 Dec 2018 17:00:00 +0900</pubDate>
+                <author>gwanho kim</author>
+            </item>
+        
+    
+        
+            <item>
+                <title>swift Higher Order Functions (고차함수), 고차함수 만들기</title>
+                <link>http://localhost:4000/swift/2018/12/15/swift-higerorderfunction/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <h3 id="higher-order-functions-사용">Higher Order Functions 사용</h3>
+
+<p>array에 있는 값들을 출력을 할때</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">array</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">130</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">element</span> <span class="k">in</span> <span class="n">array</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이렇게 한다.<br />
+index를 알고 싶으면</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">array</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">130</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span> <span class="k">in</span> <span class="n">array</span><span class="o">.</span><span class="nf">enumerated</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"index: </span><span class="se">\(</span><span class="n">index</span><span class="se">)</span><span class="s">, element: </span><span class="se">\(</span><span class="n">element</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이렇게 한다.</p>
+
+<h5 id="foreach">forEach</h5>
+
+<p>이것을 그대로 고차함수로 적용해보면</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">array</span><span class="o">.</span><span class="nf">forEach</span><span class="p">({</span> <span class="nf">print</span><span class="p">(</span><span class="nv">$0</span><span class="p">)</span> <span class="p">})</span>
+
+<span class="n">array</span><span class="o">.</span><span class="nf">enumerated</span><span class="p">()</span><span class="o">.</span><span class="nf">forEach</span><span class="p">({</span> <span class="nf">print</span><span class="p">(</span><span class="s">"index: </span><span class="se">\(</span><span class="nv">$0</span><span class="o">.</span><span class="n">offset</span><span class="se">)</span><span class="s">, element: </span><span class="se">\(</span><span class="nv">$0</span><span class="o">.</span><span class="n">element</span><span class="se">)</span><span class="s">"</span><span class="p">)</span> <span class="p">})</span>
+</code></pre></div></div>
+
+<p>$0 대신 변수명을 적을수도 있다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">array</span><span class="o">.</span><span class="nf">forEach</span><span class="p">({</span> <span class="n">element</span> <span class="k">in</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="n">array</span><span class="o">.</span><span class="nf">enumerated</span><span class="p">()</span><span class="o">.</span><span class="nf">forEach</span><span class="p">({</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">element</span><span class="p">)</span> <span class="k">in</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"index: </span><span class="se">\(</span><span class="n">index</span><span class="se">)</span><span class="s">, element: </span><span class="se">\(</span><span class="n">element</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>forEach는 for문과 비슷하게 element값을 반복할수 있다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">dict</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s">"name"</span><span class="p">:</span> <span class="s">"Kim"</span> <span class="k">as</span> <span class="kt">AnyObject</span><span class="p">,</span>
+    <span class="s">"age"</span><span class="p">:</span> <span class="mi">27</span> <span class="k">as</span> <span class="kt">AnyObject</span>
+<span class="p">]</span>
+
+<span class="n">dict</span><span class="o">.</span><span class="nf">forEach</span><span class="p">({</span> <span class="nf">print</span><span class="p">(</span><span class="s">"key: </span><span class="se">\(</span><span class="nv">$0</span><span class="o">.</span><span class="n">key</span><span class="se">)</span><span class="s">, value: </span><span class="se">\(</span><span class="nv">$0</span><span class="o">.</span><span class="n">value</span><span class="se">)</span><span class="s">"</span><span class="p">)</span> <span class="p">})</span>
+</code></pre></div></div>
+
+<p>딕셔너리 형태도 사용가능하다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">dict</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s">"name"</span><span class="p">:</span> <span class="s">"Kim"</span> <span class="k">as</span> <span class="kt">AnyObject</span><span class="p">,</span>
+    <span class="s">"age"</span><span class="p">:</span> <span class="mi">27</span> <span class="k">as</span> <span class="kt">AnyObject</span>
+<span class="p">]</span>
+<span class="n">dict</span><span class="o">.</span><span class="n">keys</span><span class="o">.</span><span class="nf">forEach</span><span class="p">({</span> <span class="nf">print</span><span class="p">(</span><span class="s">"key: </span><span class="se">\(</span><span class="nv">$0</span><span class="se">)</span><span class="s">, value: </span><span class="se">\(</span><span class="n">dict</span><span class="p">[</span><span class="nv">$0</span><span class="p">]</span><span class="se">)</span><span class="s">"</span><span class="p">)</span> <span class="p">})</span>
+</code></pre></div></div>
+
+<h5 id="filter">filter</h5>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">filterArray</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="nf">filter</span> <span class="p">({</span> <span class="n">value</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="k">in</span>
+    <span class="k">return</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">10</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>필터를 줄수 있다. 더 간단하게 줄이면</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">filterArray</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="nf">filter</span><span class="p">({</span> <span class="nv">$0</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="p">})</span>
+</code></pre></div></div>
+
+<h5 id="map">map</h5>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">mapArray</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="nf">map</span><span class="p">({</span> <span class="s">"</span><span class="se">\(</span><span class="nv">$0</span><span class="se">)</span><span class="s">"</span> <span class="p">})</span>
+</code></pre></div></div>
+
+<p>이렇게 하면 타입이 [Int]였던게 [String]으로 리턴되어서 나온다.</p>
+
+<h5 id="compactmap">compactMap</h5>
+
+<blockquote>
+  <p>flatMap은 Swift 4.1부터 deprecated되었다.</p>
+
+  <p><code class="highlighter-rouge">'flatMap' is deprecated: Please use compactMap(_:) for the case where closure returns an optional value</code></p>
+</blockquote>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">compactMapArray</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="nf">compactMap</span><span class="p">({</span> <span class="s">"</span><span class="se">\(</span><span class="nv">$0</span><span class="se">)</span><span class="s">"</span> <span class="p">})</span>
+</code></pre></div></div>
+
+<p>map과 마찬가지 타입이 [Int]였던게 [String]으로 리턴되어서 나온다.<br />
+map과 compactMap의 차이점은</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">array</span> <span class="o">=</span> <span class="p">[</span><span class="s">"1"</span><span class="p">,</span> <span class="s">"hi"</span><span class="p">,</span> <span class="s">"2"</span><span class="p">,</span> <span class="s">"good"</span><span class="p">]</span>
+
+<span class="k">let</span> <span class="nv">mapArray</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="nf">map</span><span class="p">({</span> <span class="kt">Int</span><span class="p">(</span><span class="nv">$0</span><span class="p">)</span> <span class="p">})</span>
+<span class="k">let</span> <span class="nv">compactMapArray</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="nf">compactMap</span><span class="p">({</span> <span class="kt">Int</span><span class="p">(</span><span class="nv">$0</span><span class="p">)</span> <span class="p">})</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="s">"mapArray: </span><span class="se">\(</span><span class="n">mapArray</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="s">"compactMapArray: </span><span class="se">\(</span><span class="n">compactMapArray</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mapArray: [Optional(1), nil, Optional(2), nil]
+compactMapArray: [1, 2]
+</code></pre></div></div>
+
+<p>map은 옵셔널로 리턴을 했을때는 옵셔널의 형태로 반환이 된다.<br />
+compactMap은 옵셔널로 리턴을 했을때 nil의 값이 제외되고 옵셔널이 벗겨져서 나오게 된다.<br />
+두 함수 다 필요한 상황들이 있다.</p>
+
+<h5 id="sorted">sorted</h5>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">array</span><span class="o">.</span><span class="nf">sorted</span><span class="p">(</span><span class="nv">by</span><span class="p">:</span> <span class="p">{</span> <span class="nv">$0</span> <span class="o">&gt;</span> <span class="nv">$1</span> <span class="p">})</span>
+</code></pre></div></div>
+
+<p>고차함수로 소트를 할수 있다.</p>
+
+<h5 id="reduce">reduce</h5>
+
+<p>reduce는 초기값을 줄수 있고 어떻게 계산을 할지 정의할수 있다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">value</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="nf">reduce</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span> <span class="p">{</span> <span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span> <span class="k">in</span>
+    <span class="k">return</span> <span class="n">result</span> <span class="o">+</span> <span class="n">value</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>더 간단하게 하면</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">value2</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="nf">reduce</span><span class="p">(</span><span class="mi">1000000</span><span class="p">,</span> <span class="p">{</span> <span class="nv">$0</span> <span class="o">+</span> <span class="nv">$1</span> <span class="p">})</span>
+</code></pre></div></div>
+
+<p>더 간단하게 하면</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">value3</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="nf">reduce</span><span class="p">(</span><span class="mi">1000000</span><span class="p">,</span> <span class="o">+</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>이렇게 까지 생략할수 있다.</p>
+
+<h5 id="chaining">Chaining</h5>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">array</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">130</span><span class="p">]</span>
+
+<span class="k">let</span> <span class="nv">value</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="nf">filter</span><span class="p">({</span> <span class="nv">$0</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="p">})</span>
+            <span class="o">.</span><span class="nf">sorted</span><span class="p">(</span><span class="nv">by</span><span class="p">:</span> <span class="p">{</span> <span class="nv">$0</span> <span class="o">&gt;</span> <span class="nv">$1</span> <span class="p">})</span>
+            <span class="o">.</span><span class="nf">map</span><span class="p">({</span> <span class="s">"</span><span class="se">\(</span><span class="nv">$0</span><span class="se">)</span><span class="s">"</span> <span class="p">})</span>
+            <span class="o">.</span><span class="nf">reduce</span><span class="p">(</span><span class="s">""</span><span class="p">,</span> <span class="p">{</span> <span class="s">"</span><span class="se">\(</span><span class="nv">$0</span><span class="se">)\(</span><span class="nv">$1</span><span class="se">)</span><span class="s">"</span> <span class="p">})</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>75321
+</code></pre></div></div>
+
+<p>array중에 10 이하인것들만 가져오면 1, 2, 3, 5, 7<br />
+sorted로 큰수로 오름차순으로 7, 5, 3, 2, 1<br />
+map으로 String을 만들면 “7”, “5”, “3”, “2”, “1”<br />
+reduce로 문자열을 합치면 75321이 된다.</p>
+
+<h3 id="higher-order-functions-만들기">Higher Order Functions 만들기</h3>
+
+<p>map의 형태를 보면</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Array</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="kd">public</span> <span class="kd">func</span> <span class="n">map</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="p">(</span><span class="kt">Element</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">)</span> <span class="k">rethrows</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">T</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이렇게 되어 있다.<br />
+이것을 보고 customMap을 만들어보면</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">extension</span> <span class="kt">Array</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="n">customMap</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">transform</span><span class="p">:</span> <span class="p">(</span><span class="kt">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">T</span><span class="p">]</span> <span class="p">{</span>
+        <span class="k">var</span> <span class="nv">array</span> <span class="o">=</span> <span class="p">[</span><span class="kt">T</span><span class="p">]()</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="k">in</span> <span class="k">self</span> <span class="p">{</span>
+            <span class="n">array</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">transform</span><span class="p">(</span><span class="n">element</span><span class="p">))</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">array</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이렇게 만들수 있다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">extension</span> <span class="kt">Array</span> <span class="k">where</span> <span class="kt">Element</span> <span class="o">==</span> <span class="kt">Int</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">multiplication</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="p">{</span>
+        <span class="k">var</span> <span class="nv">array</span> <span class="o">=</span> <span class="p">[</span><span class="kt">Element</span><span class="p">]()</span>
+        <span class="k">for</span> <span class="n">element</span> <span class="k">in</span> <span class="k">self</span> <span class="p">{</span>
+            <span class="n">array</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="n">element</span> <span class="o">*</span> <span class="n">value</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">array</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>간단하게 이렇게 곱셈을 할수 있는 함수를 만들어 볼수 있다.</p>
+
+<blockquote>
+  <p>예제가 잘 생각이 안난다.</p>
+</blockquote>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/swift/2018/12/15/swift-higerorderfunction/</guid>
+                <description>
+                    
+                    Swift Higher Order Functions 에 대해 알아보고 만들어보자
+                    
+                </description>
+                <pubDate>Sat, 15 Dec 2018 17:00:00 +0900</pubDate>
+                <author>gwanho kim</author>
+            </item>
+        
+    
+        
+            <item>
+                <title>swift AutoLayout의 활용</title>
+                <link>http://localhost:4000/swift/2018/12/14/swift-autolayout/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <h3 id="intrinsic-content-size">Intrinsic Content Size</h3>
+
+<p><img src="/tec/images/2018/12/autolayout/ex1.png" alt="Alt Text" /></p>
+
+<p>이렇게 슈퍼뷰의 길이보다 서브뷰의 길이가 작은 경우 Label의 길이를 글자에 대해 크기를 변경하려면</p>
+
+<p><img src="/tec/images/2018/12/autolayout/ex2.png" alt="Alt Text" /></p>
+
+<p>Label의 Content Hugging Priority에 Horizontal을 조절하면 된다.</p>
+
+<p><img src="/tec/images/2018/12/autolayout/ex3.png" alt="Alt Text" /></p>
+
+<p>이렇게 슈퍼뷰의 길이보다 서브뷰의 길이가 큰 경우 Label의 길이를 글자에 대해 크기를 변경하려면</p>
+
+<p><img src="/tec/images/2018/12/autolayout/ex4.png" alt="Alt Text" /></p>
+
+<p>Label의 Content Compression Resistance Priority를 조절하면 된다.</p>
+
+<h5 id="hugging-priority">Hugging Priority</h5>
+
+<p>슈퍼뷰의 크기가 서브뷰의 크기보다 큰 경우 서브뷰의 우선순위를 줘서 우선순위에 따라 영역이 컨텐츠에 대해 최소로 잡히거나 남은 영역에 대해 최대로 잡히게 할수있다.</p>
+
+<h5 id="compression-resistance-priority">Compression Resistance Priority</h5>
+
+<p>슈퍼뷰의 크기가 서브뷰의 크기보다 작은 경우 서브뷰의 우선순위를 줘서 우선순위에 따라 서브뷰 끼리의 컨텐츠 영역을 짤라서 더 많이 보이게 할수있다.</p>
+
+<h5 id="horizontal">Horizontal</h5>
+
+<p>수평의 뷰(좌,우) 에 적용이 된다.</p>
+
+<h5 id="vertical">Vertical</h5>
+
+<p>수직의 뷰(위,아래) 에 적용이 된다.</p>
+
+<p><br /><br /><br /><br /></p>
+
+<h3 id="autolayout">AutoLayout</h3>
+
+<p><img src="/tec/images/2018/12/autolayout/ex5.png" alt="Alt Text" /></p>
+
+<h5 id="firstitem">FirstItem</h5>
+
+<p>AutoLayout가 적용된 첫번째 컨텐츠이다.</p>
+
+<h5 id="seconditem">SecondItem</h5>
+
+<p>AutoLayout가 적용된 두번째 컨텐츠이다.<br />
+고정값으로 준 Width나 Height같이 컨텐츠의 연결이 필요없는 오토레이아웃은 SecondItem이 필요없다.</p>
+
+<h5 id="relation">Relation</h5>
+
+<p>Greater Than or Equal (같거나 클수 있다), Less Than or Equal (같거나 작을수 있다), Equal(같다) 를 적용할수 있다.<br />
+예를들어 superView에 view를 넣고 상하좌우에 constant를 0만 주었을때는 view가 superView의 크기를 따라가는데<br />
+Relation을 주면 view의 컨텐츠의 길이가 superView의 크기보다 크지 않을때까지 view의 컨텐츠 크기를 따라가다가 superView의 크기보다 클때 superView의 크기를 따라가게 할수있다.</p>
+
+<h5 id="constant">Constant</h5>
+
+<p>오토레이아웃의 값을 줄수있다.</p>
+
+<h5 id="prioirty">Prioirty</h5>
+
+<p>오토레이아웃 끼리 우선순위를 줄수 있다.<br />
+다양한 해상도에서 우선적으로 오토레이아웃이 적용을 할수 있기에 아주 유용하다.<br />
+오트레이아웃의 충돌 에러를 처리할수 있다.</p>
+
+<h5 id="multiplier">Multiplier</h5>
+
+<p>상대적인 비율로 레이아웃을 맞출 수 있다.<br />
+다양한 해상도에서 superView와 비율로 width, height를 맞추기에 유용하다.</p>
+
+<h5 id="identifier">Identifier</h5>
+
+<p>오토레이아웃이 충돌이 났을때 명확하게 어떤 오토레이아웃이 에러가 난지 추적이 가능하다.<br />
+코드로 identifier로 쉽게 오토레이아웃에 접근이 가능하다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">self</span><span class="o">.</span><span class="n">nameLabel</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="nf">forEach</span><span class="p">({</span>
+    <span class="k">if</span> <span class="nv">$0</span><span class="o">.</span><span class="n">identifier</span> <span class="o">==</span> <span class="s">"nameLabelTopConstraint"</span> <span class="p">{</span>
+
+    <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<h3 id="오토레이아웃-적용">오토레이아웃 적용</h3>
+
+<p>오토레이아웃은 Storyboard나 Xib로 주는 방법이 있고 코드로 오토레이아웃을 주는 방법이 있다.<br />
+코드로 오토레이아웃 주는 방법은 여러가지가 있는데</p>
+
+<ul>
+  <li>NSLayoutConstraint</li>
+  <li>Anchor</li>
+  <li>Visual Format</li>
+  <li>SnapKit (라이브러리)</li>
+</ul>
+
+<p>가 있다.<br />
+SnapKit는 라이브러리인데 아주좋다. 자주 사용이 된다.</p>
+
+<h5 id="nslayoutconstraint">NSLayoutConstraint</h5>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">NSLayoutConstraint</span><span class="p">(</span>
+    <span class="nv">item</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span>
+    <span class="nv">attribute</span><span class="p">:</span> <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="kt">Attribute</span><span class="p">,</span>
+    <span class="nv">relatedBy</span><span class="p">:</span> <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="kt">Relation</span><span class="p">,</span>
+    <span class="nv">toItem</span><span class="p">:</span> <span class="kt">Any</span><span class="p">?,</span>
+    <span class="nv">attribute</span><span class="p">:</span> <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="kt">Attribute</span><span class="p">,</span>
+    <span class="nv">multiplier</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">,</span>
+    <span class="nv">constant</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>이렇게 생겼다.<br />
+스토리보드와 비슷하게 firstItem은 첫번째 인자인 item에 넣고 secondItem은 toItem에 넣으면 된다.<br />
+고정으로 주는 width나 height 같은 경우는 toItem에 nil값을 주면 된다.<br />
+코드로 오토레이아웃을 줄때는 오토레이아웃을 주려는 뷰의 translatesAutoresizingMaskIntoConstraints을 false로 해야한다.<br />
+relatedBy 는 Relation과 동일하고 attribute는<br /></p>
+
+<ul>
+  <li>leading</li>
+  <li>trailing</li>
+  <li>top</li>
+  <li>bottom</li>
+  <li>centerX</li>
+  <li>centerY</li>
+  <li>width</li>
+  <li>height</li>
+  <li>left</li>
+  <li>right</li>
+</ul>
+
+<p>등의 옵션이 있다. <br />
+item의 attribute와 toItem의 attribute에 대해 연결이 된다.<br />
+예를들어 왼쪽 label과 오른쪽 label을 연결을 하려면<br /></p>
+
+<p>‘leading’ - label1 - ‘trailing’ ‘leading’ - label2 - ‘trailing’</p>
+
+<p>으로 된다.</p>
+
+<blockquote>
+  <p>leading vs left / trailing vs right
+leading는 항상 왼쪽이 아니다. 언어(Locale)에 따라 오른쪽이 될수 있다.</p>
+</blockquote>
+
+<p>label1의 trailing과 label2의 leading이 연결이 된다.<br />
+multiplier도 스토리보드에서 하던거와 비슷하고 constant도 동일하다.<br />
+priority는</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">constraint</span> <span class="o">=</span> <span class="kt">NSLayoutConstraint</span><span class="p">(</span>
+    <span class="nv">item</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">label1</span><span class="p">,</span>
+    <span class="nv">attribute</span><span class="p">:</span> <span class="o">.</span><span class="n">trailing</span><span class="p">,</span>
+    <span class="nv">relatedBy</span><span class="p">:</span> <span class="o">.</span><span class="n">equal</span><span class="p">,</span>
+    <span class="nv">toItem</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">label2</span><span class="p">,</span>
+    <span class="nv">attribute</span><span class="p">:</span> <span class="o">.</span><span class="n">leading</span><span class="p">,</span>
+    <span class="nv">multiplier</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nv">constant</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">constraint</span><span class="o">.</span><span class="n">priority</span> <span class="o">=</span> <span class="kt">UILayoutPriority</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>이렇게 줄수 있다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraint</span><span class="p">(</span><span class="n">constraint</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>이나</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">([</span><span class="n">constraint</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>이렇게 view에 오토레이아웃을 적용할수 있다.</p>
+
+<h5 id="anchor">Anchor</h5>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">self</span><span class="o">.</span><span class="n">label1</span><span class="o">.</span><span class="n">leftAnchor</span><span class="o">.</span><span class="nf">constraint</span><span class="p">(</span><span class="nv">equalTo</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">label2</span><span class="o">.</span><span class="n">trailingAnchor</span><span class="p">,</span> <span class="nv">constant</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">isActive</span> <span class="o">=</span> <span class="kc">true</span>
+</code></pre></div></div>
+
+<p>이렇게 NSLayoutConstraint보다 코드량이 줄었다.<br />
+뷰에</p>
+
+<ul>
+  <li>leftAnchor</li>
+  <li>rightAnchor</li>
+  <li>topAnchor</li>
+  <li>bottomAnchor</li>
+  <li>leadingAnchor</li>
+  <li>trailingAnchor</li>
+  <li>centerYAnchor</li>
+  <li>centerXAnchor</li>
+  <li>widthAnchor</li>
+  <li>heightAnchor</li>
+</ul>
+
+<p>등의 많은 프로퍼티가 있다.<br />
+프로퍼티들은 NSLayoutXAxisAnchor, NSLayoutYAxisAnchor, NSLayoutDimension의 타입이고<br />
+타입들은 여러 constraint의 함수를 equalTo, lessThanOrEqual, greaterThanOrEqualTo 등의 여러가지 인자가로 오버로드하고 있다.<br />
+단점은 iOS 9.0 이상부터 지원이 된다. 만약 iOS 9.0이하를 지원하는 앱이라면 분기를 하거나 다른 방법을 사용해야 한다.</p>
+
+<h5 id="visual-format">Visual Format</h5>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">constraints</span><span class="p">(</span>
+    <span class="n">withVisualFormat</span> <span class="nv">format</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="n">options</span> <span class="nv">opts</span><span class="p">:</span> <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="kt">FormatOptions</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="nv">metrics</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?,</span>
+    <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">NSLayoutConstraint</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>이렇게 생겼다.<br />
+사용방법은</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span>
+    <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraints</span><span class="p">(</span><span class="nv">withVisualFormat</span><span class="p">:</span> <span class="s">"H:|-0-[webView]-0-|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"webView"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">webView</span><span class="p">])</span>
+<span class="p">)</span>
+
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span>
+    <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraints</span><span class="p">(</span><span class="nv">withVisualFormat</span><span class="p">:</span> <span class="s">"H:|-0-[toolView]-0-|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"toolView"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">toolView</span><span class="p">])</span>
+<span class="p">)</span>
+
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span>
+    <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraints</span><span class="p">(</span><span class="nv">withVisualFormat</span><span class="p">:</span> <span class="s">"V:[toolView]-0-|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"toolView"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">toolView</span><span class="p">])</span>
+<span class="p">)</span>
+
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span>
+    <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraints</span><span class="p">(</span><span class="nv">withVisualFormat</span><span class="p">:</span> <span class="s">"V:|[topGuide]-0-[webView]-0-[toolView]|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"webView"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">webView</span><span class="p">,</span> <span class="s">"toolView"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">toolView</span><span class="p">,</span> <span class="s">"topGuide"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">topLayoutGuide</span><span class="p">])</span>
+<span class="p">)</span>
+
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span>
+    <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraints</span><span class="p">(</span><span class="nv">withVisualFormat</span><span class="p">:</span> <span class="s">"H:[webView]-(&lt;=1)-[indicatorView]"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span><span class="o">.</span><span class="n">alignAllCenterY</span><span class="p">,</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"webView"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">webView</span><span class="p">,</span> <span class="s">"indicatorView"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">indicatorView</span><span class="p">])</span>
+<span class="p">)</span>
+
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span>
+    <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraints</span><span class="p">(</span><span class="nv">withVisualFormat</span><span class="p">:</span> <span class="s">"V:[webView]-(&lt;=1)-[indicatorView]"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span><span class="o">.</span><span class="n">alignAllCenterX</span><span class="p">,</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"webView"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">webView</span><span class="p">,</span> <span class="s">"indicatorView"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">indicatorView</span><span class="p">])</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>이렇게 사용할 수 있다.<br />
+String으로 포맷을 지정해서 constraints를 만드는 것이다.<br />
+장점은 “V:|[topGuide]-0-[webView]-0-[toolView]|” 이런식으로 여러개의 뷰들을 한번에 연결할수 있다.<br />
+여러가지 포맷형태가 있다.</p>
+
+<p><a href="https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/index.html#//apple_ref/doc/uid/TP40010853-CH7-SW1">developer.apple.com</a></p>
+
+<h5 id="snapkit">SnapKit</h5>
+
+<p><a href="https://github.com/SnapKit/SnapKit">SnapKit</a></p>
+
+<p>아주 간단하게 되어있다.<br />
+Objectvie-C에서는 <a href="https://github.com/SnapKit/Masonry">Masonry</a> 를 쓴다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">imageView</span><span class="o">.</span><span class="n">snp</span><span class="o">.</span><span class="nf">makeConstraints</span><span class="p">({</span> <span class="p">(</span><span class="n">make</span><span class="p">)</span> <span class="k">in</span>
+    <span class="n">make</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="nf">equalToSuperview</span><span class="p">()</span>
+<span class="p">})</span>
+
+<span class="n">view</span><span class="o">.</span><span class="n">snp</span><span class="o">.</span><span class="nf">makeConstraints</span><span class="p">({</span> <span class="p">(</span><span class="n">make</span><span class="p">)</span> <span class="k">in</span>
+    <span class="n">make</span><span class="o">.</span><span class="n">center</span><span class="o">.</span><span class="nf">equalToSuperview</span><span class="p">()</span>
+<span class="p">})</span>
+
+<span class="n">view</span><span class="o">.</span><span class="n">snp</span><span class="o">.</span><span class="nf">makeConstraints</span><span class="p">({</span> <span class="p">(</span><span class="n">make</span><span class="p">)</span> <span class="k">in</span>
+    <span class="n">make</span><span class="o">.</span><span class="n">centerX</span><span class="o">.</span><span class="nf">equalTo</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">containerView</span><span class="o">.</span><span class="n">snp</span><span class="o">.</span><span class="n">centerX</span><span class="p">)</span>
+    <span class="n">make</span><span class="o">.</span><span class="n">bottom</span><span class="o">.</span><span class="nf">equalTo</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">containerView</span><span class="o">.</span><span class="n">snp</span><span class="o">.</span><span class="n">top</span><span class="p">)</span><span class="o">.</span><span class="nf">inset</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">make</span><span class="o">.</span><span class="n">width</span><span class="o">.</span><span class="nf">equalTo</span><span class="p">(</span><span class="mi">62</span><span class="p">)</span>
+    <span class="n">make</span><span class="o">.</span><span class="n">height</span><span class="o">.</span><span class="nf">equalTo</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="n">view</span><span class="o">.</span><span class="n">snp</span><span class="o">.</span><span class="nf">makeConstraints</span><span class="p">({</span> <span class="p">(</span><span class="n">make</span><span class="p">)</span> <span class="k">in</span>
+    <span class="n">make</span><span class="o">.</span><span class="n">centerX</span><span class="o">.</span><span class="nf">equalTo</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">containerView</span><span class="o">.</span><span class="n">snp</span><span class="o">.</span><span class="n">centerX</span><span class="p">)</span>
+    <span class="n">make</span><span class="o">.</span><span class="n">bottom</span><span class="o">.</span><span class="nf">equalTo</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">containerView</span><span class="o">.</span><span class="n">snp</span><span class="o">.</span><span class="n">top</span><span class="p">)</span><span class="o">.</span><span class="nf">inset</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">make</span><span class="o">.</span><span class="n">width</span><span class="o">.</span><span class="nf">equalTo</span><span class="p">(</span><span class="mi">62</span><span class="p">)</span>
+    <span class="n">make</span><span class="o">.</span><span class="n">height</span><span class="o">.</span><span class="nf">equalTo</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>개인적으로 앱에 적용한 코드들을 그대로 붙여넣었는데 아주 간단하게 사용할수 있다.</p>
+
+<h3 id="뷰의-autolayout-animation">뷰의 AutoLayout Animation</h3>
+
+<p>Storyboard에서 만든 오토레이아웃을 뷰컨트롤러 클래스 파일에 인터페이스 빌더 프로퍼티로 연결을 하면 이렇게 된다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">leftConstraint</span><span class="p">:</span> <span class="kt">NSLayoutConstraint</span><span class="o">!</span>
+</code></pre></div></div>
+
+<p>leftConstraint값에 constant값을 변경을 하게 되면 그 값으로 바로 변경이 된다.<br />
+여기서 애니메이션을 주려면</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">self</span><span class="o">.</span><span class="n">leftConstraint</span><span class="o">.</span><span class="n">constant</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="kt">UIView</span><span class="o">.</span><span class="nf">animate</span><span class="p">(</span><span class="nv">withDuration</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">layoutIfNeeded</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이렇게 하면 0.3초동안 애니메이션이 적용이 된다.<br />
+뷰의 메서드 중에</p>
+
+<ul>
+  <li>setNeedsLayout</li>
+</ul>
+
+<p>해당 뷰와 하위 뷰를 다시 그려야한다는걸 알려준다.<br />
+즉각적인 업데이트를 하지는 않지만 다음 업데이트 주기를 기다림. 모든 레이아웃 업데이트를 하나의 업데이트 주기로 통합 가능<br />
+needLayout 플래그를 true로 바꿔줌<br />
+postion이나 layout값을 변경하는 코드와 실제로 변경되는 시점에는 시간차가 있어서 업데이트 주기가 있다.</p>
+
+<ul>
+  <li>leyoutIfNeeded</li>
+</ul>
+
+<p>업데이트 주기를 기다리지 않고 즉시 업데이트한다.</p>
+
+<ul>
+  <li>layoutSubviews</li>
+</ul>
+
+<p>bounds 사이즈 변경되거나 가로세로 변화, layer변화나 setNeedsLayout, leyoutIfNeeded 호출될때 불려진다.</p>
+
+<p><br /></p>
+
+<p>이상으로 오토레이아웃을 활용해보았다.</p>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/swift/2018/12/14/swift-autolayout/</guid>
+                <description>
+                    
+                    Swift AutoLayout의 Priority, Relation, 코드로 만들기, SnapKit
+                    
+                </description>
+                <pubDate>Fri, 14 Dec 2018 17:00:00 +0900</pubDate>
+                <author>gwanho kim</author>
+            </item>
+        
+    
+        
+            <item>
                 <title>swift blocking, non-blocking</title>
                 <link>http://localhost:4000/swift/2018/12/13/swift-blocking/</link>
                 <content:encoded>
@@ -278,9 +1081,8 @@ malloc: *** set a breakpoint in malloc_error_break to debug
   <p>레이스 컨디션: 한정된 자원을 동시에 이용하려는 여러 프로세스가 자원의 이용을 위해 경쟁을 벌이는 현상</p>
 </blockquote>
 
-<p>동시 접근문제를 발생시킬수 있는 코드 블록을 임계영역이라고 한다.<br />
-동시 접근문제를 해결하기 위한 동기화 기법이 크리티컬 섹션(Critical Section) 이라고 하고,<br />
-크리티컬 섹션 기법이 세마포어, 뮤텍스 등이 있다.</p>
+<p>동기화 방법은 크리티컬 섹션(Critical Section)이라고 한다. 임계영역이라고도 한다.<br />
+동시 접근문제를 해결하기 위한 동기화 기법이 세마포어, 뮤텍스 등이 있다.</p>
 
 <ul>
   <li>뮤택스는 한정된 자원에 하나만 접근 가능하고</li>

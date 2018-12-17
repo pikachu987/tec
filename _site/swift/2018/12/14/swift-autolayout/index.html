@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>swift AutoLayout의 활용 &#8211; Technology</title>
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdn.mathjax.org">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Swift AutoLayout의 Priority, Relation, 코드로 만들기, SnapKit">
+    <meta name="robots" content="all">
+    <meta name="author" content="gwanho kim">
+    
+    <meta name="keywords" content="swift">
+    <link rel="canonical" href="http://localhost:4000/swift/2018/12/14/swift-autolayout/">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Technology" href="/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css?201812180022" type="text/css">
+
+    <!-- Fonts -->
+    
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+    
+
+    <!-- MathJax -->
+    
+
+    <!-- Verifications -->
+    
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="swift AutoLayout의 활용">
+    <meta property="og:description" content="pikachu987 Technology">
+    <meta property="og:url" content="http://localhost:4000/swift/2018/12/14/swift-autolayout/">
+    <meta property="og:site_name" content="Technology">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+    <meta name="twitter:title" content="swift AutoLayout의 활용" />
+    <meta name="twitter:description" content="Swift AutoLayout의 Priority, Relation, 코드로 만들기, SnapKit" />
+    <meta name="twitter:url" content="http://localhost:4000/swift/2018/12/14/swift-autolayout/" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+
+    
+    <script type="text/javascript">
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+       ga('create', 'UA-129769659-2', 'auto');
+       ga('send', 'pageview');
+    </script>
+    
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-8234147734135901",
+        enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+<body class="site">
+  
+	
+
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://localhost:4000" class="site-title">Technology</a>
+      <nav class="site-nav">
+        
+    
+
+    
+        <a href="https://pikachu987.github.io/">Blog</a>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+      </nav>
+      <div class="clearfix"></div>
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1>swift AutoLayout의 활용</h1>
+  <span class="post-meta">Dec 14, 2018</span><br>
+  
+  <span class="post-meta small">
+  
+    4 minute read
+  
+  </span>
+</div>
+
+<article class="post-content">
+  <h3 id="intrinsic-content-size">Intrinsic Content Size</h3>
+
+<p><img src="/tec/images/2018/12/autolayout/ex1.png" alt="Alt Text" /></p>
+
+<p>이렇게 슈퍼뷰의 길이보다 서브뷰의 길이가 작은 경우 Label의 길이를 글자에 대해 크기를 변경하려면</p>
+
+<p><img src="/tec/images/2018/12/autolayout/ex2.png" alt="Alt Text" /></p>
+
+<p>Label의 Content Hugging Priority에 Horizontal을 조절하면 된다.</p>
+
+<p><img src="/tec/images/2018/12/autolayout/ex3.png" alt="Alt Text" /></p>
+
+<p>이렇게 슈퍼뷰의 길이보다 서브뷰의 길이가 큰 경우 Label의 길이를 글자에 대해 크기를 변경하려면</p>
+
+<p><img src="/tec/images/2018/12/autolayout/ex4.png" alt="Alt Text" /></p>
+
+<p>Label의 Content Compression Resistance Priority를 조절하면 된다.</p>
+
+<h5 id="hugging-priority">Hugging Priority</h5>
+
+<p>슈퍼뷰의 크기가 서브뷰의 크기보다 큰 경우 서브뷰의 우선순위를 줘서 우선순위에 따라 영역이 컨텐츠에 대해 최소로 잡히거나 남은 영역에 대해 최대로 잡히게 할수있다.</p>
+
+<h5 id="compression-resistance-priority">Compression Resistance Priority</h5>
+
+<p>슈퍼뷰의 크기가 서브뷰의 크기보다 작은 경우 서브뷰의 우선순위를 줘서 우선순위에 따라 서브뷰 끼리의 컨텐츠 영역을 짤라서 더 많이 보이게 할수있다.</p>
+
+<h5 id="horizontal">Horizontal</h5>
+
+<p>수평의 뷰(좌,우) 에 적용이 된다.</p>
+
+<h5 id="vertical">Vertical</h5>
+
+<p>수직의 뷰(위,아래) 에 적용이 된다.</p>
+
+<p><br /><br /><br /><br /></p>
+
+<h3 id="autolayout">AutoLayout</h3>
+
+<p><img src="/tec/images/2018/12/autolayout/ex5.png" alt="Alt Text" /></p>
+
+<h5 id="firstitem">FirstItem</h5>
+
+<p>AutoLayout가 적용된 첫번째 컨텐츠이다.</p>
+
+<h5 id="seconditem">SecondItem</h5>
+
+<p>AutoLayout가 적용된 두번째 컨텐츠이다.<br />
+고정값으로 준 Width나 Height같이 컨텐츠의 연결이 필요없는 오토레이아웃은 SecondItem이 필요없다.</p>
+
+<h5 id="relation">Relation</h5>
+
+<p>Greater Than or Equal (같거나 클수 있다), Less Than or Equal (같거나 작을수 있다), Equal(같다) 를 적용할수 있다.<br />
+예를들어 superView에 view를 넣고 상하좌우에 constant를 0만 주었을때는 view가 superView의 크기를 따라가는데<br />
+Relation을 주면 view의 컨텐츠의 길이가 superView의 크기보다 크지 않을때까지 view의 컨텐츠 크기를 따라가다가 superView의 크기보다 클때 superView의 크기를 따라가게 할수있다.</p>
+
+<h5 id="constant">Constant</h5>
+
+<p>오토레이아웃의 값을 줄수있다.</p>
+
+<h5 id="prioirty">Prioirty</h5>
+
+<p>오토레이아웃 끼리 우선순위를 줄수 있다.<br />
+다양한 해상도에서 우선적으로 오토레이아웃이 적용을 할수 있기에 아주 유용하다.<br />
+오트레이아웃의 충돌 에러를 처리할수 있다.</p>
+
+<h5 id="multiplier">Multiplier</h5>
+
+<p>상대적인 비율로 레이아웃을 맞출 수 있다.<br />
+다양한 해상도에서 superView와 비율로 width, height를 맞추기에 유용하다.</p>
+
+<h5 id="identifier">Identifier</h5>
+
+<p>오토레이아웃이 충돌이 났을때 명확하게 어떤 오토레이아웃이 에러가 난지 추적이 가능하다.<br />
+코드로 identifier로 쉽게 오토레이아웃에 접근이 가능하다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">self</span><span class="o">.</span><span class="n">nameLabel</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="nf">forEach</span><span class="p">({</span>
+    <span class="k">if</span> <span class="nv">$0</span><span class="o">.</span><span class="n">identifier</span> <span class="o">==</span> <span class="s">"nameLabelTopConstraint"</span> <span class="p">{</span>
+
+    <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<h3 id="오토레이아웃-적용">오토레이아웃 적용</h3>
+
+<p>오토레이아웃은 Storyboard나 Xib로 주는 방법이 있고 코드로 오토레이아웃을 주는 방법이 있다.<br />
+코드로 오토레이아웃 주는 방법은 여러가지가 있는데</p>
+
+<ul>
+  <li>NSLayoutConstraint</li>
+  <li>Anchor</li>
+  <li>Visual Format</li>
+  <li>SnapKit (라이브러리)</li>
+</ul>
+
+<p>가 있다.<br />
+SnapKit는 라이브러리인데 아주좋다. 자주 사용이 된다.</p>
+
+<h5 id="nslayoutconstraint">NSLayoutConstraint</h5>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">NSLayoutConstraint</span><span class="p">(</span>
+    <span class="nv">item</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span>
+    <span class="nv">attribute</span><span class="p">:</span> <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="kt">Attribute</span><span class="p">,</span>
+    <span class="nv">relatedBy</span><span class="p">:</span> <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="kt">Relation</span><span class="p">,</span>
+    <span class="nv">toItem</span><span class="p">:</span> <span class="kt">Any</span><span class="p">?,</span>
+    <span class="nv">attribute</span><span class="p">:</span> <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="kt">Attribute</span><span class="p">,</span>
+    <span class="nv">multiplier</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">,</span>
+    <span class="nv">constant</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>이렇게 생겼다.<br />
+스토리보드와 비슷하게 firstItem은 첫번째 인자인 item에 넣고 secondItem은 toItem에 넣으면 된다.<br />
+고정으로 주는 width나 height 같은 경우는 toItem에 nil값을 주면 된다.<br />
+코드로 오토레이아웃을 줄때는 오토레이아웃을 주려는 뷰의 translatesAutoresizingMaskIntoConstraints을 false로 해야한다.<br />
+relatedBy 는 Relation과 동일하고 attribute는<br /></p>
+
+<ul>
+  <li>leading</li>
+  <li>trailing</li>
+  <li>top</li>
+  <li>bottom</li>
+  <li>centerX</li>
+  <li>centerY</li>
+  <li>width</li>
+  <li>height</li>
+  <li>left</li>
+  <li>right</li>
+</ul>
+
+<p>등의 옵션이 있다. <br />
+item의 attribute와 toItem의 attribute에 대해 연결이 된다.<br />
+예를들어 왼쪽 label과 오른쪽 label을 연결을 하려면<br /></p>
+
+<p>‘leading’ - label1 - ‘trailing’ ‘leading’ - label2 - ‘trailing’</p>
+
+<p>으로 된다.</p>
+
+<blockquote>
+  <p>leading vs left / trailing vs right
+leading는 항상 왼쪽이 아니다. 언어(Locale)에 따라 오른쪽이 될수 있다.</p>
+</blockquote>
+
+<p>label1의 trailing과 label2의 leading이 연결이 된다.<br />
+multiplier도 스토리보드에서 하던거와 비슷하고 constant도 동일하다.<br />
+priority는</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">constraint</span> <span class="o">=</span> <span class="kt">NSLayoutConstraint</span><span class="p">(</span>
+    <span class="nv">item</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">label1</span><span class="p">,</span>
+    <span class="nv">attribute</span><span class="p">:</span> <span class="o">.</span><span class="n">trailing</span><span class="p">,</span>
+    <span class="nv">relatedBy</span><span class="p">:</span> <span class="o">.</span><span class="n">equal</span><span class="p">,</span>
+    <span class="nv">toItem</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">label2</span><span class="p">,</span>
+    <span class="nv">attribute</span><span class="p">:</span> <span class="o">.</span><span class="n">leading</span><span class="p">,</span>
+    <span class="nv">multiplier</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nv">constant</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">constraint</span><span class="o">.</span><span class="n">priority</span> <span class="o">=</span> <span class="kt">UILayoutPriority</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>이렇게 줄수 있다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraint</span><span class="p">(</span><span class="n">constraint</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>이나</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">([</span><span class="n">constraint</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>이렇게 view에 오토레이아웃을 적용할수 있다.</p>
+
+<h5 id="anchor">Anchor</h5>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">self</span><span class="o">.</span><span class="n">label1</span><span class="o">.</span><span class="n">leftAnchor</span><span class="o">.</span><span class="nf">constraint</span><span class="p">(</span><span class="nv">equalTo</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">label2</span><span class="o">.</span><span class="n">trailingAnchor</span><span class="p">,</span> <span class="nv">constant</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">isActive</span> <span class="o">=</span> <span class="kc">true</span>
+</code></pre></div></div>
+
+<p>이렇게 NSLayoutConstraint보다 코드량이 줄었다.<br />
+뷰에</p>
+
+<ul>
+  <li>leftAnchor</li>
+  <li>rightAnchor</li>
+  <li>topAnchor</li>
+  <li>bottomAnchor</li>
+  <li>leadingAnchor</li>
+  <li>trailingAnchor</li>
+  <li>centerYAnchor</li>
+  <li>centerXAnchor</li>
+  <li>widthAnchor</li>
+  <li>heightAnchor</li>
+</ul>
+
+<p>등의 많은 프로퍼티가 있다.<br />
+프로퍼티들은 NSLayoutXAxisAnchor, NSLayoutYAxisAnchor, NSLayoutDimension의 타입이고<br />
+타입들은 여러 constraint의 함수를 equalTo, lessThanOrEqual, greaterThanOrEqualTo 등의 여러가지 인자가로 오버로드하고 있다.<br />
+단점은 iOS 9.0 이상부터 지원이 된다. 만약 iOS 9.0이하를 지원하는 앱이라면 분기를 하거나 다른 방법을 사용해야 한다.</p>
+
+<h5 id="visual-format">Visual Format</h5>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">constraints</span><span class="p">(</span>
+    <span class="n">withVisualFormat</span> <span class="nv">format</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="n">options</span> <span class="nv">opts</span><span class="p">:</span> <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="kt">FormatOptions</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="nv">metrics</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?,</span>
+    <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">NSLayoutConstraint</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>이렇게 생겼다.<br />
+사용방법은</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span>
+    <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraints</span><span class="p">(</span><span class="nv">withVisualFormat</span><span class="p">:</span> <span class="s">"H:|-0-[webView]-0-|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"webView"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">webView</span><span class="p">])</span>
+<span class="p">)</span>
+
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span>
+    <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraints</span><span class="p">(</span><span class="nv">withVisualFormat</span><span class="p">:</span> <span class="s">"H:|-0-[toolView]-0-|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"toolView"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">toolView</span><span class="p">])</span>
+<span class="p">)</span>
+
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span>
+    <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraints</span><span class="p">(</span><span class="nv">withVisualFormat</span><span class="p">:</span> <span class="s">"V:[toolView]-0-|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"toolView"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">toolView</span><span class="p">])</span>
+<span class="p">)</span>
+
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span>
+    <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraints</span><span class="p">(</span><span class="nv">withVisualFormat</span><span class="p">:</span> <span class="s">"V:|[topGuide]-0-[webView]-0-[toolView]|"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"webView"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">webView</span><span class="p">,</span> <span class="s">"toolView"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">toolView</span><span class="p">,</span> <span class="s">"topGuide"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">topLayoutGuide</span><span class="p">])</span>
+<span class="p">)</span>
+
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span>
+    <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraints</span><span class="p">(</span><span class="nv">withVisualFormat</span><span class="p">:</span> <span class="s">"H:[webView]-(&lt;=1)-[indicatorView]"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span><span class="o">.</span><span class="n">alignAllCenterY</span><span class="p">,</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"webView"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">webView</span><span class="p">,</span> <span class="s">"indicatorView"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">indicatorView</span><span class="p">])</span>
+<span class="p">)</span>
+
+<span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">addConstraints</span><span class="p">(</span>
+    <span class="kt">NSLayoutConstraint</span><span class="o">.</span><span class="nf">constraints</span><span class="p">(</span><span class="nv">withVisualFormat</span><span class="p">:</span> <span class="s">"V:[webView]-(&lt;=1)-[indicatorView]"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span><span class="o">.</span><span class="n">alignAllCenterX</span><span class="p">,</span> <span class="nv">metrics</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">views</span><span class="p">:</span> <span class="p">[</span><span class="s">"webView"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">webView</span><span class="p">,</span> <span class="s">"indicatorView"</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">indicatorView</span><span class="p">])</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>이렇게 사용할 수 있다.<br />
+String으로 포맷을 지정해서 constraints를 만드는 것이다.<br />
+장점은 “V:|[topGuide]-0-[webView]-0-[toolView]|” 이런식으로 여러개의 뷰들을 한번에 연결할수 있다.<br />
+여러가지 포맷형태가 있다.</p>
+
+<p><a href="https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/index.html#//apple_ref/doc/uid/TP40010853-CH7-SW1">developer.apple.com</a></p>
+
+<h5 id="snapkit">SnapKit</h5>
+
+<p><a href="https://github.com/SnapKit/SnapKit">SnapKit</a></p>
+
+<p>아주 간단하게 되어있다.<br />
+Objectvie-C에서는 <a href="https://github.com/SnapKit/Masonry">Masonry</a> 를 쓴다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">imageView</span><span class="o">.</span><span class="n">snp</span><span class="o">.</span><span class="nf">makeConstraints</span><span class="p">({</span> <span class="p">(</span><span class="n">make</span><span class="p">)</span> <span class="k">in</span>
+    <span class="n">make</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="nf">equalToSuperview</span><span class="p">()</span>
+<span class="p">})</span>
+
+<span class="n">view</span><span class="o">.</span><span class="n">snp</span><span class="o">.</span><span class="nf">makeConstraints</span><span class="p">({</span> <span class="p">(</span><span class="n">make</span><span class="p">)</span> <span class="k">in</span>
+    <span class="n">make</span><span class="o">.</span><span class="n">center</span><span class="o">.</span><span class="nf">equalToSuperview</span><span class="p">()</span>
+<span class="p">})</span>
+
+<span class="n">view</span><span class="o">.</span><span class="n">snp</span><span class="o">.</span><span class="nf">makeConstraints</span><span class="p">({</span> <span class="p">(</span><span class="n">make</span><span class="p">)</span> <span class="k">in</span>
+    <span class="n">make</span><span class="o">.</span><span class="n">centerX</span><span class="o">.</span><span class="nf">equalTo</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">containerView</span><span class="o">.</span><span class="n">snp</span><span class="o">.</span><span class="n">centerX</span><span class="p">)</span>
+    <span class="n">make</span><span class="o">.</span><span class="n">bottom</span><span class="o">.</span><span class="nf">equalTo</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">containerView</span><span class="o">.</span><span class="n">snp</span><span class="o">.</span><span class="n">top</span><span class="p">)</span><span class="o">.</span><span class="nf">inset</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">make</span><span class="o">.</span><span class="n">width</span><span class="o">.</span><span class="nf">equalTo</span><span class="p">(</span><span class="mi">62</span><span class="p">)</span>
+    <span class="n">make</span><span class="o">.</span><span class="n">height</span><span class="o">.</span><span class="nf">equalTo</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="n">view</span><span class="o">.</span><span class="n">snp</span><span class="o">.</span><span class="nf">makeConstraints</span><span class="p">({</span> <span class="p">(</span><span class="n">make</span><span class="p">)</span> <span class="k">in</span>
+    <span class="n">make</span><span class="o">.</span><span class="n">centerX</span><span class="o">.</span><span class="nf">equalTo</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">containerView</span><span class="o">.</span><span class="n">snp</span><span class="o">.</span><span class="n">centerX</span><span class="p">)</span>
+    <span class="n">make</span><span class="o">.</span><span class="n">bottom</span><span class="o">.</span><span class="nf">equalTo</span><span class="p">(</span><span class="k">self</span><span class="o">.</span><span class="n">containerView</span><span class="o">.</span><span class="n">snp</span><span class="o">.</span><span class="n">top</span><span class="p">)</span><span class="o">.</span><span class="nf">inset</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">make</span><span class="o">.</span><span class="n">width</span><span class="o">.</span><span class="nf">equalTo</span><span class="p">(</span><span class="mi">62</span><span class="p">)</span>
+    <span class="n">make</span><span class="o">.</span><span class="n">height</span><span class="o">.</span><span class="nf">equalTo</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<p>개인적으로 앱에 적용한 코드들을 그대로 붙여넣었는데 아주 간단하게 사용할수 있다.</p>
+
+<h3 id="뷰의-autolayout-animation">뷰의 AutoLayout Animation</h3>
+
+<p>Storyboard에서 만든 오토레이아웃을 뷰컨트롤러 클래스 파일에 인터페이스 빌더 프로퍼티로 연결을 하면 이렇게 된다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@IBOutlet</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">leftConstraint</span><span class="p">:</span> <span class="kt">NSLayoutConstraint</span><span class="o">!</span>
+</code></pre></div></div>
+
+<p>leftConstraint값에 constant값을 변경을 하게 되면 그 값으로 바로 변경이 된다.<br />
+여기서 애니메이션을 주려면</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">self</span><span class="o">.</span><span class="n">leftConstraint</span><span class="o">.</span><span class="n">constant</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="kt">UIView</span><span class="o">.</span><span class="nf">animate</span><span class="p">(</span><span class="nv">withDuration</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="nf">layoutIfNeeded</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이렇게 하면 0.3초동안 애니메이션이 적용이 된다.<br />
+뷰의 메서드 중에</p>
+
+<ul>
+  <li>setNeedsLayout</li>
+</ul>
+
+<p>해당 뷰와 하위 뷰를 다시 그려야한다는걸 알려준다.<br />
+즉각적인 업데이트를 하지는 않지만 다음 업데이트 주기를 기다림. 모든 레이아웃 업데이트를 하나의 업데이트 주기로 통합 가능<br />
+needLayout 플래그를 true로 바꿔줌<br />
+postion이나 layout값을 변경하는 코드와 실제로 변경되는 시점에는 시간차가 있어서 업데이트 주기가 있다.</p>
+
+<ul>
+  <li>leyoutIfNeeded</li>
+</ul>
+
+<p>업데이트 주기를 기다리지 않고 즉시 업데이트한다.</p>
+
+<ul>
+  <li>layoutSubviews</li>
+</ul>
+
+<p>bounds 사이즈 변경되거나 가로세로 변화, layer변화나 setNeedsLayout, leyoutIfNeeded 호출될때 불려진다.</p>
+
+<p><br /></p>
+
+<p>이상으로 오토레이아웃을 활용해보았다.</p>
+
+</article>
+
+
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//pikachu987blog.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pikachu987blog.disqus.com/count.js" async></script>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    
+  </div>
+</footer>
+
+
+</body>
+</html>
