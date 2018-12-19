@@ -4,11 +4,11 @@ email:       pikachu77769@gmail.com
 author:      gwanho kim
 description: "pikachu987 Technology"
 
-baseurl:     ""
-url:         "/"
+# baseurl:     ""
+# url:         "/"
 
-# baseurl:     "https://pikachu987.github.io/tec"
-# url:         "/tec"
+baseurl:     "https://pikachu987.github.io/tec"
+url:         "/tec"
 
 date_format: "%b %-d, %Y"
 
