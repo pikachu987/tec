@@ -49,7 +49,7 @@ public struct UIRectCorner : OptionSet {
 이렇게 OptionSet으로 되어있다.<br>
 String의 range메서드중 range(of:options:)에 options도 OptionSet으로 되어있다.
 
-```Swift
+```swift
 public struct CompareOptions : OptionSet {
 
     public init(rawValue: UInt)
