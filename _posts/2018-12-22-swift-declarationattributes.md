@@ -2,8 +2,8 @@
 layout:     post
 title:      swift Declaration Attributes 알아보기
 date:       2018-12-22 08:00:00
-summary:    Swift
-categories: swift @objc, @escaping, @autoclosure, @discardableResult
+summary:    Swift @objc, @escaping, @autoclosure, @discardableResult
+categories: swift
 ---
 
 ### @objc
