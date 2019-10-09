@@ -13,11 +13,11 @@
     <meta name="author" content="gwanho kim">
     
     <meta name="keywords" content="swift">
-    <link rel="canonical" href="http://localhost:4000/swift/2018/12/06/swift-enum/">
-    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Technology" href="/feed.xml" />
+    <link rel="canonical" href="http://localhost:4000https://pikachu987.github.io/tec/swift/2018/12/06/swift-enum/">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Technology" href="https://pikachu987.github.io/tec/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?201812180022" type="text/css">
+    <link rel="stylesheet" href="https://pikachu987.github.io/tec/css/pixyll.css?201910092218" type="text/css">
 
     <!-- Fonts -->
     
@@ -342,13 +342,13 @@
 
     <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">Draw</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">Draw</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
         <span class="k">switch</span> <span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">rhs</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">case</span> <span class="nf">let</span> <span class="p">(</span><span class="o">.</span><span class="nf">pen</span><span class="p">(</span><span class="n">size1</span><span class="p">,</span> <span class="n">color1</span><span class="p">),</span> <span class="o">.</span><span class="nf">pen</span><span class="p">(</span><span class="n">size2</span><span class="p">,</span> <span class="n">color2</span><span class="p">)):</span>
+        <span class="k">case</span> <span class="k">let</span> <span class="p">(</span><span class="err">.</span><span class="nv">pen</span><span class="p">(</span><span class="nv">size1</span><span class="p">,</span> <span class="nv">color1</span><span class="p">),</span> <span class="err">.</span><span class="nv">pen</span><span class="p">(</span><span class="nv">size2</span><span class="p">,</span> <span class="nv">color2</span><span class="p">)):</span>
             <span class="k">return</span> <span class="n">size1</span> <span class="o">==</span> <span class="n">size2</span> <span class="o">&amp;&amp;</span> <span class="n">color1</span> <span class="o">==</span> <span class="n">color2</span>
-        <span class="k">case</span> <span class="nf">let</span> <span class="p">(</span><span class="o">.</span><span class="nf">eraser</span><span class="p">(</span><span class="n">size1</span><span class="p">),</span> <span class="o">.</span><span class="nf">eraser</span><span class="p">(</span><span class="n">size2</span><span class="p">)):</span>
+        <span class="k">case</span> <span class="k">let</span> <span class="p">(</span><span class="err">.</span><span class="nv">eraser</span><span class="p">(</span><span class="nv">size1</span><span class="p">),</span> <span class="err">.</span><span class="nv">eraser</span><span class="p">(</span><span class="nv">size2</span><span class="p">)):</span>
             <span class="k">return</span> <span class="n">size1</span> <span class="o">==</span> <span class="n">size2</span>
         <span class="k">case</span> <span class="p">(</span><span class="o">.</span><span class="n">spoid</span><span class="p">,</span> <span class="o">.</span><span class="n">spoid</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">true</span>
-        <span class="k">case</span> <span class="nf">let</span> <span class="p">(</span><span class="o">.</span><span class="nf">shape</span><span class="p">(</span><span class="n">type1</span><span class="p">),</span> <span class="o">.</span><span class="nf">shape</span><span class="p">(</span><span class="n">type2</span><span class="p">)):</span>
+        <span class="k">case</span> <span class="k">let</span> <span class="p">(</span><span class="err">.</span><span class="nv">shape</span><span class="p">(</span><span class="nv">type1</span><span class="p">),</span> <span class="err">.</span><span class="nv">shape</span><span class="p">(</span><span class="nv">type2</span><span class="p">)):</span>
             <span class="k">return</span> <span class="n">type1</span> <span class="o">==</span> <span class="n">type2</span>
         <span class="k">default</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">false</span>

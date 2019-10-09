@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>swift 표준 라이브러리 프로토콜에 대해 알아보기 &#8211; Technology</title>
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdn.mathjax.org">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Swift equatable, comparable, sequence, iteratorProtocol, customStringConvertible">
+    <meta name="robots" content="all">
+    <meta name="author" content="gwanho kim">
+    
+    <meta name="keywords" content="swift">
+    <link rel="canonical" href="http://localhost:4000https://pikachu987.github.io/tec/swift/2018/12/19/swift-standardprotocol/">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Technology" href="https://pikachu987.github.io/tec/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://pikachu987.github.io/tec/css/pixyll.css?201910092218" type="text/css">
+
+    <!-- Fonts -->
+    
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+    
+
+    <!-- MathJax -->
+    
+
+    <!-- Verifications -->
+    
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="swift 표준 라이브러리 프로토콜에 대해 알아보기">
+    <meta property="og:description" content="pikachu987 Technology">
+    <meta property="og:url" content="http://localhost:4000/swift/2018/12/19/swift-standardprotocol/">
+    <meta property="og:site_name" content="Technology">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+    <meta name="twitter:title" content="swift 표준 라이브러리 프로토콜에 대해 알아보기" />
+    <meta name="twitter:description" content="Swift equatable, comparable, sequence, iteratorProtocol, customStringConvertible" />
+    <meta name="twitter:url" content="http://localhost:4000/swift/2018/12/19/swift-standardprotocol/" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+
+    
+    <script type="text/javascript">
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+       ga('create', 'UA-129769659-2', 'auto');
+       ga('send', 'pageview');
+    </script>
+    
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-8234147734135901",
+        enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+<body class="site">
+  
+	
+
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://localhost:4000" class="site-title">Technology</a>
+      <nav class="site-nav">
+        
+    
+
+    
+        <a href="https://pikachu987.github.io/">Blog</a>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+      </nav>
+      <div class="clearfix"></div>
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1>swift 표준 라이브러리 프로토콜에 대해 알아보기</h1>
+  <span class="post-meta">Dec 19, 2018</span><br>
+  
+  <span class="post-meta small">
+  
+    4 minute read
+  
+  </span>
+</div>
+
+<article class="post-content">
+  <h3 id="equatable">equatable</h3>
+
+<p>equatable은 비교를 할수 있게 해주는 프로토콜이며<br />
+기본적인 데이터 타입들도 적용이 되어있다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">extension</span> <span class="kt">String</span> <span class="p">:</span> <span class="kt">Equatable</span> <span class="p">{</span>
+
+    <span class="c1">/// Returns a Boolean value indicating whether two values are equal.</span>
+    <span class="c1">///</span>
+    <span class="c1">/// Equality is the inverse of inequality. For any values `a` and `b`,</span>
+    <span class="c1">/// `a == b` implies that `a != b` is `false`.</span>
+    <span class="c1">///</span>
+    <span class="c1">/// - Parameters:</span>
+    <span class="c1">///   - lhs: A value to compare.</span>
+    <span class="c1">///   - rhs: Another value to compare.</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>우리가 struct나 class 를 만들었을때 비교를 하려면 <code class="highlighter-rouge">Binary operator '==' cannot be applied to two '' operands</code> 라는 컴파일 에러가 난다.<br /></p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">NumberInt</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">NumberDouble</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="kt">NumberInt</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="kt">NumberInt</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">5</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="kt">NumberDouble</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="kt">NumberDouble</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>struct에 equatable 프로토콜을 추가하면</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">NumberInt</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="kt">NumberInt</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="kt">NumberInt</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">5</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>잘된다. 하지만 class에 equtable 프로토콜을 추가하면</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">NumberDouble</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="kt">NumberDouble</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="kt">NumberDouble</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Type 'NumberDouble' does not conform to protocol 'Equatable'</code> 이란 컴파일 에러가 난다.<br />
+== 메서드를 적어줘야 한다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">NumberDouble</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="p">{</span>
+    <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">NumberDouble</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">NumberDouble</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">lhs</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">rhs</span><span class="o">.</span><span class="n">value</span>
+    <span class="p">}</span>
+
+    <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="kt">NumberDouble</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="kt">NumberDouble</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이제 정상적으로 된다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">NumberDouble</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">NumberDouble</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">NumberDouble</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">lhs</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">rhs</span><span class="o">.</span><span class="n">value</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이렇게 ==을 밖에서 구현해도 가능하다.<br />
+struct는 ==가 기본적으로 구현이 되어있고 내가 다시 구현해줄수 있다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">NumberInt</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span>
+
+    <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">NumberInt</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">NumberInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">lhs</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">rhs</span><span class="o">.</span><span class="n">value</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="comparable">comparable</h3>
+
+<p>크고 작음을 비교하는 프로토콜이고 Equatable을 상속받아서 class에서는 Equatable에 있는 ==를 써주어야 한다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">NumberInt</span><span class="p">:</span> <span class="kt">Comparable</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span>
+
+    <span class="kd">static</span> <span class="kd">func</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">NumberInt</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">NumberInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">lhs</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="n">rhs</span><span class="o">.</span><span class="n">value</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">NumberDouble</span><span class="p">:</span> <span class="kt">Comparable</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="p">}</span>
+
+    <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">NumberDouble</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">NumberDouble</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">lhs</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">rhs</span><span class="o">.</span><span class="n">value</span>
+    <span class="p">}</span>
+
+    <span class="kd">static</span> <span class="kd">func</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">NumberDouble</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">NumberDouble</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">lhs</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="n">rhs</span><span class="o">.</span><span class="n">value</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="kt">NumberInt</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="kt">NumberInt</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">5</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="kt">NumberDouble</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&gt;</span> <span class="kt">NumberDouble</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>&lt; 만 구현해주어도 &gt;나 &gt;=, &lt;=를 사용할수 있다.<br />
+&lt;와 ==을 구현해주었으니까 나머지는 자동으로 계산이 된다.</p>
+
+<h3 id="sequence-iteratorprotocol">sequence, iteratorProtocol</h3>
+
+<p>sequence는 한번에 하나씩 수행할수 있는 값의 목록이다.<br />
+sequence를 써주면 iteratorProtocol를 같이 써주어야 하는데</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">CountDown</span><span class="p">:</span> <span class="kt">Sequence</span><span class="p">,</span> <span class="kt">IteratorProtocol</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">count</span><span class="p">:</span> <span class="kt">Int</span>
+
+    <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">next</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Int</span><span class="p">?</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">nil</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">defer</span> <span class="p">{</span> <span class="n">count</span> <span class="o">-=</span> <span class="mi">1</span> <span class="p">}</span>
+            <span class="k">return</span> <span class="n">count</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">countDown</span> <span class="o">=</span> <span class="kt">CountDown</span><span class="p">(</span><span class="nv">count</span><span class="p">:</span> <span class="mi">5</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="n">countDown</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이렇게 사용가능하다.<br />
+CountDown 는 자체 iterator로 사용되는 sequence 정의이다.<br />
+아래 Sequence와 IteratorProtocol이 어떻게 만들어졌는지 보면 확실히 이해가 될것이다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Sequence</span> <span class="p">{</span>
+
+    <span class="c1">/// A type representing the sequence's elements.</span>
+    <span class="kd">associatedtype</span> <span class="kt">Element</span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Iterator</span><span class="o">.</span><span class="kt">Element</span><span class="p">,</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Iterator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="k">Self</span><span class="o">.</span><span class="kt">SubSequence</span><span class="o">.</span><span class="kt">Element</span><span class="p">,</span> <span class="k">Self</span><span class="o">.</span><span class="kt">SubSequence</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="k">Self</span><span class="o">.</span><span class="kt">SubSequence</span><span class="o">.</span><span class="kt">Iterator</span><span class="o">.</span><span class="kt">Element</span>
+
+    <span class="c1">/// A type that provides the sequence's iteration interface and</span>
+    <span class="c1">/// encapsulates its iteration state.</span>
+    <span class="kd">associatedtype</span> <span class="kt">Iterator</span> <span class="p">:</span> <span class="kt">IteratorProtocol</span>
+
+    <span class="c1">/// A type that represents a subsequence of some of the sequence's elements.</span>
+    <span class="kd">associatedtype</span> <span class="kt">SubSequence</span> <span class="p">:</span> <span class="kt">Sequence</span> <span class="o">=</span> <span class="kt">AnySequence</span><span class="o">&lt;</span><span class="k">Self</span><span class="o">.</span><span class="kt">Element</span><span class="o">&gt;</span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">SubSequence</span> <span class="o">==</span> <span class="k">Self</span><span class="o">.</span><span class="kt">SubSequence</span><span class="o">.</span><span class="kt">SubSequence</span>
+
+    <span class="c1">/// Returns an iterator over the elements of this sequence.</span>
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeIterator</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Iterator</span>
+<span class="p">}</span>
+
+<span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">IteratorProtocol</span> <span class="p">{</span>
+
+    <span class="c1">/// The type of element traversed by the iterator.</span>
+    <span class="kd">associatedtype</span> <span class="kt">Element</span>
+
+    <span class="c1">/// Advances to the next element and returns it, or `nil` if no next element</span>
+    <span class="c1">/// exists.</span>
+    <span class="c1">///</span>
+    <span class="c1">/// Repeatedly calling this method returns, in order, all the elements of the</span>
+    <span class="c1">/// underlying sequence. As soon as the sequence has run out of elements, all</span>
+    <span class="c1">/// subsequent calls return `nil`.</span>
+    <span class="c1">///</span>
+    <span class="c1">/// You must not call this method if any other copy of this iterator has been</span>
+    <span class="c1">/// advanced with a call to its `next()` method.</span>
+    <span class="c1">///</span>
+    <span class="c1">/// The following example shows how an iterator can be used explicitly to</span>
+    <span class="c1">/// emulate a `for`-`in` loop. First, retrieve a sequence's iterator, and</span>
+    <span class="c1">/// then call the iterator's `next()` method until it returns `nil`.</span>
+    <span class="c1">///</span>
+    <span class="c1">///     let numbers = [2, 3, 5, 7]</span>
+    <span class="c1">///     var numbersIterator = numbers.makeIterator()</span>
+    <span class="c1">///</span>
+    <span class="c1">///     while let num = numbersIterator.next() {</span>
+    <span class="c1">///         print(num)</span>
+    <span class="c1">///     }</span>
+    <span class="c1">///     // Prints "2"</span>
+    <span class="c1">///     // Prints "3"</span>
+    <span class="c1">///     // Prints "5"</span>
+    <span class="c1">///     // Prints "7"</span>
+    <span class="c1">///</span>
+    <span class="c1">/// - Returns: The next element in the underlying sequence, if a next element</span>
+    <span class="c1">///   exists; otherwise, `nil`.</span>
+    <span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">next</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Element</span><span class="p">?</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="customstringconvertible">customStringConvertible</h3>
+
+<p>오브젝트를 문자열로 바꾸는 기능을 제공하는 프로토콜이다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">CustomStruct</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">"CustomStruct value: </span><span class="se">\(</span><span class="n">value</span><span class="se">)</span><span class="s">"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">CustomClass</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">"CustomClass value: </span><span class="se">\(</span><span class="n">value</span><span class="se">)</span><span class="s">"</span>
+    <span class="p">}</span>
+    <span class="nf">init</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="kt">CustomStruct</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="s">"Hello"</span><span class="p">)</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="kt">CustomClass</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="s">"Hello"</span><span class="p">)</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>class는 CustomStringConvertible을 추가하지 않아도 description를 사용할수 있다.<br />
+하지만 CustomStringConvertible를 추가하면 description를 구현해주어야 한다.</p>
+
+<p>이 외에도 많은 표준 라이브러리 프로토콜이 있다.<br />
+<a href="https://developer.apple.com/documentation/swift/swift_standard_library">Apple</a></p>
+
+</article>
+
+
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    /*
+    var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+
+        s.src = '//pikachu987blog.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+<script id="dsq-count-scr" src="//pikachu987blog.disqus.com/count.js" async></script>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    
+  </div>
+</footer>
+
+
+</body>
+</html>

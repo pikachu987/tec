@@ -9,6 +9,1038 @@
     
         
             <item>
+                <title>swift Throttle, Debounce</title>
+                <link>http://localhost:4000/swift/2019/01/29/delay/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <h2 id="debounce과-throttle">Debounce과 Throttle</h2>
+
+<p>이벤트를 일정시간 이후에 보여주게 한다.</p>
+
+<p>예를들어 UITextField에서 텍스트를 입력하고 입력된 텍스트를 통신하게 되면 큰 비용이 일어나게 된다.</p>
+
+<p>이 문제를 해결하려면 텍스트를 입력한 다음 일정시간동안 다음 텍스트를 입력받지 못하면 통신하고 일정시간 안에 텍스트를 입력받으면 다시 다음 일정시간을 기다리게 할수 있고 큰 비용이 발생하지 않는다.</p>
+
+<h3 id="debounce">Debounce</h3>
+
+<p>이벤트가 일어날때마다 항상 취소후 다시 시간 딜레이를 준다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">CustomTextField</span><span class="p">:</span> <span class="kt">UITextField</span> <span class="p">{</span>
+
+    <span class="kd">deinit</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="nf">removeTarget</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="nv">action</span><span class="p">:</span> <span class="kd">#selector(</span><span class="nf">self.editingChanged(_:)</span><span class="kd">)</span><span class="p">,</span> <span class="nv">for</span><span class="p">:</span> <span class="o">.</span><span class="n">editingChanged</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">private</span> <span class="k">var</span> <span class="nv">workItem</span><span class="p">:</span> <span class="kt">DispatchWorkItem</span><span class="p">?</span>
+    <span class="kd">private</span> <span class="k">var</span> <span class="nv">delay</span><span class="p">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="kd">private</span> <span class="k">var</span> <span class="nv">callback</span><span class="p">:</span> <span class="p">((</span><span class="kt">String</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span>
+
+    <span class="kd">func</span> <span class="nf">debounce</span><span class="p">(</span><span class="nv">delay</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">((</span><span class="kt">String</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">delay</span> <span class="o">=</span> <span class="n">delay</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">callback</span> <span class="o">=</span> <span class="n">callback</span>
+        <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span>
+            <span class="k">self</span><span class="o">.</span><span class="nf">callback</span><span class="p">?(</span><span class="k">self</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">self</span><span class="o">.</span><span class="nf">addTarget</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="nv">action</span><span class="p">:</span> <span class="kd">#selector(</span><span class="nf">self.editingChanged(_:)</span><span class="kd">)</span><span class="p">,</span> <span class="nv">for</span><span class="p">:</span> <span class="o">.</span><span class="n">editingChanged</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">@objc</span> <span class="kd">private</span> <span class="kd">func</span> <span class="nf">editingChanged</span><span class="p">(</span><span class="n">_</span> <span class="nv">sender</span><span class="p">:</span> <span class="kt">UITextField</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">self</span><span class="o">.</span><span class="n">workItem</span><span class="p">?</span><span class="o">.</span><span class="nf">cancel</span><span class="p">()</span>
+      <span class="k">let</span> <span class="nv">workItem</span> <span class="o">=</span> <span class="kt">DispatchWorkItem</span><span class="p">(</span><span class="nv">block</span><span class="p">:</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="k">in</span>
+          <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">callback</span><span class="p">?(</span><span class="n">sender</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+      <span class="p">})</span>
+      <span class="k">self</span><span class="o">.</span><span class="n">workItem</span> <span class="o">=</span> <span class="n">workItem</span>
+      <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="nf">asyncAfter</span><span class="p">(</span><span class="nv">deadline</span><span class="p">:</span> <span class="o">.</span><span class="nf">now</span><span class="p">()</span> <span class="o">+</span> <span class="k">self</span><span class="o">.</span><span class="n">delay</span><span class="p">,</span> <span class="nv">execute</span><span class="p">:</span> <span class="n">workItem</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">textField</span> <span class="o">=</span> <span class="kt">CustomTextField</span><span class="p">()</span>
+<span class="n">textField</span><span class="o">.</span><span class="nf">debounce</span><span class="p">(</span><span class="nv">delay</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">)</span> <span class="p">{</span> <span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="k">in</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이제 0.3초 후에 텍스트를 받게 된다. 0.3초가 흐르기 전에 텍스트를 입력하면 이벤트 호출이 되지 않고 다시 0.3초를 기다리게 된다.</p>
+
+<p><img src="/tec/images/2019/01/delay/debounce.png" alt="debounce" /></p>
+
+<h3 id="throttle">Throttle</h3>
+
+<p>지정한 시간 간격으로 마지막 이벤트만 호출된다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">CustomTextField</span><span class="p">:</span> <span class="kt">UITextField</span> <span class="p">{</span>
+
+    <span class="kd">deinit</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="nf">removeTarget</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="nv">action</span><span class="p">:</span> <span class="kd">#selector(</span><span class="nf">self.editingChanged(_:)</span><span class="kd">)</span><span class="p">,</span> <span class="nv">for</span><span class="p">:</span> <span class="o">.</span><span class="n">editingChanged</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">private</span> <span class="k">var</span> <span class="nv">workItem</span><span class="p">:</span> <span class="kt">DispatchWorkItem</span><span class="p">?</span>
+    <span class="kd">private</span> <span class="k">var</span> <span class="nv">delay</span><span class="p">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="kd">private</span> <span class="k">var</span> <span class="nv">callback</span><span class="p">:</span> <span class="p">((</span><span class="kt">String</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span>
+
+    <span class="kd">func</span> <span class="nf">throttle</span><span class="p">(</span><span class="nv">delay</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">callback</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">((</span><span class="kt">String</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">delay</span> <span class="o">=</span> <span class="n">delay</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">callback</span> <span class="o">=</span> <span class="n">callback</span>
+        <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span>
+            <span class="k">self</span><span class="o">.</span><span class="nf">callback</span><span class="p">?(</span><span class="k">self</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">self</span><span class="o">.</span><span class="nf">addTarget</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="nv">action</span><span class="p">:</span> <span class="kd">#selector(</span><span class="nf">self.editingChanged(_:)</span><span class="kd">)</span><span class="p">,</span> <span class="nv">for</span><span class="p">:</span> <span class="o">.</span><span class="n">editingChanged</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="kd">@objc</span> <span class="kd">private</span> <span class="kd">func</span> <span class="nf">editingChanged</span><span class="p">(</span><span class="n">_</span> <span class="nv">sender</span><span class="p">:</span> <span class="kt">UITextField</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="k">self</span><span class="o">.</span><span class="n">workItem</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+            <span class="k">let</span> <span class="nv">text</span> <span class="o">=</span> <span class="n">sender</span><span class="o">.</span><span class="n">text</span>
+            <span class="k">self</span><span class="o">.</span><span class="nf">callback</span><span class="p">?(</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">let</span> <span class="nv">workItem</span> <span class="o">=</span> <span class="kt">DispatchWorkItem</span><span class="p">(</span><span class="nv">block</span><span class="p">:</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="k">in</span>
+                <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="n">workItem</span><span class="p">?</span><span class="o">.</span><span class="nf">cancel</span><span class="p">()</span>
+                <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="n">workItem</span> <span class="o">=</span> <span class="kc">nil</span>
+                <span class="k">if</span> <span class="n">text</span> <span class="o">!=</span> <span class="n">sender</span><span class="o">.</span><span class="n">text</span> <span class="p">{</span>
+                    <span class="k">self</span><span class="p">?</span><span class="o">.</span><span class="nf">callback</span><span class="p">?(</span><span class="n">sender</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">})</span>
+            <span class="k">self</span><span class="o">.</span><span class="n">workItem</span> <span class="o">=</span> <span class="n">workItem</span>
+            <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="nf">asyncAfter</span><span class="p">(</span><span class="nv">deadline</span><span class="p">:</span> <span class="o">.</span><span class="nf">now</span><span class="p">()</span> <span class="o">+</span> <span class="k">self</span><span class="o">.</span><span class="n">delay</span><span class="p">,</span> <span class="nv">execute</span><span class="p">:</span> <span class="n">workItem</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">textField</span> <span class="o">=</span> <span class="kt">CustomTextField</span><span class="p">()</span>
+<span class="n">textField</span><span class="o">.</span><span class="nf">throttle</span><span class="p">(</span><span class="nv">delay</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">)</span> <span class="p">{</span> <span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="k">in</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>0.3초 동안 일어난 이벤트중 마지막 이벤트가 호출되고 다시 0.3초를 기다린다.</p>
+
+<p>해당 예제는 RxSwift에서 throttle 메서드의 동작과 비슷하게 행동한다.</p>
+<blockquote>
+  <p>텍스트 입력시 바로 이벤트가 호출되고 특정 시간동안 이벤트가 발생하지 않으면 호출되지 않고 이벤트가 발생하면 마지막 이벤트만 호출된다.</p>
+</blockquote>
+
+<p><img src="/tec/images/2019/01/delay/throttle.png" alt="throttle" /></p>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/swift/2019/01/29/delay/</guid>
+                <description>
+                    
+                    이벤트를 일정시간동안 후에 실행
+                    
+                </description>
+                <pubDate>Tue, 29 Jan 2019 17:00:00 +0900</pubDate>
+                <author>gwanho kim</author>
+            </item>
+        
+    
+        
+            <item>
+                <title>iOS UDID UUID ADID 알아보기</title>
+                <link>http://localhost:4000/swift/2019/01/21/ios-id/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <h3 id="udid-unique-device-identifier">UDID (Unique Device Identifier)</h3>
+
+<blockquote>
+  <p>iOS에서 기존에 사용하던 UDID가 iOS5에서부터 deprecated 되었다.</p>
+</blockquote>
+
+<p>UDID (고유 장치 식별자) 응용 프로그램 설치, 등록 및 MDM 등록의 목적을 위해 장치를 식별하는 데 사용되는 계산 된 문자열이다.</p>
+
+<p><a href="https://www.theiphonewiki.com/wiki/UDID">WIKI UDID</a></p>
+
+<p>itunes에서 확인할수 있다.</p>
+
+<p><img src="/tec/images/2019/01/iosId/udid.png" alt="Alt Text" /></p>
+
+<h3 id="uuid-universally-unique-identifier">UUID (Universally unique identifier)</h3>
+
+<p><a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">WIKI UUID</a></p>
+
+<p>Vender에 따라 값을 가진다. Swift에서는 아래와 같은 코드로 uuid를 볼수 있다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">print</span><span class="p">(</span><span class="kt">UIDevice</span><span class="o">.</span><span class="n">current</span><span class="o">.</span><span class="n">identifierForVendor</span><span class="p">?</span><span class="o">.</span><span class="n">uuidString</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>identifierForVender는 벤더 식별자라고 한다.</p>
+
+<p><img src="/tec/images/2019/01/iosId/identifier.png" alt="Alt Text" /></p>
+
+<ul>
+  <li>앱이 달라도 Organization Identifier 가 같은 앱이면 identifierForVender가 같다.</li>
+  <li>Organization Identifier가 달라지면 값이 달라진다.</li>
+  <li>Team이 달라도 Organization Identifier 같으면 같다.</li>
+  <li>기기에 설치한 Organization Identifier가 같은 앱이 없으면 초기화된다.</li>
+</ul>
+
+<h3 id="adid-idfa">ADID (IDFA)</h3>
+
+<p>광고 식별자이고 기기마다 고유한 값을 가진다. AdSupport를 import 해줘야 한다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">import</span> <span class="kt">AdSupport</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="kt">ASIdentifierManager</span><span class="o">.</span><span class="nf">shared</span><span class="p">()</span><span class="o">.</span><span class="n">advertisingIdentifier</span><span class="o">.</span><span class="n">uuidString</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>ADID를 사용하는 앱은 iTunesConnect에서 앱을 심사할때 광고식별자에서 <code class="highlighter-rouge">예</code> 를 선택해야 한다.</p>
+
+<p><img src="/tec/images/2019/01/iosId/appStore.png" alt="Alt Text" /></p>
+
+<p>ADID를 초기화 하는 방법</p>
+
+<p>1.기기의 설정 - 일반 - 재설정 - 모든 설정 재설정</p>
+
+<p><img src="/tec/images/2019/01/iosId/ad1.png" alt="Alt Text" /></p>
+
+<p>2.기기의 설정 - 개인정보 보호 - 광고 광고식별자 재설정</p>
+
+<p><img src="/tec/images/2019/01/iosId/ad2.png" alt="Alt Text" /></p>
+
+<p>광고 추적제한은 아래의 코드를 입력하면 Bool값으로 나온다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">print</span><span class="p">(</span><span class="kt">ASIdentifierManager</span><span class="o">.</span><span class="nf">shared</span><span class="p">()</span><span class="o">.</span><span class="n">isAdvertisingTrackingEnabled</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="nsuuid">NSUUID</h4>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">print</span><span class="p">(</span><span class="s">"</span><span class="se">\(</span><span class="kt">NSUUID</span><span class="p">()</span><span class="o">.</span><span class="n">uuidString</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>임의의 128 비트 값을 생성하고 고유의 값을 만드는데 좋다.
+항상 값이 다르게 나온다.</p>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/swift/2019/01/21/ios-id/</guid>
+                <description>
+                    
+                    iOS에서 사용하는 고유 ID 확인하기
+                    
+                </description>
+                <pubDate>Mon, 21 Jan 2019 17:00:00 +0900</pubDate>
+                <author>gwanho kim</author>
+            </item>
+        
+    
+        
+            <item>
+                <title>swift Declaration Attributes 알아보기</title>
+                <link>http://localhost:4000/swift/2018/12/22/swift-declarationattributes/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <h3 id="objc">@objc</h3>
+
+<p>Swift에서 objc라는 키워드는 심볼을 Objective-C 네임스페이스에 알려주는 역활이다.<br />
+Swift는 Objective-C 에서 찾을수 없게 되어있는데 찾을수 있게 해주는 것이 objc이다.</p>
+
+<h5 id="selector">selector</h5>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">self</span><span class="o">.</span><span class="n">navigationItem</span><span class="o">.</span><span class="n">rightBarButtonItem</span> <span class="o">=</span> <span class="kt">UIBarButtonItem</span><span class="p">(</span><span class="nv">barButtonSystemItem</span><span class="p">:</span> <span class="o">.</span><span class="n">done</span><span class="p">,</span> <span class="nv">target</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span> <span class="nv">action</span><span class="p">:</span> <span class="kd">#selector(</span><span class="nf">self.doneTap(_:)</span><span class="kd">)</span><span class="p">)</span>
+
+<span class="kd">private</span> <span class="kd">func</span> <span class="nf">doneTap</span><span class="p">(</span><span class="n">_</span> <span class="nv">sender</span><span class="p">:</span> <span class="kt">UIBarButtonItem</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이렇게 적으면 <code class="highlighter-rouge">Argument of '#selector' refers to instance method 'doneTap' that is not exposed to Objective-C</code> 라고 에러가 난다.<br />
+@objc를 추가해주면 된다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">private</span> <span class="kd">func</span> <span class="nf">doneTap</span><span class="p">(</span><span class="n">_</span> <span class="nv">sender</span><span class="p">:</span> <span class="kt">UIBarButtonItem</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Swift에서 #selector는 Objective-C 메소드여야 하기 때문에 @objc를 붙여줘야 한다.</p>
+
+<h5 id="class-method">class method</h5>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@objc</span><span class="p">(</span><span class="kt">PKCMYViewContoller</span><span class="p">)</span>
+<span class="kd">class</span> <span class="kt">MyViewController</span><span class="p">:</span> <span class="kt">UIViewController</span> <span class="p">{</span>
+
+    <span class="kd">@objc</span><span class="p">(</span><span class="n">pkcFetchData</span><span class="p">)</span>
+    <span class="kd">func</span> <span class="nf">fetchData</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Swift는 모듈내에 존재하는 class나 extension에 동일한 메서드명을 가진게 존재할 경우 바로 컴파일 에러가 발생해서 prefix를 안붙여도 된다.<br />
+Objective-C에서는 컴파일 에러가 아니라 그냥 빌드되고 같은 이름의 아무 클래스나 메서드가 불려진다.<br />
+그래서 @objc로 Objective-C에서 사용할 클래스명, 메서드명을 바꿔준다.</p>
+
+<h3 id="escaping">escaping</h3>
+
+<p><a href="https://pikachu987.github.io/tec/swift/2018/12/07/swift-escape/">swift @escaping @noescape</a> 참조</p>
+
+<h3 id="autoclosure">autoclosure</h3>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">someFunction</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"someFunction1"</span><span class="p">)</span>
+    <span class="nf">closure</span><span class="p">()</span>
+<span class="p">}</span>
+<span class="n">someFunction</span> <span class="p">{</span> <span class="nf">print</span><span class="p">(</span><span class="s">"Hello1"</span><span class="p">)</span> <span class="p">}</span>
+<span class="nf">someFunction</span><span class="p">({</span> <span class="nf">print</span><span class="p">(</span><span class="s">"Hello2"</span><span class="p">)</span> <span class="p">})</span>
+</code></pre></div></div>
+
+<p>클로져를 보통 저런식으로 사용할것이다.<br />
+하지만 라이브러리들을 보면</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">someFunction</span><span class="p">(</span><span class="nf">print</span><span class="p">(</span><span class="s">"Hello1"</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>이렇게 사용하는 모습을 볼수 있다.<br />
+<code class="highlighter-rouge">someFunction</code>에 저렇게 사용하면 <code class="highlighter-rouge">Cannot convert value of type '()' to expected argument type '() -&gt; Void'</code>라는 에러가 나온다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">someFunction2</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@autoclosure</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"someFunction2"</span><span class="p">)</span>
+    <span class="nf">closure</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="nf">someFunction2</span><span class="p">(</span><span class="nf">print</span><span class="p">(</span><span class="s">"Hello3"</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>@autoclosure를 사용하여 <code class="highlighter-rouge">someFunction2(print("Hello3"))</code>가 되게 할수 있다.<br />
+비동기 실행이나 클로져를 저장해서 사용할 경우 @escaping를 추가해줄수도 있다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">someFunction2</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kd">@autoclosure</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"someFunction2"</span><span class="p">)</span>
+    <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span>
+        <span class="nf">closure</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nf">someFunction2</span><span class="p">(</span><span class="nf">print</span><span class="p">(</span><span class="s">"Hello3"</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h3 id="discardableresult">discardableResult</h3>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">textField</span> <span class="o">=</span> <span class="kt">UITextField</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">isComplete</span> <span class="o">=</span> <span class="n">textField</span><span class="o">.</span><span class="nf">resignFirstResponder</span><span class="p">()</span>
+<span class="n">textField</span><span class="o">.</span><span class="nf">resignFirstResponder</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>텍스트필드에 resignFirstResponder라는 메서드가 있다.<br />
+이 메서드는 리턴값이 있는데 리턴값을 변수로 저장하거나 사용하지 않아도 <code class="highlighter-rouge">Result of call to '' is unused</code> 이런 경고창이 뜨지 않는다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">@discardableResult</span>
+<span class="kd">func</span> <span class="nf">example</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이렇게 @discardableResult를 써주면 값을 사용하지 않아도 경고창이 뜨지 않는다.<br />
+값이 필요할수도 있고 값이 필요없을수도 있는 메서드에 사용하면 경고창이 뜨지 않아서 좋다.</p>
+
+<p><br /><br /><br /></p>
+
+<p><a href="https://docs.swift.org/swift-book/ReferenceManual/Attributes.html">THE SWIFT PROGRAMMING LANGUAGE</a> 를 보면 엄청 많은 Declaration Attributes가 있다.</p>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/swift/2018/12/22/swift-declarationattributes/</guid>
+                <description>
+                    
+                    Swift @objc, @escaping, @autoclosure, @discardableResult
+                    
+                </description>
+                <pubDate>Sat, 22 Dec 2018 17:00:00 +0900</pubDate>
+                <author>gwanho kim</author>
+            </item>
+        
+    
+        
+            <item>
+                <title>swift DispatchGroup 알아보기</title>
+                <link>http://localhost:4000/swift/2018/12/21/swift-dispatchgroup/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <h3 id="dispatchgroup">DispatchGroup</h3>
+
+<p>어떤 작업의 동기화를 그룹으로 묶을수 있다.<br />
+여러 작업들이 각각의 큐에서 동작하고 모든 작업이 완료되었을때를 알수 있다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">workGroup</span> <span class="o">=</span> <span class="kt">DispatchGroup</span><span class="p">()</span>
+
+<span class="n">workGroup</span><span class="o">.</span><span class="nf">enter</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"work1 start"</span><span class="p">)</span>
+<span class="kt">DispatchQueue</span><span class="o">.</span><span class="nf">global</span><span class="p">()</span><span class="o">.</span><span class="nf">asyncAfter</span><span class="p">(</span><span class="nv">deadline</span><span class="p">:</span> <span class="o">.</span><span class="nf">now</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"work1 end"</span><span class="p">)</span>
+    <span class="n">workGroup</span><span class="o">.</span><span class="nf">leave</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="n">workGroup</span><span class="o">.</span><span class="nf">enter</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"work2 start"</span><span class="p">)</span>
+<span class="kt">DispatchQueue</span><span class="o">.</span><span class="nf">global</span><span class="p">()</span><span class="o">.</span><span class="nf">asyncAfter</span><span class="p">(</span><span class="nv">deadline</span><span class="p">:</span> <span class="o">.</span><span class="nf">now</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"work2 end"</span><span class="p">)</span>
+    <span class="n">workGroup</span><span class="o">.</span><span class="nf">leave</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="n">workGroup</span><span class="o">.</span><span class="nf">notify</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"Complete"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>work1 start
+work2 start
+work1 end
+work2 end
+Complete
+</code></pre></div></div>
+
+<p>DispatchWorkItem으로도 쓸수 있다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">workGroup</span> <span class="o">=</span> <span class="kt">DispatchGroup</span><span class="p">()</span>
+
+<span class="n">workGroup</span><span class="o">.</span><span class="nf">enter</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"work1 start"</span><span class="p">)</span>
+<span class="kt">DispatchQueue</span><span class="o">.</span><span class="nf">global</span><span class="p">()</span><span class="o">.</span><span class="nf">asyncAfter</span><span class="p">(</span><span class="nv">deadline</span><span class="p">:</span> <span class="o">.</span><span class="nf">now</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"work1 end"</span><span class="p">)</span>
+    <span class="n">workGroup</span><span class="o">.</span><span class="nf">leave</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="n">workGroup</span><span class="o">.</span><span class="nf">enter</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"work2 start"</span><span class="p">)</span>
+<span class="kt">DispatchQueue</span><span class="o">.</span><span class="nf">global</span><span class="p">()</span><span class="o">.</span><span class="nf">asyncAfter</span><span class="p">(</span><span class="nv">deadline</span><span class="p">:</span> <span class="o">.</span><span class="nf">now</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"work2 end"</span><span class="p">)</span>
+    <span class="n">workGroup</span><span class="o">.</span><span class="nf">leave</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">workItem</span> <span class="o">=</span> <span class="kt">DispatchWorkItem</span><span class="p">(</span><span class="nv">block</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"workItem"</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="n">workGroup</span><span class="o">.</span><span class="nf">notify</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span> <span class="nv">work</span><span class="p">:</span> <span class="n">workItem</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>work1 start
+work2 start
+work1 end
+work2 end
+workItem
+</code></pre></div></div>
+
+<p>또는 다음 작업을 멈추게 할수 있다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">workGroup</span> <span class="o">=</span> <span class="kt">DispatchGroup</span><span class="p">()</span>
+
+<span class="n">workGroup</span><span class="o">.</span><span class="nf">enter</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"work1 start"</span><span class="p">)</span>
+<span class="kt">DispatchQueue</span><span class="o">.</span><span class="nf">global</span><span class="p">()</span><span class="o">.</span><span class="nf">asyncAfter</span><span class="p">(</span><span class="nv">deadline</span><span class="p">:</span> <span class="o">.</span><span class="nf">now</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"work1 end"</span><span class="p">)</span>
+    <span class="n">workGroup</span><span class="o">.</span><span class="nf">leave</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="n">workGroup</span><span class="o">.</span><span class="nf">enter</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"work2 start"</span><span class="p">)</span>
+<span class="kt">DispatchQueue</span><span class="o">.</span><span class="nf">global</span><span class="p">()</span><span class="o">.</span><span class="nf">asyncAfter</span><span class="p">(</span><span class="nv">deadline</span><span class="p">:</span> <span class="o">.</span><span class="nf">now</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"work2 end"</span><span class="p">)</span>
+    <span class="n">workGroup</span><span class="o">.</span><span class="nf">leave</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="n">workGroup</span><span class="o">.</span><span class="nf">wait</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"Complete"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>work1 start
+work2 start
+work1 end
+work2 end
+Complete
+</code></pre></div></div>
+
+<p>waite에 타임아웃을 줄수도 있다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">workGroup</span> <span class="o">=</span> <span class="kt">DispatchGroup</span><span class="p">()</span>
+
+<span class="n">workGroup</span><span class="o">.</span><span class="nf">enter</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"work1 start"</span><span class="p">)</span>
+<span class="kt">DispatchQueue</span><span class="o">.</span><span class="nf">global</span><span class="p">()</span><span class="o">.</span><span class="nf">asyncAfter</span><span class="p">(</span><span class="nv">deadline</span><span class="p">:</span> <span class="o">.</span><span class="nf">now</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"work1 end"</span><span class="p">)</span>
+    <span class="n">workGroup</span><span class="o">.</span><span class="nf">leave</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="n">workGroup</span><span class="o">.</span><span class="nf">enter</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"work2 start"</span><span class="p">)</span>
+<span class="kt">DispatchQueue</span><span class="o">.</span><span class="nf">global</span><span class="p">()</span><span class="o">.</span><span class="nf">asyncAfter</span><span class="p">(</span><span class="nv">deadline</span><span class="p">:</span> <span class="o">.</span><span class="nf">now</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"work2 end"</span><span class="p">)</span>
+    <span class="n">workGroup</span><span class="o">.</span><span class="nf">leave</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="n">workGroup</span><span class="o">.</span><span class="nf">notify</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="o">.</span><span class="n">main</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"Complete notify"</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">workGroup</span><span class="o">.</span><span class="nf">wait</span><span class="p">(</span><span class="nv">timeout</span><span class="p">:</span> <span class="kt">DispatchTime</span><span class="o">.</span><span class="nf">now</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.8</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"Complete"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>work1 start
+work2 start
+work1 end
+Complete
+work2 end
+Complete notify
+</code></pre></div></div>
+
+<h5 id="enter">enter</h5>
+
+<p>작업이 시작된다는 메서드이다.</p>
+
+<h5 id="leave">leave</h5>
+
+<p>enter과 쌍을 이루며 작업이 끝난다는 메서드이다.</p>
+
+<h5 id="wait">wait</h5>
+
+<p>다음 라인으로 넘어가지 않고 대기하고 있게 해주는 메서드이다.</p>
+
+<h5 id="notify">notify</h5>
+
+<p>작업이 완료되면 호출되는 클로져이다.</p>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/swift/2018/12/21/swift-dispatchgroup/</guid>
+                <description>
+                    
+                    Swift DispatchGroup의 메서드에 대해 알아보기
+                    
+                </description>
+                <pubDate>Fri, 21 Dec 2018 17:00:00 +0900</pubDate>
+                <author>gwanho kim</author>
+            </item>
+        
+    
+        
+            <item>
+                <title>swift final에 대해 알아보기</title>
+                <link>http://localhost:4000/swift/2018/12/20/swift-finalstatic/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <h3 id="class-final">class final</h3>
+
+<p>final키워드가 있는 class는 다른 class에서 상속받지 못한다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">final</span> <span class="kd">class</span> <span class="kt">Animal</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">name</span> <span class="o">=</span> <span class="s">""</span>
+
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">Dog</span><span class="p">:</span> <span class="kt">Animal</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Inheritance from a final class 'Animal'</code> 이렇게 컴파일 에러가 난다.<br />
+클래스를 다른 클래스에서 상속하면 안되는 경우에 사용할수 있다.</p>
+
+<h3 id="method-final">method final</h3>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">Animal</span> <span class="p">{</span>
+    <span class="kd">final</span> <span class="kd">func</span> <span class="nf">bite</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">Dog</span><span class="p">:</span> <span class="kt">Animal</span> <span class="p">{</span>
+
+    <span class="k">override</span> <span class="kd">func</span> <span class="nf">bite</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"개가 뭅니다."</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>메서드에 final을 붙이고 override를 하면 <code class="highlighter-rouge">Instance method overrides a 'final' instance method</code>라는 컴파일 에러가 난다.<br /></p>
+
+<h3 id="final-class-func과-class-func과-static">final class func과 class func과 static</h3>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">Animal</span> <span class="p">{</span>
+    <span class="kd">static</span> <span class="kd">func</span> <span class="nf">bite</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">Dog</span><span class="p">:</span> <span class="kt">Animal</span> <span class="p">{</span>
+    <span class="k">override</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">bite</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"개가 뭅니다."</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">Animal</span><span class="o">.</span><span class="nf">bite</span><span class="p">()</span>
+<span class="kt">Dog</span><span class="o">.</span><span class="nf">bite</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Cannot override static method</code> 이렇게 static 메서드는 오버라이드 할수 없다는 컴파일에러가 나오는데</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">Animal</span> <span class="p">{</span>
+    <span class="kd">class</span> <span class="kd">func</span> <span class="nf">bite</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">Dog</span><span class="p">:</span> <span class="kt">Animal</span> <span class="p">{</span>
+    <span class="k">override</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">bite</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"개가 뭅니다."</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">Animal</span><span class="o">.</span><span class="nf">bite</span><span class="p">()</span>
+<span class="kt">Dog</span><span class="o">.</span><span class="nf">bite</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>이렇게 class로 바꿔주면 override가 가능하다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">Animal</span> <span class="p">{</span>
+    <span class="kd">final</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">bite</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">Dog</span><span class="p">:</span> <span class="kt">Animal</span> <span class="p">{</span>
+    <span class="k">override</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kd">func</span> <span class="nf">bite</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nf">print</span><span class="p">(</span><span class="s">"개가 뭅니다."</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">Animal</span><span class="o">.</span><span class="nf">bite</span><span class="p">()</span>
+<span class="kt">Dog</span><span class="o">.</span><span class="nf">bite</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>여기에 final을 붙이게 되면 override를 할수 없어진다.<br />
+static과 final class는 같은 기능을 할수있다.</p>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/swift/2018/12/20/swift-finalstatic/</guid>
+                <description>
+                    
+                    Swift class final, method final, final class func과 class func과 static
+                    
+                </description>
+                <pubDate>Thu, 20 Dec 2018 17:00:00 +0900</pubDate>
+                <author>gwanho kim</author>
+            </item>
+        
+    
+        
+            <item>
+                <title>swift 표준 라이브러리 프로토콜에 대해 알아보기</title>
+                <link>http://localhost:4000/swift/2018/12/19/swift-standardprotocol/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <h3 id="equatable">equatable</h3>
+
+<p>equatable은 비교를 할수 있게 해주는 프로토콜이며<br />
+기본적인 데이터 타입들도 적용이 되어있다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">extension</span> <span class="kt">String</span> <span class="p">:</span> <span class="kt">Equatable</span> <span class="p">{</span>
+
+    <span class="c1">/// Returns a Boolean value indicating whether two values are equal.</span>
+    <span class="c1">///</span>
+    <span class="c1">/// Equality is the inverse of inequality. For any values `a` and `b`,</span>
+    <span class="c1">/// `a == b` implies that `a != b` is `false`.</span>
+    <span class="c1">///</span>
+    <span class="c1">/// - Parameters:</span>
+    <span class="c1">///   - lhs: A value to compare.</span>
+    <span class="c1">///   - rhs: Another value to compare.</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>우리가 struct나 class 를 만들었을때 비교를 하려면 <code class="highlighter-rouge">Binary operator '==' cannot be applied to two '' operands</code> 라는 컴파일 에러가 난다.<br /></p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">NumberInt</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">NumberDouble</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="kt">NumberInt</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="kt">NumberInt</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">5</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="kt">NumberDouble</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="kt">NumberDouble</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>struct에 equatable 프로토콜을 추가하면</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">NumberInt</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="kt">NumberInt</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="kt">NumberInt</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">5</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>잘된다. 하지만 class에 equtable 프로토콜을 추가하면</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">NumberDouble</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="kt">NumberDouble</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="kt">NumberDouble</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Type 'NumberDouble' does not conform to protocol 'Equatable'</code> 이란 컴파일 에러가 난다.<br />
+== 메서드를 적어줘야 한다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">NumberDouble</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="p">{</span>
+    <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">NumberDouble</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">NumberDouble</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">lhs</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">rhs</span><span class="o">.</span><span class="n">value</span>
+    <span class="p">}</span>
+
+    <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="kt">NumberDouble</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span> <span class="o">==</span> <span class="kt">NumberDouble</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이제 정상적으로 된다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="kt">NumberDouble</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">NumberDouble</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">NumberDouble</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">lhs</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">rhs</span><span class="o">.</span><span class="n">value</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이렇게 ==을 밖에서 구현해도 가능하다.<br />
+struct는 ==가 기본적으로 구현이 되어있고 내가 다시 구현해줄수 있다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">NumberInt</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span>
+
+    <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">NumberInt</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">NumberInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">lhs</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">rhs</span><span class="o">.</span><span class="n">value</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="comparable">comparable</h3>
+
+<p>크고 작음을 비교하는 프로토콜이고 Equatable을 상속받아서 class에서는 Equatable에 있는 ==를 써주어야 한다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">NumberInt</span><span class="p">:</span> <span class="kt">Comparable</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span>
+
+    <span class="kd">static</span> <span class="kd">func</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">NumberInt</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">NumberInt</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">lhs</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="n">rhs</span><span class="o">.</span><span class="n">value</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">NumberDouble</span><span class="p">:</span> <span class="kt">Comparable</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="p">}</span>
+
+    <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">NumberDouble</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">NumberDouble</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">lhs</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">rhs</span><span class="o">.</span><span class="n">value</span>
+    <span class="p">}</span>
+
+    <span class="kd">static</span> <span class="kd">func</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">NumberDouble</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">NumberDouble</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">lhs</span><span class="o">.</span><span class="n">value</span> <span class="o">&lt;</span> <span class="n">rhs</span><span class="o">.</span><span class="n">value</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="kt">NumberInt</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="kt">NumberInt</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">5</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="kt">NumberDouble</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&gt;</span> <span class="kt">NumberDouble</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>&lt; 만 구현해주어도 &gt;나 &gt;=, &lt;=를 사용할수 있다.<br />
+&lt;와 ==을 구현해주었으니까 나머지는 자동으로 계산이 된다.</p>
+
+<h3 id="sequence-iteratorprotocol">sequence, iteratorProtocol</h3>
+
+<p>sequence는 한번에 하나씩 수행할수 있는 값의 목록이다.<br />
+sequence를 써주면 iteratorProtocol를 같이 써주어야 하는데</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">CountDown</span><span class="p">:</span> <span class="kt">Sequence</span><span class="p">,</span> <span class="kt">IteratorProtocol</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">count</span><span class="p">:</span> <span class="kt">Int</span>
+
+    <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">next</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Int</span><span class="p">?</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">nil</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">defer</span> <span class="p">{</span> <span class="n">count</span> <span class="o">-=</span> <span class="mi">1</span> <span class="p">}</span>
+            <span class="k">return</span> <span class="n">count</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">countDown</span> <span class="o">=</span> <span class="kt">CountDown</span><span class="p">(</span><span class="nv">count</span><span class="p">:</span> <span class="mi">5</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="n">countDown</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이렇게 사용가능하다.<br />
+CountDown 는 자체 iterator로 사용되는 sequence 정의이다.<br />
+아래 Sequence와 IteratorProtocol이 어떻게 만들어졌는지 보면 확실히 이해가 될것이다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Sequence</span> <span class="p">{</span>
+
+    <span class="c1">/// A type representing the sequence's elements.</span>
+    <span class="kd">associatedtype</span> <span class="kt">Element</span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Iterator</span><span class="o">.</span><span class="kt">Element</span><span class="p">,</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Iterator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="k">Self</span><span class="o">.</span><span class="kt">SubSequence</span><span class="o">.</span><span class="kt">Element</span><span class="p">,</span> <span class="k">Self</span><span class="o">.</span><span class="kt">SubSequence</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="k">Self</span><span class="o">.</span><span class="kt">SubSequence</span><span class="o">.</span><span class="kt">Iterator</span><span class="o">.</span><span class="kt">Element</span>
+
+    <span class="c1">/// A type that provides the sequence's iteration interface and</span>
+    <span class="c1">/// encapsulates its iteration state.</span>
+    <span class="kd">associatedtype</span> <span class="kt">Iterator</span> <span class="p">:</span> <span class="kt">IteratorProtocol</span>
+
+    <span class="c1">/// A type that represents a subsequence of some of the sequence's elements.</span>
+    <span class="kd">associatedtype</span> <span class="kt">SubSequence</span> <span class="p">:</span> <span class="kt">Sequence</span> <span class="o">=</span> <span class="kt">AnySequence</span><span class="o">&lt;</span><span class="k">Self</span><span class="o">.</span><span class="kt">Element</span><span class="o">&gt;</span> <span class="k">where</span> <span class="k">Self</span><span class="o">.</span><span class="kt">SubSequence</span> <span class="o">==</span> <span class="k">Self</span><span class="o">.</span><span class="kt">SubSequence</span><span class="o">.</span><span class="kt">SubSequence</span>
+
+    <span class="c1">/// Returns an iterator over the elements of this sequence.</span>
+    <span class="kd">public</span> <span class="kd">func</span> <span class="nf">makeIterator</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Iterator</span>
+<span class="p">}</span>
+
+<span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">IteratorProtocol</span> <span class="p">{</span>
+
+    <span class="c1">/// The type of element traversed by the iterator.</span>
+    <span class="kd">associatedtype</span> <span class="kt">Element</span>
+
+    <span class="c1">/// Advances to the next element and returns it, or `nil` if no next element</span>
+    <span class="c1">/// exists.</span>
+    <span class="c1">///</span>
+    <span class="c1">/// Repeatedly calling this method returns, in order, all the elements of the</span>
+    <span class="c1">/// underlying sequence. As soon as the sequence has run out of elements, all</span>
+    <span class="c1">/// subsequent calls return `nil`.</span>
+    <span class="c1">///</span>
+    <span class="c1">/// You must not call this method if any other copy of this iterator has been</span>
+    <span class="c1">/// advanced with a call to its `next()` method.</span>
+    <span class="c1">///</span>
+    <span class="c1">/// The following example shows how an iterator can be used explicitly to</span>
+    <span class="c1">/// emulate a `for`-`in` loop. First, retrieve a sequence's iterator, and</span>
+    <span class="c1">/// then call the iterator's `next()` method until it returns `nil`.</span>
+    <span class="c1">///</span>
+    <span class="c1">///     let numbers = [2, 3, 5, 7]</span>
+    <span class="c1">///     var numbersIterator = numbers.makeIterator()</span>
+    <span class="c1">///</span>
+    <span class="c1">///     while let num = numbersIterator.next() {</span>
+    <span class="c1">///         print(num)</span>
+    <span class="c1">///     }</span>
+    <span class="c1">///     // Prints "2"</span>
+    <span class="c1">///     // Prints "3"</span>
+    <span class="c1">///     // Prints "5"</span>
+    <span class="c1">///     // Prints "7"</span>
+    <span class="c1">///</span>
+    <span class="c1">/// - Returns: The next element in the underlying sequence, if a next element</span>
+    <span class="c1">///   exists; otherwise, `nil`.</span>
+    <span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">next</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="k">Self</span><span class="o">.</span><span class="kt">Element</span><span class="p">?</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="customstringconvertible">customStringConvertible</h3>
+
+<p>오브젝트를 문자열로 바꾸는 기능을 제공하는 프로토콜이다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">CustomStruct</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">"CustomStruct value: </span><span class="se">\(</span><span class="n">value</span><span class="se">)</span><span class="s">"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">CustomClass</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s">"CustomClass value: </span><span class="se">\(</span><span class="n">value</span><span class="se">)</span><span class="s">"</span>
+    <span class="p">}</span>
+    <span class="nf">init</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="kt">CustomStruct</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="s">"Hello"</span><span class="p">)</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="kt">CustomClass</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="s">"Hello"</span><span class="p">)</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>class는 CustomStringConvertible을 추가하지 않아도 description를 사용할수 있다.<br />
+하지만 CustomStringConvertible를 추가하면 description를 구현해주어야 한다.</p>
+
+<p>이 외에도 많은 표준 라이브러리 프로토콜이 있다.<br />
+<a href="https://developer.apple.com/documentation/swift/swift_standard_library">Apple</a></p>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/swift/2018/12/19/swift-standardprotocol/</guid>
+                <description>
+                    
+                    Swift equatable, comparable, sequence, iteratorProtocol, customStringConvertible
+                    
+                </description>
+                <pubDate>Wed, 19 Dec 2018 17:00:00 +0900</pubDate>
+                <author>gwanho kim</author>
+            </item>
+        
+    
+        
+            <item>
+                <title>swift OptionSet 알아보기</title>
+                <link>http://localhost:4000/swift/2018/12/18/swift-optionsset/</link>
+                <content:encoded>
+                    <![CDATA[
+                    <h3 id="optionset">OptionSet</h3>
+
+<h4 id="사용">사용</h4>
+
+<p>OptionSet은 enum과 비슷하지만 차이점이 둘 이상을 결합할수 있다.<br />
+코드를 짤때 자주 OptionSet을 사용을 하는데 예를들어 UIBezierPath나 String의 range메서드에서 볼수 있다.</p>
+
+<p>UIBezierPath의 생성자중 init(roundedRect: CGRect, byRoundingCorners: UIRectCorner, cornerRadii: CGSize) 생성자가 있는데 byRoundingCorners를 받는다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">UIBezierPath</span><span class="p">(</span><span class="nv">roundedRect</span><span class="p">:</span> <span class="o">.</span><span class="n">zero</span><span class="p">,</span> <span class="nv">byRoundingCorners</span><span class="p">:</span> <span class="kt">UIRectCorner</span><span class="o">.</span><span class="n">topLeft</span><span class="p">,</span> <span class="nv">cornerRadii</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>저렇게 topLeft, topRight, bottomLeft, bottomRight, allCorners중 하나를 받는데</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">UIBezierPath</span><span class="p">(</span><span class="nv">roundedRect</span><span class="p">:</span> <span class="o">.</span><span class="n">zero</span><span class="p">,</span> <span class="nv">byRoundingCorners</span><span class="p">:</span> <span class="p">[</span><span class="kt">UIRectCorner</span><span class="o">.</span><span class="n">topLeft</span><span class="p">,</span> <span class="kt">UIRectCorner</span><span class="o">.</span><span class="n">topRight</span><span class="p">,</span> <span class="kt">UIRectCorner</span><span class="o">.</span><span class="n">bottomLeft</span><span class="p">],</span> <span class="nv">cornerRadii</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>이렇게 결합할수 있다.<br />
+UIRectCorner를 확인해보면</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">UIRectCorner</span> <span class="p">:</span> <span class="kt">OptionSet</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">rawValue</span><span class="p">:</span> <span class="kt">UInt</span><span class="p">)</span>
+
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">topLeft</span><span class="p">:</span> <span class="kt">UIRectCorner</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">topRight</span><span class="p">:</span> <span class="kt">UIRectCorner</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">bottomLeft</span><span class="p">:</span> <span class="kt">UIRectCorner</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">bottomRight</span><span class="p">:</span> <span class="kt">UIRectCorner</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">allCorners</span><span class="p">:</span> <span class="kt">UIRectCorner</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이렇게 OptionSet으로 되어있다.<br />
+String의 range메서드중 range(of:options:)에 options도 OptionSet으로 되어있다.</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CompareOptions</span> <span class="p">:</span> <span class="kt">OptionSet</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">rawValue</span><span class="p">:</span> <span class="kt">UInt</span><span class="p">)</span>
+
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">caseInsensitive</span><span class="p">:</span> <span class="kt">NSString</span><span class="o">.</span><span class="kt">CompareOptions</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">literal</span><span class="p">:</span> <span class="kt">NSString</span><span class="o">.</span><span class="kt">CompareOptions</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">backwards</span><span class="p">:</span> <span class="kt">NSString</span><span class="o">.</span><span class="kt">CompareOptions</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">anchored</span><span class="p">:</span> <span class="kt">NSString</span><span class="o">.</span><span class="kt">CompareOptions</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">numeric</span><span class="p">:</span> <span class="kt">NSString</span><span class="o">.</span><span class="kt">CompareOptions</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+    <span class="kd">@available</span><span class="p">(</span><span class="n">iOS</span> <span class="mf">2.0</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">diacriticInsensitive</span><span class="p">:</span> <span class="kt">NSString</span><span class="o">.</span><span class="kt">CompareOptions</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+    <span class="kd">@available</span><span class="p">(</span><span class="n">iOS</span> <span class="mf">2.0</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">widthInsensitive</span><span class="p">:</span> <span class="kt">NSString</span><span class="o">.</span><span class="kt">CompareOptions</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+    <span class="kd">@available</span><span class="p">(</span><span class="n">iOS</span> <span class="mf">2.0</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">forcedOrdering</span><span class="p">:</span> <span class="kt">NSString</span><span class="o">.</span><span class="kt">CompareOptions</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+    <span class="kd">@available</span><span class="p">(</span><span class="n">iOS</span> <span class="mf">3.2</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">regularExpression</span><span class="p">:</span> <span class="kt">NSString</span><span class="o">.</span><span class="kt">CompareOptions</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>그렇기 때문에</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">example</span> <span class="o">=</span> <span class="s">"example"</span>
+<span class="k">let</span> <span class="nv">range</span> <span class="o">=</span> <span class="n">example</span><span class="o">.</span><span class="nf">range</span><span class="p">(</span><span class="nv">of</span><span class="p">:</span> <span class="s">"am"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[</span><span class="o">.</span><span class="n">caseInsensitive</span><span class="p">,</span> <span class="o">.</span><span class="n">backwards</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>과 같은 결합으로 여러 옵션을 쓸수 있다.</p>
+
+<h4 id="만들기">만들기</h4>
+
+<p>OptionSet을 만드는거는 간단하게 struct에 OptionSet을 붙이면 된다.
+Apple에 설명되어 있는 예제를 보면</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">ShippingOptions</span><span class="p">:</span> <span class="kt">OptionSet</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">rawValue</span><span class="p">:</span> <span class="kt">Int</span>
+
+    <span class="kd">static</span> <span class="k">let</span> <span class="nv">nextDay</span>    <span class="o">=</span> <span class="kt">ShippingOptions</span><span class="p">(</span><span class="nv">rawValue</span><span class="p">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="kd">static</span> <span class="k">let</span> <span class="nv">secondDay</span>  <span class="o">=</span> <span class="kt">ShippingOptions</span><span class="p">(</span><span class="nv">rawValue</span><span class="p">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="kd">static</span> <span class="k">let</span> <span class="nv">priority</span>   <span class="o">=</span> <span class="kt">ShippingOptions</span><span class="p">(</span><span class="nv">rawValue</span><span class="p">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="kd">static</span> <span class="k">let</span> <span class="nv">standard</span>   <span class="o">=</span> <span class="kt">ShippingOptions</span><span class="p">(</span><span class="nv">rawValue</span><span class="p">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">)</span>
+
+    <span class="kd">static</span> <span class="k">let</span> <span class="nv">express</span><span class="p">:</span> <span class="kt">ShippingOptions</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="n">nextDay</span><span class="p">,</span> <span class="o">.</span><span class="n">secondDay</span><span class="p">]</span>
+    <span class="kd">static</span> <span class="k">let</span> <span class="nv">all</span><span class="p">:</span> <span class="kt">ShippingOptions</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="n">express</span><span class="p">,</span> <span class="o">.</span><span class="n">priority</span><span class="p">,</span> <span class="o">.</span><span class="n">standard</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>이렇게 되어있다. 원시값은 1, 2, 4, 8, 16 등 2의 x제곱으로 하게 되어있다.<br />
+<a href="https://developer.apple.com/documentation/swift/optionset">Apple</a></p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">Direct</span><span class="p">:</span> <span class="kt">OptionSet</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">rawValue</span><span class="p">:</span> <span class="kt">Int</span>
+
+    <span class="kd">static</span> <span class="k">let</span> <span class="nv">horizontal</span> <span class="o">=</span> <span class="kt">Direct</span><span class="p">(</span><span class="nv">rawValue</span><span class="p">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="kd">static</span> <span class="k">let</span> <span class="nv">vertical</span> <span class="o">=</span> <span class="kt">Direct</span><span class="p">(</span><span class="nv">rawValue</span><span class="p">:</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">let</span> <span class="nv">horizontalDirect</span><span class="p">:</span> <span class="kt">Direct</span> <span class="o">=</span> <span class="kt">Direct</span><span class="o">.</span><span class="n">horizontal</span>
+<span class="k">let</span> <span class="nv">verticalDirect</span><span class="p">:</span> <span class="kt">Direct</span> <span class="o">=</span> <span class="kt">Direct</span><span class="o">.</span><span class="n">vertical</span>
+<span class="k">let</span> <span class="nv">allDirect</span><span class="p">:</span> <span class="kt">Direct</span> <span class="o">=</span> <span class="p">[</span><span class="kt">Direct</span><span class="o">.</span><span class="n">horizontal</span><span class="p">,</span> <span class="kt">Direct</span><span class="o">.</span><span class="n">vertical</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>이렇게 OptionSet을 사용할수 있다.</p>
+
+                    ]]>
+                </content:encoded>
+                <guid isPermaLink="false">/swift/2018/12/18/swift-optionsset/</guid>
+                <description>
+                    
+                    Swift OptionSet 만들어보고 enum과의 차이 알아보기
+                    
+                </description>
+                <pubDate>Tue, 18 Dec 2018 17:00:00 +0900</pubDate>
+                <author>gwanho kim</author>
+            </item>
+        
+    
+        
+            <item>
                 <title>swift AccessControl 알아보기</title>
                 <link>http://localhost:4000/swift/2018/12/17/swift-accesscontrol/</link>
                 <content:encoded>
@@ -1387,7 +2419,7 @@ Test에도 Equatable을 상속받아보자</p>
         <span class="k">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="mi">15</span>
     <span class="p">}</span>
 
-    <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">age</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">age</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">self</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Super"</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="n">age</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -1411,7 +2443,7 @@ Test에도 Equatable을 상속받아보자</p>
         <span class="k">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="mi">15</span>
     <span class="p">}</span>
 
-    <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">age</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">age</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">self</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Super"</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="n">age</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -1439,7 +2471,7 @@ Test에도 Equatable을 상속받아보자</p>
         <span class="k">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="mi">15</span>
     <span class="p">}</span>
 
-    <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">age</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">age</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">self</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Super"</span><span class="p">,</span> <span class="nv">age</span><span class="p">:</span> <span class="n">age</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -2093,13 +3125,13 @@ noescape는 함수를 탈출하지 않을때 사용되며 생략한다. 즉, 그
 
     <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">Draw</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">Draw</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
         <span class="k">switch</span> <span class="p">(</span><span class="n">lhs</span><span class="p">,</span> <span class="n">rhs</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">case</span> <span class="nf">let</span> <span class="p">(</span><span class="o">.</span><span class="nf">pen</span><span class="p">(</span><span class="n">size1</span><span class="p">,</span> <span class="n">color1</span><span class="p">),</span> <span class="o">.</span><span class="nf">pen</span><span class="p">(</span><span class="n">size2</span><span class="p">,</span> <span class="n">color2</span><span class="p">)):</span>
+        <span class="k">case</span> <span class="k">let</span> <span class="p">(</span><span class="err">.</span><span class="nv">pen</span><span class="p">(</span><span class="nv">size1</span><span class="p">,</span> <span class="nv">color1</span><span class="p">),</span> <span class="err">.</span><span class="nv">pen</span><span class="p">(</span><span class="nv">size2</span><span class="p">,</span> <span class="nv">color2</span><span class="p">)):</span>
             <span class="k">return</span> <span class="n">size1</span> <span class="o">==</span> <span class="n">size2</span> <span class="o">&amp;&amp;</span> <span class="n">color1</span> <span class="o">==</span> <span class="n">color2</span>
-        <span class="k">case</span> <span class="nf">let</span> <span class="p">(</span><span class="o">.</span><span class="nf">eraser</span><span class="p">(</span><span class="n">size1</span><span class="p">),</span> <span class="o">.</span><span class="nf">eraser</span><span class="p">(</span><span class="n">size2</span><span class="p">)):</span>
+        <span class="k">case</span> <span class="k">let</span> <span class="p">(</span><span class="err">.</span><span class="nv">eraser</span><span class="p">(</span><span class="nv">size1</span><span class="p">),</span> <span class="err">.</span><span class="nv">eraser</span><span class="p">(</span><span class="nv">size2</span><span class="p">)):</span>
             <span class="k">return</span> <span class="n">size1</span> <span class="o">==</span> <span class="n">size2</span>
         <span class="k">case</span> <span class="p">(</span><span class="o">.</span><span class="n">spoid</span><span class="p">,</span> <span class="o">.</span><span class="n">spoid</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">true</span>
-        <span class="k">case</span> <span class="nf">let</span> <span class="p">(</span><span class="o">.</span><span class="nf">shape</span><span class="p">(</span><span class="n">type1</span><span class="p">),</span> <span class="o">.</span><span class="nf">shape</span><span class="p">(</span><span class="n">type2</span><span class="p">)):</span>
+        <span class="k">case</span> <span class="k">let</span> <span class="p">(</span><span class="err">.</span><span class="nv">shape</span><span class="p">(</span><span class="nv">type1</span><span class="p">),</span> <span class="err">.</span><span class="nv">shape</span><span class="p">(</span><span class="nv">type2</span><span class="p">)):</span>
             <span class="k">return</span> <span class="n">type1</span> <span class="o">==</span> <span class="n">type2</span>
         <span class="k">default</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">false</span>
