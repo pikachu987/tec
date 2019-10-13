@@ -15,6 +15,37 @@ notion_url: https://www.notion.so/Study-848fed3b628943bb945734c3ffe82d16
 permalink: pretty # 주소 .html 확장자 제거
 paginate: 10
 theme: minima
+timezone: Europe/London
+markdown: kramdown
+encoding: utf-8
 plugins:
   - jekyll-feed
   - jekyll-paginate
+
+posts:
+  - title: Swift Firebase Facebook Login
+    date: 2016-09-07 20:30:00
+    summary: Firebase Facebook Login 페이스북 로그인
+    categories: swift
+    filename: 2016-09-07-swiftFBLogin
+  - title: Swift Kakao Login
+    date: 2016-09-11 08:30:00
+    summary: 앞에서 했던 FacebookLogin에서 Kakao Login 카카오톡 로그인 추가하기
+    categories: swift
+    filename: 2016-09-11-swiftKakaoLogin
+  - title: Swift Adobe Image Editor
+    date: 2016-09-12 08:30:00
+    summary: Adobe 이미지 에디터 사용해보기
+    categories: swift
+    filename: 2016-09-12-swiftAdobeImageEditro
+  - title: cocoapods lib install
+    date: 2017-01-10 10:00:00
+    summary: ios cocoapods에서 라이브러리를 설치해보자!
+    categories: ios
+    notion_link: https://www.notion.so/pikachu987/Libaray-Install-567144882f14460aade08af59284740a
+  - title: cocoapods lib create
+    date: 2017-01-11 10:00:00
+    summary: ios cocoapods에서 라이브러리를 생성해보자! (cocoapods lib create)
+    categories: ios
+    filename: 2017-01-11-cocoapodsCreate
+    notion_link: https://www.notion.so/pikachu987/Library-Create-fb00cc6dee8342579b6e795f60f4d22b
