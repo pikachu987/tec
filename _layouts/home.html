@@ -9,7 +9,18 @@ layout: default
 
   {{ content }}
 
-  {%- if site.posts.size > 0 -%}
+https://shopify.github.io/liquid/filters/plus/
+{{ paginator }}
+{%- assign totalCount = site.postarray.size -%}
+{%- assign countList = paginator.per_page -%}
+{%- assign total = totalCount | divided_by: countList -%}
+{%- assign totalPage = total | plus: 1 -%}
+
+{{ totalPage }}
+
+
+
+  {%- if site.postarray.size > 0 -%}
     <ul class="post-list">
       {%- for post in paginator.posts -%}
       <li class="post-row">

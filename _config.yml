@@ -22,7 +22,7 @@ plugins:
   - jekyll-feed
   - jekyll-paginate
 
-posts:
+postarray:
   - title: Swift Firebase Facebook Login
     date: 2016-09-07 20:30:00
     summary: Firebase Facebook Login 페이스북 로그인
