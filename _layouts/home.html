@@ -1,6 +1,9 @@
 ---
+/////permalink: /page/:num
 layout: default
 ---
+
+흠,, 페이지네이션 콜렉션을 흠,,, yml되려나
 
 <div class="home">
   {%- if page.title -%}
@@ -9,102 +12,107 @@ layout: default
 
   {{ content }}
 
-https://shopify.github.io/liquid/filters/plus/
-{{ paginator }}
-{%- assign totalCount = site.postarray.size -%}
-{%- assign countList = paginator.per_page -%}
-{%- assign total = totalCount | divided_by: countList -%}
-{%- assign totalPage = total | plus: 1 -%}
+{{ page.url }}
 
-{{ totalPage }}
+  {%- assign totalCount = site.postarray.size | plus: 0.0 -%}
+  {%- assign countList = site.paginate -%}
+  {%- assign totalPageDouble = totalCount | divided_by: countList -%}
 
+  {%- assign totalPageInt = totalPageDouble | floor -%}
+  {%- if totalPageDouble == totalPageInt -%}
+    {%- assign totalPage = totalPageInt -%}
+  {% else %}
+    {%- assign totalPage = totalPageInt | plus: 1 -%}
+  {%- endif -%}
+  {%- assign startIndex = totalPage | minus: paginator.page | times: 10 | plus: 1 -%}
+  {%- assign endIndex = startIndex | plus: 9 -%}
 
 
   {%- if site.postarray.size > 0 -%}
     <ul class="post-list">
-      {%- for post in paginator.posts -%}
-      <li class="post-row">
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
-        <h3>
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title | escape }}
-          </a>
-          <br/><br/>
-        </h3>
-        {%- if site.show_excerpts -%}
-          {{ post.excerpt }}
+      {%- for post in site.postarray -%}
+        {%- if startIndex <= forloop.index and forloop.index <= endIndex  -%}
+          <li class="post-row">
+            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+            <span class="post-meta">{{ post.date | date: date_format }}</span>
+            <h3>
+              <a class="post-link" href="{{ post.url | relative_url }}">
+                {{ post.title | escape }}
+              </a>
+              <br/><br/>
+            </h3>
+            {%- if site.show_excerpts -%}
+              {{ post.excerpt }}
+            {%- endif -%}
+          </li>
         {%- endif -%}
-      </li>
       {%- endfor -%}
     </ul>
   {%- endif -%}
 
 </div>
 
+
 <!-- Pagination links -->
-{% if paginator.total_pages > 1 %}
+{% assign start = paginator.page | minus: 2 %}
+{% assign end = paginator.page | plus: 2 %}
 
-  {% assign start = paginator.page | minus: 2 %}
-  {% assign end = paginator.page | plus: 2 %}
-
-  {% if start < 1 %}
-    {% assign start = 1 %}
-    {% assign end = start | plus: 4 %}
-  {% elsif end > paginator.total_pages %}
-    {% assign start = paginator.total_pages | minus: 4 %}
-    {% assign end = paginator.total_pages %}
-  {% endif %}
-
-  {% if start < 1 %}
-    {% assign start = 1 %}
-  {% endif %}
-
-  {% if end > paginator.total_pages %}
-    {% assign end = paginator.total_pages %}
-  {% endif %}
-
-  <div class="pagination-wrapper">
-    <div class="pagination">
-      {% if paginator.previous_page %}
-        <a class="pagination-step" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">
-          Newer
-        </a>
-      {% else %}
-        <span class="pagination-step pagination-newer">
-          Newer
-        </span>
-      {% endif %}
-
-      {% if start > 1 %}
-        <a class="pagination-first" href="{{ site.baseurl }}/">1</a>
-        <span class="pagination-more">&middot;&middot;&middot;</span>
-      {% endif %}
-
-      {% for page in (start..end) %}
-        {% if page == paginator.page %}
-          <span class="active">{{ page }}</span>
-        {% elsif page == 1 %}
-          <a href="{{ site.baseurl }}/">{{ page }}</a>
-        {% else %}
-          <a href="{{ site.baseurl }}/page{{ page }}">{{ page }}</a>
-        {% endif %}
-      {% endfor %}
-
-      {% if end < paginator.total_pages %}
-        <span class="pagination-more">&middot;&middot;&middot;</span>
-        <a class="pagination-last" href="{{ site.baseurl }}/page{{ paginator.total_pages }}">{{ paginator.total_pages }}</a>
-      {% endif %}
-
-      {% if paginator.next_page %}
-        <a class="pagination-step" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">
-          Older
-        </a>
-      {% else %}
-        <span class="pagination-step pagination-order">
-          Older
-        </span>
-      {% endif %}
-    </div>
-  </div>
+{% if start < 1 %}
+  {% assign start = 1 %}
+  {% assign end = start | plus: 4 %}
+{% elsif end > totalPage %}
+  {% assign start = totalPage | minus: 4 %}
+  {% assign end = totalPage %}
 {% endif %}
+
+{% if start < 1 %}
+  {% assign start = 1 %}
+{% endif %}
+
+{% if end > totalPage %}
+  {% assign end = totalPage %}
+{% endif %}
+<div class="pagination-wrapper">
+  <div class="pagination">
+    {% if paginator.page > totalPage %}
+      <a class="pagination-step" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">
+        Newer
+      </a>
+    {% else %}
+      <span class="pagination-step pagination-newer">
+        Newer
+      </span>
+    {% endif %}
+
+    {% if start > 1 %}
+      <a class="pagination-first" href="{{ site.baseurl }}/">1</a>
+      <span class="pagination-more">&middot;&middot;&middot;</span>
+    {% endif %}
+
+    {% for page in (start..end) %}
+      {% if page == paginator.page %}
+        <span class="active">{{ page }}</span>
+      {% elsif page == 1 %}
+        <a href="{{ site.baseurl }}/">{{ page }}</a>
+      {% else %}
+        <a href="{{ site.baseurl }}/page{{ page }}">{{ page }}</a>
+      {% endif %}
+    {% endfor %}
+
+    {% if end < totalPage %}
+      <span class="pagination-more">&middot;&middot;&middot;</span>
+      <a class="pagination-last" href="{{ site.baseurl }}/page{{ totalPage }}">{{ paginator.total_pages }}</a>
+    {% endif %}
+
+    {% if paginator.page > 0 %}
+      {%- assign page = paginator.page | plus: 1 -%}
+      <a class="pagination-step" href="{{ "page" | append: page | prepend: site.baseurl | replace: '//', '/' }}">
+        Older
+      </a>
+    {% else %}
+      <span class="pagination-step pagination-order">
+        Older
+      </span>
+    {% endif %}
+  </div>
+</div>
