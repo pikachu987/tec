@@ -18,7 +18,7 @@
 </div>
 <div class="post-paginate" style="display: none;">{{ site.paginate }}</div>
 <div class="site-baseurl" style="display: none;">{{ site.baseurl }}</div>
-
+<div class="site-url" style="display: none;">{{ site.url }}</div>
 <div class="home"></div>
 <div class="pagination-wrapper"></div>
 <div class="error"></div>
@@ -59,8 +59,6 @@
           currentPage = pageNumber;
         }
       }
-      console.log('url.pathname: '+url.pathname);
-      console.log('currentPage: '+currentPage);
       if (currentPage == -1) { //error Page
         // post Array
         const posts = JSON.parse($('.post-array').html());
@@ -136,7 +134,7 @@
     }
 
     function paginationHTML(currentPage, totalPage) {
-      var siteBaseUrl = $(".site-baseurl").html();
+      var siteUrl = $(".site-url").html();
       var start = currentPage - 2;
       var end = currentPage + 2;
 
@@ -159,32 +157,32 @@
       pageHTML += '<div class="pagination">';
       if (currentPage >= totalPage) {
         if (currentPage == 2) {
-          pageHTML += '<a class="pagination-step" href="' + siteBaseUrl + '/">Newer</a>';
+          pageHTML += '<a class="pagination-step" href="' + siteUrl + '/">Newer</a>';
         } else {
-          pageHTML += '<a class="pagination-step" href="' + siteBaseUrl + '/' + (Number(currentPage) - 1) + '">Newer</a>';
+          pageHTML += '<a class="pagination-step" href="' + siteUrl + '/' + (Number(currentPage) - 1) + '">Newer</a>';
         }
       } else {
         pageHTML += '<span class="pagination-step pagination-newer">Newer</span>';
       }
       if (start > 1) {
-        pageHTML += '<a class="pagination-first" href="' + siteBaseUrl + '/">1</a>';
+        pageHTML += '<a class="pagination-first" href="' + siteUrl + '/">1</a>';
         pageHTML += '<span class="pagination-more">&middot;&middot;&middot;</span>';
       }
       for (var i=start;i<=end;i++) {
         if (i == currentPage) {
           pageHTML += '<span class="active">' + i + '</span>';
         } else if (i == 1) {
-          pageHTML += '<a href="' + siteBaseUrl + '/">' + i + '</a>';
+          pageHTML += '<a href="' + siteUrl + '/">' + i + '</a>';
         } else {
-          pageHTML += '<a href="' + siteBaseUrl + '/page' + i + '">' + i + '</a>';
+          pageHTML += '<a href="' + siteUrl + '/page' + i + '">' + i + '</a>';
         }
       }
       if (end < totalPage) {
         pageHTML += '<span class="pagination-more">&middot;&middot;&middot;</span>';
-        pageHTML += '<a class="pagination-last" href="' + siteBaseUrl + '/page'+ totalPage +'">' + totalPage + '</a>';
+        pageHTML += '<a class="pagination-last" href="' + siteUrl + '/page'+ totalPage +'">' + totalPage + '</a>';
       }
       if (currentPage < totalPage) {
-        pageHTML += '<a class="pagination-step" href="' + siteBaseUrl + '/page'+ (Number(currentPage) + 1) +'">Older</a>';
+        pageHTML += '<a class="pagination-step" href="' + siteUrl + '/page'+ (Number(currentPage) + 1) +'">Older</a>';
       } else {
         pageHTML += '<span class="pagination-step pagination-order">Older</span>';
       }
