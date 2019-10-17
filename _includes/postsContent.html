@@ -59,7 +59,9 @@
           currentPage = pageNumber;
         }
       }
-
+      console.log('url.pathname: '+url.pathname);
+      console.log('url.pathname.replaceAll('/', '').replace('page', ''): '+url.pathname.replaceAll('/', '').replace('page', ''));
+      console.log('currentPage: '+currentPage);
       if (currentPage == -1) { //error Page
         // post Array
         const posts = JSON.parse($('.post-array').html());
@@ -72,7 +74,7 @@
           }
         }
         if (redirectURL == "") { //error Page
-          window.location.href = 'https://www.notion.so/pikachu987/Study-848fed3b628943bb945734c3ffe82d16';
+          // window.location.href = 'https://www.notion.so/pikachu987/Study-848fed3b628943bb945734c3ffe82d16';
         } else {
           window.location.href = redirectURL;
         }
