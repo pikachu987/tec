@@ -211,6 +211,10 @@
   @include relative-font-size(3.6);
 }
 
+.post-row {
+  list-style-type: none;
+}
+
 .post-row:hover {
   .post-meta {
     font-size: $base-font-size * 1.5;

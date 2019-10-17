@@ -130,6 +130,8 @@ table td { border: 1px solid #e8e8e8; }
 
 .post-link { display: block; font-weight: bold; color: #323232; font-size: 57.6px; }
 
+.post-row { list-style-type: none; }
+
 .post-row:hover .post-meta { font-size: 24px; }
 
 .post-row:hover .post-link { font-size: 64px; }
