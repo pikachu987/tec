@@ -2,11 +2,11 @@ title: Technology
 email: pikachu77769@gmail.com
 description: "pikachu987 Technology"
 
-baseurl: ""
-url: "/"
+# baseurl: ""
+# url: "/"
 
-# baseurl:     "https://pikachu987.github.io/tec"
-# url:         "/tec"
+baseurl:     "https://pikachu987.github.io/tec"
+url:         "/tec"
 
 google_analytics: "UA-129769659-2"
 
@@ -21,7 +21,7 @@ encoding: utf-8
 plugins:
   - jekyll-feed
   - jekyll-paginate
-  
+
 postarray:
   - title: Swift Firebase Facebook Login
     date: 2016-09-07 20:30:00
