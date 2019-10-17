@@ -7,9 +7,8 @@
     "title": "{{ post.title }}",
     "date": "{{ post.date }}",
     "summary": "{{ post.summary }}",
-    "categories": "{{ post.categories }}",
-    "filename": "{{ post.filename }}",
-    "link": "{{ post.link }}"
+    "link": "{{ post.link }}",
+    "path": "{{ post.path }}"
   }
   {%- if site.postarray.size > forloop.index  -%}
   ,
@@ -62,7 +61,21 @@
       }
 
       if (currentPage == -1) { //error Page
-        errorHTML();
+        // post Array
+        const posts = JSON.parse($('.post-array').html());
+        var redirectURL = '';
+        for (var i=0;i<posts.length;i++) {
+          var post = posts[i];
+          if (post.path.replaceAll(' ', '') != '' && pathname.includes(post.path)) {
+            redirectURL = post.link;
+            break;
+          }
+        }
+        if (redirectURL == "") { //error Page
+          window.location.href = 'https://www.notion.so/pikachu987/Study-848fed3b628943bb945734c3ffe82d16';
+        } else {
+          window.location.href = redirectURL;
+        }
       } else {
         // post Array
         const posts = JSON.parse($('.post-array').html());
@@ -111,7 +124,7 @@
           postHtml += '<span class="post-meta">' + date.dateToStr() + '</span>';
           postHtml += '<h3>';
           postHtml += '<a class="post-link" href="' + post.link + '">' + post.title + '</a>';
-          postHtml += '<br/><br/>';
+          postHtml += '<div class="post-summary">' + post.summary + '</div>';
           postHtml += '</h3>';
           postHtml += '</li>';
           homeHtml = postHtml + homeHtml;

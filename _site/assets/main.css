@@ -124,17 +124,19 @@ table td { border: 1px solid #e8e8e8; }
 
 .post-list { margin-left: 0; list-style: none; }
 
-.post-list > li { margin-bottom: 70px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #dadada; }
+.post-row { margin-bottom: 50px; list-style-type: none; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #dadada; }
 
 .post-meta { font-size: 20.8px; font-style: italic; color: #828282; }
 
-.post-link { display: block; font-weight: bold; color: #323232; font-size: 57.6px; }
+.post-link { display: block; font-weight: bold; color: #323232; font-size: 57.6px; margin-bottom: 0px; }
 
-.post-row { list-style-type: none; }
+.post-summary { font-style: italic; font-size: 15.2px; color: #7a7a7a; margin-bottom: 50px; }
 
-.post-row:hover .post-meta { font-size: 24px; }
+.post-row:hover .post-meta { font-size: 21.12px; }
 
-.post-row:hover .post-link { font-size: 64px; }
+.post-row:hover .post-summary { font-size: 15.68px; }
+
+.post-row:hover .post-link { font-size: 57.92px; }
 
 /** Posts */
 .post-header { margin-bottom: 30px; }
