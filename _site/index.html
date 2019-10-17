@@ -375,7 +375,7 @@
         if (currentPage == 2) {
           pageHTML += '<a class="pagination-step" href="' + siteUrl + '/">Newer</a>';
         } else {
-          pageHTML += '<a class="pagination-step" href="' + siteUrl + '/' + (Number(currentPage) - 1) + '">Newer</a>';
+          pageHTML += '<a class="pagination-step" href="' + siteUrl + '/page' + (Number(currentPage) - 1) + '">Newer</a>';
         }
       } else {
         pageHTML += '<span class="pagination-step pagination-newer">Newer</span>';

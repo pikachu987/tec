@@ -2,11 +2,10 @@ title: Technology
 email: pikachu77769@gmail.com
 description: "pikachu987 Technology"
 
-# baseurl: ""
-# url: "/"
-
 baseurl:     ""
+
 url:         "/tec"
+# url: "/"
 
 google_analytics: "UA-129769659-2"
 
