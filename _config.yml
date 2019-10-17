@@ -5,7 +5,7 @@ description: "pikachu987 Technology"
 # baseurl: ""
 # url: "/"
 
-baseurl:     "/tec"
+baseurl:     ""
 url:         "/tec"
 
 google_analytics: "UA-129769659-2"
