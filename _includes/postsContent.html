@@ -71,7 +71,7 @@
           }
         }
         if (redirectURL == "") { //error Page
-          // window.location.href = 'https://www.notion.so/pikachu987/Study-848fed3b628943bb945734c3ffe82d16';
+          errorHTML();
         } else {
           window.location.href = redirectURL;
         }
@@ -93,7 +93,7 @@
       }
     }
 
-
+    // error
     function errorHTML() {
       var html = '';
       html += '<style type="text/css" media="screen">';
@@ -104,14 +104,16 @@
       html += '<h1>404</h1>';
       html += '<p><strong>Page not found :(</strong></p>';
       html += '<p>The requested page could not be found.</p>';
+      html += '<h2><a href="https://www.notion.so/pikachu987/Study-848fed3b628943bb945734c3ffe82d16">Notion Blog</a></h2>';
       html += '</div>';
       $('.error').html(html);
     }
 
-    function postsHTML(posts, currentPage, totalPage) {
-      const startIndex = (totalPage - currentPage) * 10;
+    // post
+    function postsHTML(postArray, currentPage, totalPage) {
+      const startIndex = (currentPage - 1) * 10;
       const endIndex = startIndex + 9;
-
+      const posts = postArray.reverse();
       var homeHtml = "";
       homeHtml += '<ul class="post-list">';
       for (var i=0;i<posts.length;i++) {
@@ -133,6 +135,7 @@
       $('.home').html(homeHtml);
     }
 
+    // paging
     function paginationHTML(currentPage, totalPage) {
       var siteUrl = $(".site-url").html();
       var start = currentPage - 2;
