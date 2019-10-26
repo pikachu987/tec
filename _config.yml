@@ -173,3 +173,7 @@ postarray:
     summary: 이벤트를 일정시간동안 후에 실행
     path: 2019/01/29/delay
     link: https://www.notion.so/pikachu987/Throttle-Debounce-005215de9cfc4574b49f43479c9fb46b
+  - title: swift Generic
+    date: 2019-10-26 08:00:00
+    summary: Swift의 Generic에 대해 살펴보기
+    link: https://www.notion.so/pikachu987/Generic-3cd14ee1d4454343a223926241b8461e
