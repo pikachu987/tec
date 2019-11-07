@@ -177,3 +177,7 @@ postarray:
     date: 2019-10-26 08:00:00
     summary: Swift의 Generic에 대해 살펴보기
     link: https://www.notion.so/pikachu987/Generic-3cd14ee1d4454343a223926241b8461e
+  - title: swift LRU LFU FIFO
+    date: 2019-11-07 08:00:00
+    summary: Swift로 만든 LRU LFU FIFO 페이지 교체 알고리즘
+    link: https://www.notion.so/pikachu987/LRU-LFU-FIFO-44f8be48dc8449d6b9fba53937e7119d
