@@ -181,3 +181,7 @@ postarray:
     date: 2019-11-07 08:00:00
     summary: Swift로 만든 LRU LFU FIFO 페이지 교체 알고리즘
     link: https://www.notion.so/pikachu987/LRU-LFU-FIFO-44f8be48dc8449d6b9fba53937e7119d
+  - title: swift Cache
+    date: 2019-11-08 08:00:00
+    summary: Swift의 MemoryCache, DiskCache
+    link: https://www.notion.so/pikachu987/Cache-af5b4c0b99e443899cd8e13ccf6c3022
