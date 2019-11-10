@@ -189,3 +189,7 @@ postarray:
     date: 2019-11-09 08:00:00
     summary: Swift의 Background상태에서도 동작하는 BackgroundFetch 이해하기
     link: https://www.notion.so/pikachu987/BackgroundFetch-4625f2b52cef47f19aa85ef5dd78a229
+  - title: swift autoreleasepool
+    date: 2019-11-10 08:00:00
+    summary: Swift의 autoreleasepool에 대해 이해하기
+    link: https://www.notion.so/pikachu987/autoreleasepool-6881ac755a4d456f83b3296cf2533dba
