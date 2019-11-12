@@ -193,3 +193,7 @@ postarray:
     date: 2019-11-10 08:00:00
     summary: Swift의 autoreleasepool에 대해 이해하기
     link: https://www.notion.so/pikachu987/autoreleasepool-6881ac755a4d456f83b3296cf2533dba
+  - title: swift Array Optional Subscript(Indices, ~=)
+    date: 2019-11-11 08:00:00
+    summary: Swift의 Array에서 Optional로 Subscript사용하기
+    link: https://www.notion.so/pikachu987/Array-Optional-Subscript-Indices-0803de67fd2344168dbb484f1df426e0
