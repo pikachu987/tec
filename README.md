@@ -1,8 +1,8 @@
-<h1>Tec</h1>
+# Tec
 
-[Notion Blog](https://www.notion.so/pikachu987/Study-848fed3b628943bb945734c3ffe82d16)
+## [Notion Blog](https://www.notion.so/pikachu987/Study-848fed3b628943bb945734c3ffe82d16)
 
-[cocoapods lib install](https://www.notion.so/pikachu987/Libaray-Install-567144882f14460aade08af59284740a)
+##### [cocoapods lib install](https://www.notion.so/pikachu987/Libaray-Install-567144882f14460aade08af59284740a)
 
 [cocoapods lib create](https://www.notion.so/pikachu987/Library-Create-fb00cc6dee8342579b6e795f60f4d22b)
 
