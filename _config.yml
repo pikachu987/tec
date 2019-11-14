@@ -201,3 +201,7 @@ postarray:
     date: 2019-11-12 08:00:00
     summary: Swift의 Struct initialization 
     link: https://www.notion.so/pikachu987/Struct-initialization-0027d74f5ae94ef7a97ad91ce3163cfd
+  - title: swift Class Struct == Operator
+    date: 2019-11-13 08:00:00
+    summary: Swift의 비교 연산자
+    link: https://www.notion.so/pikachu987/Class-Struct-Operator-baaf2bfac5284461a842531fa0f7f94b
