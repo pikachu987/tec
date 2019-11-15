@@ -38,3 +38,5 @@
 #### [swift Array Optional Subscript(Indices, ~=)](https://www.notion.so/pikachu987/Array-Optional-Subscript-Indices-0803de67fd2344168dbb484f1df426e0)
 #### [swift Struct initialization](https://www.notion.so/pikachu987/Struct-initialization-0027d74f5ae94ef7a97ad91ce3163cfd)
 #### [swift Class Struct == Operator](https://www.notion.so/pikachu987/Class-Struct-Operator-baaf2bfac5284461a842531fa0f7f94b)
+#### [swift Class convenience init](https://www.notion.so/pikachu987/Class-convenience-init-8ddc71314e2b41a78962e1dd76ae8ccf)
+
