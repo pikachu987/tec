@@ -205,3 +205,7 @@ postarray:
     date: 2019-11-13 08:00:00
     summary: Swift의 비교 연산자
     link: https://www.notion.so/pikachu987/Class-Struct-Operator-baaf2bfac5284461a842531fa0f7f94b
+  - title: swift Class convenience init
+    date: 2019-11-14 08:00:00
+    summary: Swift의 Class convenience init 알아보기
+    link: https://www.notion.so/pikachu987/Class-convenience-init-8ddc71314e2b41a78962e1dd76ae8ccf
