@@ -40,4 +40,5 @@
 #### [swift Class Struct == Operator](https://www.notion.so/pikachu987/Class-Struct-Operator-baaf2bfac5284461a842531fa0f7f94b)
 #### [swift Class convenience init](https://www.notion.so/pikachu987/Class-convenience-init-8ddc71314e2b41a78962e1dd76ae8ccf)
 #### [swift Require](https://www.notion.so/pikachu987/Require-97b54432955a426c8ac244abfde9156e)
+#### [swift Mutating](https://www.notion.so/pikachu987/Struct-Mutating-47445dd12fce4ce7bb7f383f4b555882)
 
