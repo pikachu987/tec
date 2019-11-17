@@ -213,3 +213,7 @@ postarray:
     date: 2019-11-15 08:00:00
     summary: Swift의 Require 알아보기
     link: https://www.notion.so/pikachu987/Require-97b54432955a426c8ac244abfde9156e
+  - title: swift Mutating
+    date: 2019-11-16 08:00:00
+    summary: Swift의 Mutating 키워드 알아보기
+    link: https://www.notion.so/pikachu987/Struct-Mutating-47445dd12fce4ce7bb7f383f4b555882
