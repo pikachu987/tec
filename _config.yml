@@ -217,3 +217,7 @@ postarray:
     date: 2019-11-16 08:00:00
     summary: Swift의 Mutating 키워드 알아보기
     link: https://www.notion.so/pikachu987/Struct-Mutating-47445dd12fce4ce7bb7f383f4b555882
+  - title: swift Reference Equal
+    date: 2019-11-17 08:00:00
+    summary: Swift의 Reference Equal 알아보기
+    link: https://www.notion.so/pikachu987/Reference-Equal-52b059a3f3aa4470b7d6c2db56fdda12
