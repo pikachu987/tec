@@ -225,3 +225,7 @@ postarray:
     date: 2019-11-18 08:00:00
     summary: Swift의 KVC KVO
     link: https://www.notion.so/pikachu987/KVC-KVO-dcc372b1ec2c4581b61ef4686de544ff
+  - title: swift Property
+    date: 2019-11-19 08:00:00
+    summary: Swift의 Property
+    link: https://www.notion.so/pikachu987/Property-efcb590486e2484c955f3f0f27dd2ea9
