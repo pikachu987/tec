@@ -229,3 +229,7 @@ postarray:
     date: 2019-11-19 08:00:00
     summary: Swift의 Property
     link: https://www.notion.so/pikachu987/Property-efcb590486e2484c955f3f0f27dd2ea9
+  - title: swift LazySequence
+    date: 2019-11-20 08:00:00
+    summary: Swift의 LazySequence
+    link: https://www.notion.so/pikachu987/LazySequence-a9623fb314ef4cc8a92331923c96da00
