@@ -233,3 +233,7 @@ postarray:
     date: 2019-11-20 08:00:00
     summary: Swift의 LazySequence
     link: https://www.notion.so/pikachu987/LazySequence-a9623fb314ef4cc8a92331923c96da00
+  - title: swift DispatchWorkItem
+    date: 2019-11-21 08:00:00
+    summary: Swift의 DispatchWorkItem
+    link: https://www.notion.so/pikachu987/DispatchWorkItem-5364275f45bc41baa28b7fdddf16fc6d
