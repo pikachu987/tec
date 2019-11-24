@@ -241,3 +241,8 @@ postarray:
     date: 2019-11-22 08:00:00
     summary: Swift의 GCD Thread Operation
     link: https://www.notion.so/pikachu987/GCD-Thread-Operation-0c059add813b46e4bc2ddf44baf9abda
+  - title: swift UITableView UICollectionView Reorder
+    date: 2019-11-23 08:00:00
+    summary: Swift의 UITableView UICollectionView Reorder 만들기
+    link: https://www.notion.so/pikachu987/UITableView-UICollectionView-Reorder-1d1cb24bbdd9416e944b66f00bfcc2ce
+  - title: swift GCD Thread Operation
