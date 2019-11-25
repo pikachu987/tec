@@ -245,3 +245,7 @@ postarray:
     date: 2019-11-23 08:00:00
     summary: Swift의 UITableView UICollectionView Reorder 만들기
     link: https://www.notion.so/pikachu987/UITableView-UICollectionView-Reorder-1d1cb24bbdd9416e944b66f00bfcc2ce
+   - title: swift Preview (PDF, EXCEL)
+    date: 2019-11-24 08:00:00
+    summary: Swift의 Preview (PDF, EXCEL) 보기
+    link: https://www.notion.so/pikachu987/Preview-PDF-EXCEL-be6f7e04cbe7411ca4be7515fe3c0190
