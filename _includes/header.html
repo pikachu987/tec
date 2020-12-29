@@ -25,11 +25,10 @@
           {%- endfor -%}
         </div>
         <div class="notion-wrapper">
-          {%- if site.notion_url -%}
-            <a class="page-link" href="{{ site.notion_url }}">
-              <img width="18px" height="18px" style="margin-bottom:4px;" src="https://www.notion.so/images/logo-ios.png">
-              <span style="font-size: 20px; color: rgb(0, 0, 0);">노션</span>
-              <span style="font-size: 14px; color: rgb(99, 99, 99);">(블로그 노션으로 이동합니다.)</span>
+          {%- if site.tistory_url -%}
+            <a class="page-link" href="{{ site.tistory_url }}">
+              <span style="font-size: 20px; color: rgb(0, 0, 0);">티스토리</span>
+              <span style="font-size: 14px; color: rgb(99, 99, 99);">(티스토리로 이동합니다.)</span>
             </a>
           {%- endif -%}
         </div>
